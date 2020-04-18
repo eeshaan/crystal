@@ -2,5 +2,8 @@
 .classpath
 .project
 .settings/
-/Makefile
 make_fx.bat
+Makefile
+/Makefile
+!Makefile
+**/Makefile
