@@ -14,3 +14,16 @@
   - Be sure to include the hidden files from this repo (a folder called `.git` and a file called `.gitignore`) in your copy!
   - Select some form of the "yes" option when your computer prompts you if you want to replace the files.
  - You're all set up. Run a `git status` inside your Eclipse project directory and make sure everything is up-to-date.
+ 
+ ## Building and Running
+ When trying to run from Eclipse normally, you'll encounter this error:  
+ `Error: JavaFX runtime components are missing, and are required to run this application`
+
+To fix this, edit your run configuration for the `Main` class. Add the following for the VM arguments:  
+**Linux/Mac**  
+`--module-path /path/to/javafx-sdk-11.0.2/lib --add-modules javafx.controls,javafx.fxml`  
+UNCHECK THIS OPTION  
+`Use the -XstartOnFirstThread argument when launching with SWT`
+
+**Windows**  
+`--module-path "\path\to\javafx-sdk-11.0.2\lib" --add-modules javafx.controls,javafx.fxml`
