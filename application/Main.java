@@ -27,7 +27,7 @@ public class Main extends Application {
   public void start(Stage mainStage) throws Exception {
     // Main layout is Border Pane example (top,left,center,right,bottom)
     BorderPane root = new BorderPane();
-    root.setPadding(new Insets(0, 0 , 0, 10));
+    root.setPadding(new Insets(0, 0, 0, 0));
     
     // Test Header
     Text testHeader = new Text("This is heading.");
@@ -40,7 +40,19 @@ public class Main extends Application {
     VBox testTextBox = new VBox();
     testTextBox.getChildren().addAll(testHeader, testBody);
     
-    root.setLeft(testTextBox);
+    // Create leftPane
+    VBox leftPane = new VBox();
+    leftPane.setPrefWidth(750);
+    leftPane.setId("leftPane");
+    
+    HBox leftPaneHeader = new HBox();
+    leftPaneHeader.setPrefHeight(106);
+    leftPaneHeader.setId("leftPaneHeader");
+    leftPane.getChildren().add(leftPaneHeader);
+    
+    leftPane.getChildren().add(testTextBox);
+    
+    root.setLeft(leftPane);
     
     // Create rightPane
     VBox rightPane = new VBox();

@@ -19,6 +19,14 @@
 	-fx-font-size: 50;
 }
 
+#leftPane {
+	-fx-background-color: #fff;
+}
+
+#leftPaneHeader {
+	-fx-background-color: #307ae9;
+}
+
 #rightPane {
 	-fx-background-color: #1c1c1c;
 }
