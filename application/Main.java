@@ -26,6 +26,7 @@ public class Main extends Application {
     root.setPadding(new Insets(10, 10 , 10, 10));
     
     Scene mainScene = new Scene(root, WINDOW_WIDTH, WINDOW_HEIGHT);
+    mainScene.getStylesheets().add(getClass().getResource("/application/src/css/style.css").toExternalForm());
 
     // Add the stuff and set the primary stage
     mainStage.setTitle(APP_TITLE);
