@@ -7,6 +7,8 @@ import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -40,9 +42,20 @@ public class Main extends Application {
     
     root.setLeft(testTextBox);
     
+    // Create rightPane
     VBox rightPane = new VBox();
     rightPane.setPrefWidth(394);
     rightPane.setId("rightPane");
+    
+    HBox rightPaneHeader = new HBox();
+    rightPaneHeader.setPrefHeight(106);
+    rightPaneHeader.setId("rightPaneHeader");
+    rightPane.getChildren().add(rightPaneHeader);
+    
+    Pane calendarView = new Pane();
+    calendarView.setPrefHeight(427.59);
+    calendarView.setId("calendarView");
+    rightPane.getChildren().add(calendarView);
     
     root.setRight(rightPane);
     
