@@ -1,5 +1,14 @@
 # Crystal
-"Weighted" assignment tracker using a PriorityQueue — built with JavaFX.
+## The Idea
+Crystal is an assignment tracking app that allows users to manage their upcoming assignments for school. The app provides a slick user interface that can display their assignments within a calendar or in a more traditional, day-by-day list-based format.
+
+## The Premise
+What separates Crystal from other assignment tracking apps is a feature that will suggest what assignment our users should be working on at that very moment. We can calculate this by taking into account the assignment’s due date, how much a user is struggling in a certain subject, and how difficult each assignment is. For example, Jimmy might log on to the app and click a button labeled _“What should I work on now?”_. Because we know that Jimmy struggles with math and he has a 10-page calculus worksheet due in 2 days, we will suggest he works on that instead of a book report due in a month. 
+
+
+## The Team
+
+---
 
 ## Getting Started
 - Create new Eclipse project. Call it `crystal`.
