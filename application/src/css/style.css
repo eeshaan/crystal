@@ -1,0 +1,20 @@
+
+@font-face {
+    font-family: 'DM Serif Display';
+    src: url('/application/src/fonts/DMSerifDisplay-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'Work Sans';
+    src: url('/application/src/fonts/WorkSans-Regular.ttf');
+}
+
+.root {
+  -fx-background-color: #fff;
+  -fx-font: 16px 'Work Sans';
+}
+
+#h1 {
+	-fx-font-family: "DM Serif Display";
+	-fx-font-size: 50;
+}
