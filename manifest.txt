@@ -1,3 +1,4 @@
 Manifest-Version: 1.0
-Created-By: eeshaan
+Created-By: Ayaz, Ben, Bryan, Devin, Eeshaan
 Main-Class: application.Main
+
