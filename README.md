@@ -35,3 +35,11 @@ UNCHECK THIS OPTION
 `--module-path "\path\to\javafx-sdk-11.0.2\lib" --add-modules javafx.controls,javafx.fxml`
 
 Now you can "Run as" Java Application from the Eclipse menu.
+
+## Contributing
+For the most part, tasks will be added as issues into the _To-do_ column of the [project board](https://github.com/eeshaan/crystal/projects/1). When working on a certain issue, create a new branch. This will help prevent merge conflicts. 
+> **Never push code directly to `master`.** [@AtaGowani](https://github.com/AtaGowani) will write "NO" on your forehead in Sharpie while you're sleeping if you do.   
+- When working on [#1](https://github.com/eeshaan/crystal/issues/1]), I "checked-out" into a new branch by running `git checkout -b issue_1`.
+- Once I was done adding my contributions, I ran `git commit -a -m "add css (#1)"`.
+  - You should also reference the relevant issue number in your commit &mdash; it helps keeps things tidy on GitHub. You can find the issue number in the [_Issues_](https://github.com/eeshaan/crystal/issues) tab of this repo.
+- After pushing all the commits related to your issue and everything is working as intended, create a pull request on GitHub that merges the changes from your branch into `master`.
