@@ -38,8 +38,11 @@ Now you can "Run as" Java Application from the Eclipse menu.
 
 ## Contributing
 For the most part, tasks will be added as issues into the _To-do_ column of the [project board](https://github.com/eeshaan/crystal/projects/1). When working on a certain issue, create a new branch. This will help prevent merge conflicts. 
-> **Never push code directly to `master`.** [@AtaGowani](https://github.com/AtaGowani) will write "NO" on your forehead in Sharpie while you're sleeping if you do.   
+> **Never push code directly to `master`.** [@AtaGowani](https://github.com/AtaGowani) will write "NO" on your forehead in Sharpie while you're sleeping if you do.
+- Before doing anything, make sure git is configured properly and that everything is up-to-date by running `git status`. Then run `git pull`. If you accidentally made changes that cause a merge conflict, revert them by "checking-out" from the latest commmit by running `git checkout <filename>`. You can also stash them for later by running `git stash`.
 - When working on [#1](https://github.com/eeshaan/crystal/issues/1]), I "checked-out" into a new branch by running `git checkout -b issue_1`.
 - Once I was done adding my contributions, I ran `git commit -a -m "add css (#1)"`.
   - You should also reference the relevant issue number in your commit &mdash; it helps keeps things tidy on GitHub. You can find the issue number in the [_Issues_](https://github.com/eeshaan/crystal/issues) tab of this repo.
 - After pushing all the commits related to your issue and everything is working as intended, create a pull request on GitHub that merges the changes from your branch into `master`.
+
+> _**Note**: This issue-based approach should keep us organized for the most part, but if you feel you need to make other changes, feel free to make another branch and/or push commits that don't pertain to a certain issue. It's more important that we get the program done &mdash; don't wait around for someone else to assign you an issue._
