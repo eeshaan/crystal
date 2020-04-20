@@ -66,12 +66,27 @@
 	-fx-background-color: #1dcb39;
 }
 
+#yourSubjects {
+	-fx-font-family: "DM Serif Display";
+	-fx-font-size: 18;
+	-fx-fill: #fff !important;
+}
+
 #time {
 	-fx-font-weight: 700;
 }
 
+.subjects > .button {
+	-fx-pref-width: 140px;
+	-fx-pref-height: 40px;
+/*	-fx-padding: 16.5px;
+TODO: there is no -fx-margin property, but we can hack around this by adding equal amount of padding and background-inset
+*/
+}
+
 #MATH222 {
 	-fx-background-color: rgb(240, 41, 41);
+	-fx-text-fill: #fff;
 }
 
 #ass_MATH222 {
@@ -92,6 +107,7 @@
 
 #CS252 {
 	-fx-background-color: rgb(48, 122, 233);
+	-fx-text-fill: #fff;
 }
 
 #ass_CS252 {
@@ -102,6 +118,7 @@
 
 #PHILOS101 {
 	-fx-background-color: rgb(29, 203, 57);
+	-fx-text-fill: #fff;
 }
 
 #ass_PHILOS101 {

@@ -18,13 +18,12 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
@@ -205,6 +204,34 @@ public class Main extends Application {
     calendarView.setPrefHeight(427.59);
     calendarView.setId("calendarView");
     rightPane.getChildren().add(calendarView);
+    
+    FlowPane subjectsPane = new FlowPane();
+    subjectsPane.setPrefHeight(346.41);
+    subjectsPane.setPadding(new Insets(60, 50, 60, 50));
+    rightPane.getChildren().add(subjectsPane);
+    
+    Text yourSubjects = new Text("Your Subjects");
+    yourSubjects.setId("yourSubjects");
+    
+    HBox subjectsHeader = new HBox();
+    subjectsHeader.getChildren().add(yourSubjects);
+    
+    FlowPane subjects = new FlowPane();
+    subjects.setPrefWidth(294);
+    subjects.getStyleClass().add("subjects");
+    
+    Button subject1 = new Button("MATH 222");
+    subject1.setId("MATH222");
+    Button subject2 = new Button("CS 400");
+    subject2.setId("CS400");
+    Button subject3 = new Button("PHILOS 101");
+    subject3.setId("PHILOS101");
+    Button subject4 = new Button("CS 252");
+    subject4.setId("CS252");
+    
+    subjects.getChildren().addAll(subject1, subject2, subject3, subject4);
+    
+    subjectsPane.getChildren().addAll(subjectsHeader, subjects);
     
     root.setRight(rightPane);
     
