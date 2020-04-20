@@ -182,12 +182,12 @@ public class Main extends Application {
     leftPaneHeader.setId("leftPaneHeader");
     leftPaneHeader.setSpacing(20);
     leftPaneHeader.setAlignment(Pos.CENTER);
-    leftPaneHeader.setMargin(dateText, new Insets(0,0,0,80));
+    leftPaneHeader.setMargin(dateText, new Insets(0,0,0,70));
 
     leftPane.getChildren().addAll(leftPaneHeader, testTextBox, vRegion, addBox);
     addBox.setAlignment(Pos.BOTTOM_RIGHT);
     
-    leftPane.setMargin(testTextBox, new Insets(20,80,20,80));
+    leftPane.setMargin(testTextBox, new Insets(20,70,20,70));
     root.setLeft(leftPane);
     
     
