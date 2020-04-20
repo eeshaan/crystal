@@ -60,6 +60,17 @@
   -fx-background-color: #fff;
 }
 
+#wtdBtn {
+  -fx-background-color: red;
+  -fx-height: 26px;
+  -fx-background-radius: 17px;
+  -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 7, 0.0, 0, 7);
+}
+
+#wtdBtn:hover {
+  -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 2, 0.0, 0, 2);
+}
+
 .iconBtn {
   -fx-background-color: transparent;
 }

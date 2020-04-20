@@ -146,9 +146,8 @@ public class Main extends Application {
     dateText.setId("dateText");
 
     // "What should I do now" button
-    Button task = new Button("What should I do now?");
-    task.setId("task");
-    task.setStyle("-fx-background-color: red; -fx-height: 26;"); // styling
+    Button wtdBtn = new Button("What should I do now?");
+    wtdBtn.setId("wtdBtn");
 
     // search button
     Image searchImage = new Image("/application/src/img/search-icon.png", 26, 26, false, true);
@@ -173,7 +172,7 @@ public class Main extends Application {
     addBtn.getStyleClass().add("iconBtn");
 
     // setting up header HBox
-    HBox leftPaneHeader = new HBox(dateText, hRegion, task, searchBtn, windowBtn);
+    HBox leftPaneHeader = new HBox(dateText, hRegion, wtdBtn, searchBtn, windowBtn);
     leftPaneHeader.setPrefHeight(106);
     leftPaneHeader.setPadding(new Insets(40, 65, 40, 65));
     leftPaneHeader.setAlignment(Pos.CENTER);
