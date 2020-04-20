@@ -65,49 +65,56 @@ public class Main extends Application {
     Text time1 = new Text("11:00 AM ");
     time1.setFont(Font.font("Verdana",FontWeight.BOLD,16));
     Text desc1 = new Text("- 11.6 little-o notation");
+    
     assignmentBox1.getChildren().addAll(time1, desc1);
     testTextBox.setSpacing(20.0);
+    
     assignmentBox1.setMargin(time1, new Insets(20,5,20,20));
     assignmentBox1.setMargin(desc1, new Insets(20,5,20,0));
+    
     testTextBox.getChildren().add(assignmentBox1);
     
     //task 2
-    HBox task2 = new HBox();
-    task2.setStyle("-fx-background-color: rgba(225,225,0,0.3)");
+    HBox assignmentBox2 = new HBox();
+    assignmentBox2.setId("ass_CS400");
+    
     Text time2 = new Text("11:59 PM ");
     time2.setFont(Font.font("Verdana",FontWeight.BOLD,16));
     Text desc2 = new Text("- p6");
-    task2.getChildren().addAll(time2, desc2);
+    assignmentBox2.getChildren().addAll(time2, desc2);
     testTextBox.setSpacing(5.0);
-    task2.setMargin(time2, new Insets(20,5,20,20));
-    task2.setMargin(desc2, new Insets(20,5,20,0));
-    testTextBox.getChildren().add(task2);
+    assignmentBox2.setMargin(time2, new Insets(20,5,20,20));
+    assignmentBox2.setMargin(desc2, new Insets(20,5,20,0));
+    testTextBox.getChildren().add(assignmentBox2);
     
     testTextBox.getChildren().add(workHeader);
+    
 //Add the rest of the tasks/the next few tasks. Also must be a for loop
-    //Task3
-    HBox task3 = new HBox();
-    task3.setStyle("-fx-background-color: rgba(0,0,225,0.3)");
+    //task 3
+    HBox assignmentBox3 = new HBox();
+    assignmentBox3.setId("ass_CS252");
+    
     Text time3 = new Text("Due Friday, April 17 at 11:59 PM ");
     time3.setFont(Font.font("Verdana",FontWeight.BOLD,16));
     Text desc3 = new Text("- Worksheet 12");
-    task3.getChildren().addAll(time3, desc3);
+    assignmentBox3.getChildren().addAll(time3, desc3);
     testTextBox.setSpacing(20.0);
-    task3.setMargin(time3, new Insets(20,5,20,20));
-    task3.setMargin(desc3, new Insets(20,5,20,0));
-    testTextBox.getChildren().add(task3);
+    assignmentBox3.setMargin(time3, new Insets(20,5,20,20));
+    assignmentBox3.setMargin(desc3, new Insets(20,5,20,0));
+    testTextBox.getChildren().add(assignmentBox3);
     
     //task 4
-    HBox task4 = new HBox();
-    task4.setStyle("-fx-background-color: rgba(0,225,0,0.3)");
+    HBox assignmentBox4 = new HBox();
+    assignmentBox4.setId("ass_PHILOS101");
+    
     Text time4 = new Text("Due Sunday, April 19 at 8:00 PM ");
     time4.setFont(Font.font("Verdana",FontWeight.BOLD,16));
     Text desc4 = new Text("- Meaning of Life Essay");
-    task4.getChildren().addAll(time4, desc4);
+    assignmentBox4.getChildren().addAll(time4, desc4);
     testTextBox.setSpacing(5.0);
-    task4.setMargin(time4, new Insets(20,5,20,20));
-    task4.setMargin(desc4, new Insets(20,5,20,0));
-    testTextBox.getChildren().add(task4);
+    assignmentBox4.setMargin(time4, new Insets(20,5,20,20));
+    assignmentBox4.setMargin(desc4, new Insets(20,5,20,0));
+    testTextBox.getChildren().add(assignmentBox4);
     
     
     // Create leftPane

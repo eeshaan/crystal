@@ -16,7 +16,7 @@
 
 #h1 {
 	-fx-font-family: "DM Serif Display";
-	-fx-font-size: 50;
+	-fx-font-size: 30;
 }
 
 #leftPane {
@@ -45,6 +45,36 @@
 
 #ass_MATH222 {
 	-fx-background-color: rgba(240, 41, 41, 0.15);
-	-fx-border-width: 0 0 0 3.3px;
+	-fx-border-width: 0 0 0 3.75px;
 	-fx-border-color: rgb(240, 41, 41);
+}
+
+#CS400 {
+	-fx-background-color: rgb(255, 219, 30);
+}
+
+#ass_CS400 {
+	-fx-background-color: rgba(255, 219, 30, 0.15);
+	-fx-border-width: 0 0 0 3.75px;
+	-fx-border-color: rgb(255, 219, 30);
+}
+
+#CS252 {
+	-fx-background-color: rgb(48, 122, 233);
+}
+
+#ass_CS252 {
+	-fx-background-color: rgba(48, 122, 233, 0.15);
+	-fx-border-width: 0 0 0 3.75px;
+	-fx-border-color: rgb(48, 122, 233);
+}
+
+#PHILOS101 {
+	-fx-background-color: rgb(29, 203, 57);
+}
+
+#ass_PHILOS101 {
+	-fx-background-color: rgba(29, 203, 57, 0.15);
+	-fx-border-width: 0 0 0 3.75px;
+	-fx-border-color: rgb(29, 203, 57);
 }
