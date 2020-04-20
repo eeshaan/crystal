@@ -63,13 +63,13 @@
 
 .date-picker-popup > * > .day-cell {
   -fx-background-color: #1c1c1c;
-  -fx-border-color: #1c1c1c; 
+  -fx-border-color: #1c1c1c;
   -fx-text-fill: #fff;
 }
 
 .date-picker-popup > .month-year-pane {
   -fx-background-color: #1c1c1c;
-/*  -fx-padding: 25 0 0 0;*/
+  -fx-padding: 60 20 60 20;
 }
 
 .date-picker-popup > .month-year-pane > * > * {
