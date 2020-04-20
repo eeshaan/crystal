@@ -42,8 +42,13 @@
 	-fx-font-size: 30;
 }
 
-#leftPane {
+.leftPane {
 	-fx-background-color: #fff;
+}
+
+.assignmentBox {
+	-fx-padding: 20px 5px 20px 20px;
+	-fx-border-width: 0 0 0 3.75px;
 }
 
 #leftPaneHeader {
@@ -74,12 +79,10 @@
 .date-picker-popup > * > .spinner > .button:focused {
     -fx-background-color: #1c1c1c;
 	-fx-color: #1c1c1c;
-    -fx-background-insets: -0.2, 1, 2, -1.4, 2.6;
 }
 
 .date-picker-popup > * > .spinner > .button:hover {
     -fx-background-color: #1c1c1c;
-    -fx-background-insets: -0.2, 1, 2, -1.4, 2.6;
 }
 
 .date-picker-popup > * > .day-name-cell {
@@ -140,7 +143,6 @@ TODO: there is no -fx-margin property, but we can hack around this by adding equ
 
 #ass_MATH222 {
 	-fx-background-color: rgba(240, 41, 41, 0.15);
-	-fx-border-width: 0 0 0 3.75px;
 	-fx-border-color: rgb(240, 41, 41);
 }
 
@@ -150,7 +152,6 @@ TODO: there is no -fx-margin property, but we can hack around this by adding equ
 
 #ass_CS400 {
 	-fx-background-color: rgba(255, 219, 30, 0.15);
-	-fx-border-width: 0 0 0 3.75px;
 	-fx-border-color: rgb(255, 219, 30);
 }
 
@@ -161,7 +162,6 @@ TODO: there is no -fx-margin property, but we can hack around this by adding equ
 
 #ass_CS252 {
 	-fx-background-color: rgba(48, 122, 233, 0.15);
-	-fx-border-width: 0 0 0 3.75px;
 	-fx-border-color: rgb(48, 122, 233);
 }
 
@@ -172,6 +172,5 @@ TODO: there is no -fx-margin property, but we can hack around this by adding equ
 
 #ass_PHILOS101 {
 	-fx-background-color: rgba(29, 203, 57, 0.15);
-	-fx-border-width: 0 0 0 3.75px;
 	-fx-border-color: rgb(29, 203, 57);
 }
