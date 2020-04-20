@@ -38,3 +38,52 @@
 #calendarView {
 	-fx-background-color: #1dcb39;
 }
+
+.date-picker-popup {
+   -fx-background-color: #1c1c1c;
+   -fx-effect: dropshadow(gaussian, rgba(0,0,0,0), 0, 0.0, 0, 0);
+}
+
+.date-picker-popup > * > .spinner > .button:focused {
+    -fx-background-color: #1c1c1c;
+	-fx-color: #1c1c1c;
+    -fx-background-insets: -0.2, 1, 2, -1.4, 2.6;
+}
+
+.date-picker-popup > * > .spinner > .button:hover {
+    -fx-background-color: #1c1c1c;
+    -fx-background-insets: -0.2, 1, 2, -1.4, 2.6;
+}
+
+.date-picker-popup > * > .day-name-cell {
+  -fx-background-color: #1c1c1c;
+  -fx-border-color: #1c1c1c; 
+  -fx-text-fill: #a5a5a5;
+}
+
+.date-picker-popup > * > .day-cell {
+  -fx-background-color: #1c1c1c;
+  -fx-border-color: #1c1c1c;
+  -fx-text-fill: #fff;
+}
+
+.date-picker-popup > .month-year-pane {
+  -fx-background-color: #1c1c1c;
+  -fx-padding: 60 20 60 20;
+}
+
+.date-picker-popup > .month-year-pane > * > * {
+   -fx-text-fill: #fff;
+}
+
+.date-picker-popup > * > .day-cell:hover,
+.date-picker-popup > * > .selected,
+.date-picker-popup > * > .today {
+   -fx-background-color: #3c82f9;
+   -fx-text-fill: #fff;
+}
+
+.date-picker-popup > * > .previous-month,
+.date-picker-popup > * > .next-month {
+  -fx-text-fill: #525252;
+}

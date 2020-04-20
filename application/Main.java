@@ -3,9 +3,13 @@
  */
 package application;
 
+import java.time.LocalDate;
 import javafx.application.Application;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.skin.DatePickerSkin;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -68,6 +72,20 @@ public class Main extends Application {
     calendarView.setPrefHeight(427.59);
     calendarView.setId("calendarView");
     rightPane.getChildren().add(calendarView);
+    
+    DatePicker dp = new DatePicker(LocalDate.now());
+    DatePickerSkin datePickerSkin = new DatePickerSkin(dp);
+    Node popupContent = datePickerSkin.getPopupContent();
+    
+    popupContent.setScaleX(1.3);
+    popupContent.setLayoutX(50);
+    
+    popupContent.setScaleY(1.3);
+    popupContent.setLayoutY(-13);
+    
+    calendarView.getChildren().add(popupContent);
+    
+    
     
     root.setRight(rightPane);
     
