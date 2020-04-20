@@ -55,6 +55,10 @@
 	-fx-background-color: #fff;
 }
 
+.iconBtn {
+	-fx-background-color: transparent;
+}
+
 #dateText {
 	-fx-font-size: 18;
 }
