@@ -62,6 +62,10 @@
 	-fx-background-color: #1dcb39;
 }
 
+#time {
+	-fx-font-weight: 700;
+}
+
 #MATH222 {
 	-fx-background-color: rgb(240, 41, 41);
 }

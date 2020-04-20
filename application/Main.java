@@ -63,7 +63,8 @@ public class Main extends Application {
     assignmentBox1.setId("ass_MATH222");
     
     Text time1 = new Text("11:00 AM ");
-    time1.setFont(Font.font("Verdana",FontWeight.BOLD,16));
+    time1.setId("time");
+    
     Text desc1 = new Text("- 11.6 little-o notation");
     
     assignmentBox1.getChildren().addAll(time1, desc1);
@@ -79,7 +80,8 @@ public class Main extends Application {
     assignmentBox2.setId("ass_CS400");
     
     Text time2 = new Text("11:59 PM ");
-    time2.setFont(Font.font("Verdana",FontWeight.BOLD,16));
+    time2.setId("time");
+    
     Text desc2 = new Text("- p6");
     assignmentBox2.getChildren().addAll(time2, desc2);
     testTextBox.setSpacing(5.0);
@@ -95,7 +97,8 @@ public class Main extends Application {
     assignmentBox3.setId("ass_CS252");
     
     Text time3 = new Text("Due Friday, April 17 at 11:59 PM ");
-    time3.setFont(Font.font("Verdana",FontWeight.BOLD,16));
+    time3.setId("time");
+    
     Text desc3 = new Text("- Worksheet 12");
     assignmentBox3.getChildren().addAll(time3, desc3);
     testTextBox.setSpacing(20.0);
@@ -108,7 +111,8 @@ public class Main extends Application {
     assignmentBox4.setId("ass_PHILOS101");
     
     Text time4 = new Text("Due Sunday, April 19 at 8:00 PM ");
-    time4.setFont(Font.font("Verdana",FontWeight.BOLD,16));
+    time4.setId("time");
+    
     Text desc4 = new Text("- Meaning of Life Essay");
     assignmentBox4.getChildren().addAll(time4, desc4);
     testTextBox.setSpacing(5.0);
