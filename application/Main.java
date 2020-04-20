@@ -169,6 +169,7 @@ public class Main extends Application {
     add.setImage(addImage);
     Button addBtn = new Button("", add);
     addBtn.getStyleClass().add("iconBtn");
+    addBtn.setId("addBtn");
 
     // setting up header HBox
     HBox leftPaneHeader = new HBox(dateText, hRegion, wtdBtn, searchBtn, windowBtn);
