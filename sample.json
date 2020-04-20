@@ -1,0 +1,52 @@
+{
+	"assignments":[
+		{
+		"assignmentName": "Editorial Essay",
+		"class": "ENGL 155",
+		"difficulty": 5,
+		"startDate": "April 2, 2020",
+		"dueDate": "April 27, 2020",
+		"dueTime": "11:59 PM"
+		},
+		{
+		"assignmentName": "Lab 10",
+		"class": "CHEM 109",
+		"difficulty": 3,
+		"startDate": "April 17, 2020",
+		"duuDate": "April 24, 2020",
+		"dueTime": "11:59 PM"
+		},
+		{
+		"assignmentName": "P7: Calendar Printer",
+		"class": "COMP SCI 300",
+		"difficulty": 3,
+		"startDate": "April 3, 2020",
+		"dueDate": "April 10, 2020",
+		"dueTime": "9:59 PM"
+		},
+		{
+		"assignmentName": "Homework 9",
+		"class": "STAT 324",
+		"difficulty": 2,
+		"startDate": "April 5, 2020",
+		"dueDate": "April 12, 2020",
+		"dueTime": "6:00 PM"
+		},
+		{
+		"assignmentName": "Paper 2",
+		"class": "SOC 170",
+		"difficulty": 3,
+		"startDate": "April 3, 2020",
+		"dueDate": "April 27, 2020",
+		"dueTime": "11:59 PM"
+		},
+		{
+		"assignmentName": "Homework: Chapter 17",
+		"class": "FINANCE 325",
+		"difficulty": 2,
+		"startDate": "April 7, 2020",
+		"dueDate": "April 10, 2020",
+		"dueTime": "11:59 PM"
+		}
+	]
+}
