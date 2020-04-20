@@ -59,16 +59,17 @@ public class Main extends Application {
     
 //Add today's tasks. Will need to be put into a for loop eventually
     //task 1
-    HBox task1 = new HBox();
-    task1.setStyle("-fx-background-color: rgba(225,0,0,0.3)");
+    HBox assignmentBox1 = new HBox();
+    assignmentBox1.setId("ass_MATH222");
+    
     Text time1 = new Text("11:00 AM ");
     time1.setFont(Font.font("Verdana",FontWeight.BOLD,16));
     Text desc1 = new Text("- 11.6 little-o notation");
-    task1.getChildren().addAll(time1, desc1);
+    assignmentBox1.getChildren().addAll(time1, desc1);
     testTextBox.setSpacing(20.0);
-    task1.setMargin(time1, new Insets(20,5,20,20));
-    task1.setMargin(desc1, new Insets(20,5,20,0));
-    testTextBox.getChildren().add(task1);
+    assignmentBox1.setMargin(time1, new Insets(20,5,20,20));
+    assignmentBox1.setMargin(desc1, new Insets(20,5,20,0));
+    testTextBox.getChildren().add(assignmentBox1);
     
     //task 2
     HBox task2 = new HBox();

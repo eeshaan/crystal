@@ -38,3 +38,13 @@
 #calendarView {
 	-fx-background-color: #1dcb39;
 }
+
+#MATH222 {
+	-fx-background-color: rgb(240, 41, 41);
+}
+
+#ass_MATH222 {
+	-fx-background-color: rgba(240, 41, 41, 0.15);
+	-fx-border-width: 0 0 0 3.3px;
+	-fx-border-color: rgb(240, 41, 41);
+}
