@@ -41,6 +41,7 @@
 
 .date-picker-popup {
    -fx-background-color: #1c1c1c;
+   -fx-effect: dropshadow(gaussian, rgba(0,0,0,0), 0, 0.0, 0, 0);
 }
 
 .date-picker-popup > * > .spinner > .button:focused {
