@@ -41,6 +41,12 @@
   -fx-font-size: 30;
 }
 
+#workHeader {
+  -fx-font-family: "DM Serif Display";
+  -fx-font-size: 30;
+  -fx-padding: 20px 0 0 0;
+}
+
 .leftPane {
   -fx-background-color: #fff;
 }

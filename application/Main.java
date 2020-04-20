@@ -55,7 +55,8 @@ public class Main extends Application {
 
     // Continue working on Header
     Text workHeader = new Text("Continue working on");
-    workHeader.setId("h1");
+    workHeader.setId("workHeader"); 
+    workHeader.setStyle("-fx-padding: 100px 0 0 0;");
 
     // Create Left Pane
     FlowPane leftPane = new FlowPane();
@@ -150,7 +151,7 @@ public class Main extends Application {
     task.setStyle("-fx-background-color: red; -fx-height: 26;"); // styling
 
     // search button
-    Image searchImage = new Image("/application/src/img/search-icon.png", 26, 26, true, true);
+    Image searchImage = new Image("/application/src/img/search-icon.png", 26, 26, false, true);
     ImageView search = new ImageView();
     search.setImage(searchImage);
     Button searchBtn = new Button("", search);
@@ -158,20 +159,18 @@ public class Main extends Application {
 
 
     // window button
-    Image layoutImage = new Image("/application/src/img/layout-icon.png", 26, 26, true, true);
+    Image layoutImage = new Image("/application/src/img/layout-icon.png", 26, 26, false, false);
     ImageView layout = new ImageView();
     layout.setImage(layoutImage);
     Button windowBtn = new Button("", layout);
     windowBtn.getStyleClass().add("iconBtn");
 
-    // Setting HBox for add button
-    HBox addBox = new HBox();
-    Image addImage = new Image("/application/src/img/add-icon.png", 56, 56, true, true);
+    // setting up add button
+    Image addImage = new Image("/application/src/img/add-icon.png", 56, 56, false, false);
     ImageView add = new ImageView();
     add.setImage(addImage);
     Button addBtn = new Button("", add);
     addBtn.getStyleClass().add("iconBtn");
-    addBox.getChildren().add(addBtn);
 
     // setting up header HBox
     HBox leftPaneHeader = new HBox(dateText, hRegion, task, searchBtn, windowBtn);
@@ -181,9 +180,9 @@ public class Main extends Application {
     leftPaneHeader.setId("leftPaneHeader");
 
     HBox leftPaneFooter = new HBox(addBtn);
-    leftPaneFooter.setPrefHeight(106);
-    leftPaneFooter.setPadding(new Insets(40, 65, 40, 65));
-    leftPaneFooter.setAlignment(Pos.CENTER);
+    leftPaneFooter.setPrefSize(750, 106);
+    leftPaneFooter.setPadding(new Insets(0, 65, 40, 65));
+    leftPaneFooter.setAlignment(Pos.TOP_RIGHT);
 
     leftPane.getChildren().addAll(leftPaneHeader, assignmentsPane, leftPaneFooter);
 
