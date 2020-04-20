@@ -228,7 +228,7 @@ public class Main extends Application {
     subjectsPane.setPadding(new Insets(60, 50, 60, 50));
     rightPane.getChildren().add(subjectsPane);
     
-    Text yourSubjects = new Text("Your Subjects");
+    Text yourSubjects = new Text("Your subjects");
     yourSubjects.setId("yourSubjects");
     
     HBox subjectsHeader = new HBox();
