@@ -1,52 +1,52 @@
 {
 	"assignments":[
 		{
-		"assignment name": "Editorial Essay",
+		"assignmentName": "Editorial Essay",
 		"class": "ENGL 155",
-		"difficulty level": 5,
-		"start date": "April 2, 2020"
-		"due date": "April 27, 2020"
-		"due time": "11:59pm"
+		"difficulty": 5,
+		"startDate": "April 2, 2020",
+		"dueDate": "April 27, 2020",
+		"dueTime": "11:59 PM"
 		},
 		{
-		"assignment name": "Lab 10",
+		"assignmentName": "Lab 10",
 		"class": "CHEM 109",
-		"difficulty level": 3,
-		"start date": "April 17, 2020"
-		"due date": "April 24, 2020"
-		"due time": "11:59pm"
+		"difficulty": 3,
+		"startDate": "April 17, 2020",
+		"duuDate": "April 24, 2020",
+		"dueTime": "11:59 PM"
 		},
 		{
-		"assignment name": "P7: Calendar Printer",
-		"class": COMP SCI 300",
-		"difficulty level": 3,
-		"start date": "April 3, 2020"
-		"due date": "April 10, 2020"
-		"due time": "9:59pm"
+		"assignmentName": "P7: Calendar Printer",
+		"class": "COMP SCI 300",
+		"difficulty": 3,
+		"startDate": "April 3, 2020",
+		"dueDate": "April 10, 2020",
+		"dueTime": "9:59 PM"
 		},
 		{
-		"assignment name": Homework 9",
+		"assignmentName": "Homework 9",
 		"class": "STAT 324",
-		"difficulty level": 2,
-		"start date": "April 5, 2020"
-		"due date": "April 12, 2020"
-		"due time": "6:00pm"
+		"difficulty": 2,
+		"startDate": "April 5, 2020",
+		"dueDate": "April 12, 2020",
+		"dueTime": "6:00 PM"
 		},
 		{
-		"assignment name": "Paper 2",
+		"assignmentName": "Paper 2",
 		"class": "SOC 170",
-		"difficulty level": 4,
-		"start date": "April 3, 2020"
-		"due date": "April 27, 2020"
-		"due time": "11:59pm"
+		"difficulty": 3,
+		"startDate": "April 3, 2020",
+		"dueDate": "April 27, 2020",
+		"dueTime": "11:59 PM"
 		},
 		{
-		"assignment name": "Homework: Chapter 17",
+		"assignmentName": "Homework: Chapter 17",
 		"class": "FINANCE 325",
-		"difficulty level": 2,
-		"start date": "April 7, 2020"
-		"due date": "April 10, 2020"
-		"due time": "11:59pm"
+		"difficulty": 2,
+		"startDate": "April 7, 2020",
+		"dueDate": "April 10, 2020",
+		"dueTime": "11:59 PM"
 		}
 	]
 }
