@@ -141,7 +141,7 @@ public class Main extends Application {
     SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE, MMMMM d, yyyy");
     Date now = new Date(System.currentTimeMillis());
     Text dateText = new Text(dateFormat.format(now));
-    dateText.setFont(new Font(26.0));
+    dateText.setId("dateText");
     
     
     

@@ -50,6 +50,10 @@
 	-fx-background-color: #307ae9;
 }
 
+#dateText {
+	-fx-font-size: 18;
+}
+
 #rightPane {
 	-fx-background-color: #1c1c1c;
 }
