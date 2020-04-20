@@ -156,7 +156,6 @@ public class Main extends Application {
     Button searchBtn = new Button("", search);
     searchBtn.getStyleClass().add("iconBtn");
 
-
     // window button
     Image layoutImage = new Image("/application/src/img/layout-icon.png", 26, 26, false, false);
     ImageView layout = new ImageView();
