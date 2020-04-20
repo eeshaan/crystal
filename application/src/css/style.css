@@ -38,3 +38,39 @@
 #calendarView {
 	-fx-background-color: #1dcb39;
 }
+
+.date-picker-popup {
+   -fx-background-color: #1c1c1c;
+}
+
+.date-picker-popup > * > .day-name-cell {
+  -fx-background-color: #1c1c1c;
+  -fx-border-color: #1c1c1c; 
+  -fx-text-fill: #a5a5a5;
+}
+
+.date-picker-popup > * > .day-cell {
+  -fx-background-color: #1c1c1c;
+  -fx-border-color: #1c1c1c; 
+  -fx-text-fill: #fff;
+}
+
+.date-picker-popup > .month-year-pane {
+  -fx-background-color: #1c1c1c;
+}
+
+.date-picker-popup > .month-year-pane > * > * {
+   -fx-text-fill: #fff;
+}
+
+.date-picker-popup > * > .day-cell:hover,
+.date-picker-popup > * > .selected,
+.date-picker-popup > * > .today {
+   -fx-background-color: #3c82f9;
+   -fx-text-fill: #fff;
+}
+
+.date-picker-popup > * > .previous-month,
+.date-picker-popup > * > .next-month {
+  -fx-text-fill: #525252;
+}
