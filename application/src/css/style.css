@@ -1,12 +1,35 @@
 
 @font-face {
-    font-family: 'DM Serif Display';
-    src: url('/application/src/fonts/DMSerifDisplay-Regular.ttf');
+  font-family: 'DM Serif Display';
+  src: url('/application/src/fonts/DMSerifDisplay-Regular.ttf');
 }
 
 @font-face {
-    font-family: 'Work Sans';
-    src: url('/application/src/fonts/WorkSans-Regular.ttf');
+  font-family: "Work Sans";
+  src: url('/application/src/fonts/WorkSans-Light.ttf');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Work Sans";
+  src: url('/application/src/fonts/WorkSans-Regular.ttf');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Work Sans";
+  src: url('/application/src/fonts/WorkSans-Medium.ttf');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Work Sans";
+  src: url('/application/src/fonts/WorkSans-Bold.ttf');
+  font-weight: 700;
+  font-style: normal;
 }
 
 .root {
@@ -16,5 +39,139 @@
 
 #h1 {
 	-fx-font-family: "DM Serif Display";
-	-fx-font-size: 50;
+	-fx-font-size: 30;
+}
+
+#leftPane {
+	-fx-background-color: #fff;
+}
+
+#leftPaneHeader {
+	-fx-background-color: #fff;
+}
+
+#dateText {
+	-fx-font-size: 18;
+}
+
+#rightPane {
+	-fx-background-color: #1c1c1c;
+}
+
+#rightPaneHeader {
+	-fx-background-color: #1c1c1c;
+}
+
+#calendarView {
+	-fx-background-color: #1c1c1c;
+}
+
+.date-picker-popup {
+   -fx-background-color: #1c1c1c;
+   -fx-effect: dropshadow(gaussian, rgba(0,0,0,0), 0, 0.0, 0, 0);
+}
+
+.date-picker-popup > * > .spinner > .button:focused {
+    -fx-background-color: #1c1c1c;
+	-fx-color: #1c1c1c;
+    -fx-background-insets: -0.2, 1, 2, -1.4, 2.6;
+}
+
+.date-picker-popup > * > .spinner > .button:hover {
+    -fx-background-color: #1c1c1c;
+    -fx-background-insets: -0.2, 1, 2, -1.4, 2.6;
+}
+
+.date-picker-popup > * > .day-name-cell {
+  -fx-background-color: #1c1c1c;
+  -fx-border-color: #1c1c1c; 
+  -fx-text-fill: #a5a5a5;
+}
+
+.date-picker-popup > * > .day-cell {
+  -fx-background-color: #1c1c1c;
+  -fx-border-color: #1c1c1c;
+  -fx-text-fill: #fff;
+}
+
+.date-picker-popup > .month-year-pane {
+  -fx-background-color: #1c1c1c;
+  -fx-padding: 60 20 60 20;
+}
+
+.date-picker-popup > .month-year-pane > * > * {
+   -fx-text-fill: #fff;
+}
+
+.date-picker-popup > * > .day-cell:hover,
+.date-picker-popup > * > .selected,
+.date-picker-popup > * > .today {
+   -fx-background-color: #3c82f9;
+   -fx-text-fill: #fff;
+}
+
+.date-picker-popup > * > .previous-month,
+.date-picker-popup > * > .next-month {
+  -fx-text-fill: #525252;
+} 
+
+#yourSubjects {
+	-fx-font-family: "DM Serif Display";
+	-fx-font-size: 18;
+	-fx-fill: #fff !important;
+}
+
+#time {
+	-fx-font-weight: 700;
+}
+
+.subjects > .button {
+	-fx-pref-width: 140px;
+	-fx-pref-height: 40px;
+/*	-fx-padding: 16.5px;
+TODO: there is no -fx-margin property, but we can hack around this by adding equal amount of padding and background-inset
+*/
+}
+
+#MATH222 {
+	-fx-background-color: rgb(240, 41, 41);
+	-fx-text-fill: #fff;
+}
+
+#ass_MATH222 {
+	-fx-background-color: rgba(240, 41, 41, 0.15);
+	-fx-border-width: 0 0 0 3.75px;
+	-fx-border-color: rgb(240, 41, 41);
+}
+
+#CS400 {
+	-fx-background-color: rgb(255, 219, 30);
+}
+
+#ass_CS400 {
+	-fx-background-color: rgba(255, 219, 30, 0.15);
+	-fx-border-width: 0 0 0 3.75px;
+	-fx-border-color: rgb(255, 219, 30);
+}
+
+#CS252 {
+	-fx-background-color: rgb(48, 122, 233);
+	-fx-text-fill: #fff;
+}
+
+#ass_CS252 {
+	-fx-background-color: rgba(48, 122, 233, 0.15);
+	-fx-border-width: 0 0 0 3.75px;
+	-fx-border-color: rgb(48, 122, 233);
+}
+
+#PHILOS101 {
+	-fx-background-color: rgb(29, 203, 57);
+	-fx-text-fill: #fff;
+}
+
+#ass_PHILOS101 {
+	-fx-background-color: rgba(29, 203, 57, 0.15);
+	-fx-border-width: 0 0 0 3.75px;
+	-fx-border-color: rgb(29, 203, 57);
 }
