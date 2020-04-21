@@ -1,5 +1,6 @@
 package application;
 
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
@@ -25,6 +26,7 @@ public class SubjectsManagerWindow {
     window.initModality(Modality.APPLICATION_MODAL);
     
     BorderPane root = new BorderPane();
+    root.setPadding(new Insets(20, 20, 20, 20));
     
     HBox headerBox = new HBox();
     Text header = new Text("Welcome to Crystal!");
@@ -37,6 +39,7 @@ public class SubjectsManagerWindow {
 
     pane.setHgap(10);
     pane.setVgap(10);
+    
     TextField textField[] = new TextField[15];
     ColorPicker cp[] = new ColorPicker[15];
     Spinner<Integer> difficulty[] = new Spinner[15];
