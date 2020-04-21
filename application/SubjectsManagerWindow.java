@@ -34,6 +34,7 @@ public class SubjectsManagerWindow {
         textField[i] = new TextField();
         cp[i] = new ColorPicker();
         difficulty[i] = new Spinner<>(1, 5, 3, 1);
+        difficulty[i].getStyleClass().add(Spinner.STYLE_CLASS_SPLIT_ARROWS_HORIZONTAL);
         
         pane.add(textField[i], 0, i);
         pane.add(cp[i], 5, i);
