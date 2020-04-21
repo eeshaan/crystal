@@ -5,7 +5,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class LayoutWindow {
+public class SubjectsManagerWindow {
 
   public static void newWindow(String title) {
     Stage window = new Stage();
