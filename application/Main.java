@@ -70,6 +70,7 @@ public class Main extends Application {
     assignmentsPane = new VBox();
     assignmentsPane.setPrefSize(750, 668);
     assignmentsPane.getStyleClass().add("assignmentsPane");
+    assignmentsPane.setSpacing(5.0);
     assignmentsPane.setPadding(new Insets(0, 65, 0, 65));
     assignmentsPane.getChildren().add(dueTodayHeader);
 
@@ -98,7 +99,6 @@ public class Main extends Application {
 
     Text desc2 = new Text(" - p6");
     assignmentBox2.getChildren().addAll(time2, desc2);
-    assignmentsPane.setSpacing(5.0);
 
     assignmentsPane.getChildren().add(assignmentBox2);
 
@@ -170,7 +170,7 @@ public class Main extends Application {
     layout.setImage(layoutImage);
     Button windowBtn = new Button("", layout);
     windowBtn.getStyleClass().add("iconBtn");
-    windowBtn.setOnAction(e->LayoutWindow.newWindow("Subjects Manager"));
+    windowBtn.setOnAction(e->SubjectsManagerWindow.newWindow("Subjects Manager"));
     
 
     // setting up add button
