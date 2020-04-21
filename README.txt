@@ -12,4 +12,6 @@ Team Members:
 
 Other notes or comments to the grader:
 - We received approval from Deb to complete this project instead of MilkWeight.
+- CSS parsing errors should be ignored. We found that they're actually inaccurate because the font-weight property works as intended. We will look into a fix in the future, but this seems like an error on the JavaFX dev teams's part.
 - https://github.com/eeshaan/crystal
+  - our project lives and thrives on GitHub — highly encourage you to check it out!
