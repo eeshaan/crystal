@@ -44,6 +44,8 @@ public class Main extends Application {
   private static final String APP_TITLE = "Crystal";
   private static final int WINDOW_WIDTH = 1144; // divide Figma by 2.039335664
   private static final int WINDOW_HEIGHT = 880;
+  
+  private static VBox assignmentsPane;
 
   @Override
   public void start(Stage mainStage) throws Exception {
@@ -65,7 +67,7 @@ public class Main extends Application {
     leftPane.setPrefWidth(750);
 
     // Create Assignments Pane
-    VBox assignmentsPane = new VBox();
+    assignmentsPane = new VBox();
     assignmentsPane.setPrefSize(750, 668);
     assignmentsPane.getStyleClass().add("assignmentsPane");
     assignmentsPane.setPadding(new Insets(0, 65, 0, 65));
@@ -284,6 +286,20 @@ public class Main extends Application {
     mainStage.setTitle(APP_TITLE);
     mainStage.setScene(mainScene);
     mainStage.show();
+  }
+  
+  public static void createAssignmentBox(String name, String subject, String dueTime, String dueDate){
+    HBox newAssignment = new HBox();
+    newAssignment.getStyleClass().add("assignmentBox");
+    newAssignment.setId("ass_" + subject);
+
+    Text newTime = new Text("Friday, " + dueDate + " at " + dueTime);
+    newTime.setId("time");
+
+    Text newDesc = new Text(" - " + name);
+    newAssignment.getChildren().addAll(new Text("Due "), newTime, newDesc);
+
+    assignmentsPane.getChildren().add(newAssignment);
   }
 
   /**
