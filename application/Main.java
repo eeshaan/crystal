@@ -166,7 +166,7 @@ public class Main extends Application {
     layout.setImage(layoutImage);
     Button windowBtn = new Button("", layout);
     windowBtn.getStyleClass().add("iconBtn");
-    windowBtn.setOnAction(e->LayoutWindow.newWindow("Layout"));
+    windowBtn.setOnAction(e->LayoutWindow.newWindow("Subjects Manager"));
     
 
     // setting up add button
