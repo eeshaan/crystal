@@ -6,6 +6,8 @@ package application;
 import java.time.LocalDate;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Calendar;
 import java.util.Date;
 
 import javafx.application.Application;
@@ -222,6 +224,20 @@ public class Main extends Application {
 
     calendarView.getChildren().add(popupContent);
 
+    dp.setOnAction(e -> {
+        LocalDate date = dp.getValue();
+        if(date.getDayOfYear() == date.now().getDayOfYear() && date.getYear() == date.now().getYear()) {
+        	dueTodayHeader.setText("Due Today");
+        }
+        else {
+        	SimpleDateFormat dueDateFormat = new SimpleDateFormat("EEEE, MMMMM d, yyyy");
+        	Date due = Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        	dueTodayHeader.setText("Due on " + dueDateFormat.format(due));
+        	//dueTodayHeader.setText("Due on " + date);
+        }
+        										
+    });
+    
 
     FlowPane subjectsPane = new FlowPane();
     subjectsPane.setPrefHeight(346.41);
