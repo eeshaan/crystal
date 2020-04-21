@@ -148,6 +148,8 @@ public class Main extends Application {
     // "What should I do now" button
     Button wtdBtn = new Button("What should I do now?");
     wtdBtn.setId("wtdBtn");
+    wtdBtn.setOnAction(e->WhatToDoNowWindow.newWindow("What To Do Now"));
+
 
     // search button
     Image searchImage = new Image("/application/src/img/search-icon.png", 26, 26, false, true);
@@ -155,6 +157,8 @@ public class Main extends Application {
     search.setImage(searchImage);
     Button searchBtn = new Button("", search);
     searchBtn.getStyleClass().add("iconBtn");
+    searchBtn.setOnAction(e->SearchWindow.newWindow("Search"));
+
 
     // window button
     Image layoutImage = new Image("/application/src/img/layout-icon.png", 26, 26, false, false);
@@ -162,6 +166,8 @@ public class Main extends Application {
     layout.setImage(layoutImage);
     Button windowBtn = new Button("", layout);
     windowBtn.getStyleClass().add("iconBtn");
+    windowBtn.setOnAction(e->LayoutWindow.newWindow("Layout"));
+    
 
     // setting up add button
     Image addImage = new Image("/application/src/img/add-icon.png", 56, 56, false, false);
@@ -170,6 +176,7 @@ public class Main extends Application {
     Button addBtn = new Button("", add);
     addBtn.getStyleClass().add("iconBtn");
     addBtn.setId("addBtn");
+    addBtn.setOnAction(e->AddAssignmentWindow.newWindow("Add Assignment"));
 
     // setting up header HBox
     HBox leftPaneHeader = new HBox(dateText, hRegion, wtdBtn, searchBtn, windowBtn);
@@ -239,6 +246,13 @@ public class Main extends Application {
     subject3.setId("PHILOS101");
     Button subject4 = new Button("CS 252");
     subject4.setId("CS252");
+    
+    subject1.setOnAction(e->CourseAssignmentsWindow.newWindow(subject1.getId()+" Assignments"));
+    subject2.setOnAction(e->CourseAssignmentsWindow.newWindow(subject2.getId()+" Assignments"));
+    subject3.setOnAction(e->CourseAssignmentsWindow.newWindow(subject3.getId()+" Assignments"));
+    subject4.setOnAction(e->CourseAssignmentsWindow.newWindow(subject4.getId()+" Assignments"));
+
+
 
     subjects.getChildren().addAll(subject1, subject2, subject3, subject4);
 
