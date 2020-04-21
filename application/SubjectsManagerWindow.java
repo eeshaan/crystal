@@ -12,6 +12,9 @@ import javafx.stage.Stage;
 
 public class SubjectsManagerWindow {
 
+  private static final int WINDOW_WIDTH = 680;
+  private static final int WINDOW_HEIGHT = 400;
+  
   static int i = 1;
   
   public static void newWindow(String title) {
@@ -39,7 +42,7 @@ public class SubjectsManagerWindow {
 
     });
     
-    Scene scene = new Scene(pane, 500, 400);
+    Scene scene = new Scene(pane, WINDOW_WIDTH, WINDOW_HEIGHT);
     scene.getStylesheets().add(AddAssignmentWindow.class.getResource("/application/src/css/style.css").toExternalForm()); // link CSS
     
     window.setScene(scene);
