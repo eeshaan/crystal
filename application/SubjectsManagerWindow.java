@@ -30,6 +30,7 @@ public class SubjectsManagerWindow {
     
     HBox headerBox = new HBox();
     Text header = new Text("Welcome to Crystal!");
+    header.setId("h1");
     headerBox.getChildren().add(header);
     
     root.setTop(headerBox);
