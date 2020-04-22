@@ -44,7 +44,7 @@ public class Main extends Application {
   private static final String APP_TITLE = "Crystal";
   private static final int WINDOW_WIDTH = 1144; // divide Figma by 2.039335664
   private static final int WINDOW_HEIGHT = 880;
-  
+
   private static VBox assignmentsPane;
 
   @Override
@@ -59,7 +59,7 @@ public class Main extends Application {
 
     // Continue working on Header
     Text workHeader = new Text("Continue working on");
-    workHeader.setId("workHeader"); 
+    workHeader.setId("workHeader");
     workHeader.setStyle("-fx-padding: 100px 0 0 0;");
 
     // Create Left Pane
@@ -152,7 +152,7 @@ public class Main extends Application {
     // "What should I do now" button
     Button wtdBtn = new Button("What should I do now?");
     wtdBtn.setId("wtdBtn");
-    wtdBtn.setOnAction(e->WhatToDoNowWindow.newWindow("What To Do Now"));
+    wtdBtn.setOnAction(e -> WhatToDoNowWindow.newWindow("What To Do Now"));
 
 
     // search button
@@ -161,7 +161,7 @@ public class Main extends Application {
     search.setImage(searchImage);
     Button searchBtn = new Button("", search);
     searchBtn.getStyleClass().add("iconBtn");
-    searchBtn.setOnAction(e->SearchWindow.newWindow("Search"));
+    searchBtn.setOnAction(e -> SearchWindow.newWindow("Search"));
 
 
     // window button
@@ -170,8 +170,8 @@ public class Main extends Application {
     layout.setImage(layoutImage);
     Button windowBtn = new Button("", layout);
     windowBtn.getStyleClass().add("iconBtn");
-    windowBtn.setOnAction(e->SubjectsManagerWindow.newWindow("Subjects Manager"));
-    
+    windowBtn.setOnAction(e -> SubjectsManagerWindow.newWindow("Subjects Manager"));
+
 
     // setting up add button
     Image addImage = new Image("/application/src/img/add-icon.png", 56, 56, false, false);
@@ -180,7 +180,7 @@ public class Main extends Application {
     Button addBtn = new Button("", add);
     addBtn.getStyleClass().add("iconBtn");
     addBtn.setId("addBtn");
-    addBtn.setOnAction(e->AddAssignmentWindow.newWindow("Add Assignment"));
+    addBtn.setOnAction(e -> AddAssignmentWindow.newWindow("Add Assignment"));
 
     // setting up header HBox
     HBox leftPaneHeader = new HBox(dateText, hRegion, wtdBtn, searchBtn, windowBtn);
@@ -227,19 +227,19 @@ public class Main extends Application {
     calendarView.getChildren().add(popupContent);
 
     dp.setOnAction(e -> {
-        LocalDate date = dp.getValue();
-        if(date.getDayOfYear() == date.now().getDayOfYear() && date.getYear() == date.now().getYear()) {
-        	dueTodayHeader.setText("Due Today");
-        }
-        else {
-        	SimpleDateFormat dueDateFormat = new SimpleDateFormat("EEEE, MMMMM d, yyyy");
-        	Date due = Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant());
-        	dueTodayHeader.setText("Due on " + dueDateFormat.format(due));
-        	//dueTodayHeader.setText("Due on " + date);
-        }
-        										
+      LocalDate date = dp.getValue();
+      if (date.getDayOfYear() == date.now().getDayOfYear()
+          && date.getYear() == date.now().getYear()) {
+        dueTodayHeader.setText("Due Today");
+      } else {
+        SimpleDateFormat dueDateFormat = new SimpleDateFormat("EEEE, MMMMM d, yyyy");
+        Date due = Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        dueTodayHeader.setText("Due on " + dueDateFormat.format(due));
+        // dueTodayHeader.setText("Due on " + date);
+      }
+
     });
-    
+
 
     FlowPane subjectsPane = new FlowPane();
     subjectsPane.setPrefHeight(346.41);
@@ -264,13 +264,11 @@ public class Main extends Application {
     subject3.setId("PHILOS101");
     Button subject4 = new Button("CS 252");
     subject4.setId("CS252");
-    
-    subject1.setOnAction(e->CourseAssignmentsWindow.newWindow(subject1.getId()+" Assignments"));
-    subject2.setOnAction(e->CourseAssignmentsWindow.newWindow(subject2.getId()+" Assignments"));
-    subject3.setOnAction(e->CourseAssignmentsWindow.newWindow(subject3.getId()+" Assignments"));
-    subject4.setOnAction(e->CourseAssignmentsWindow.newWindow(subject4.getId()+" Assignments"));
 
-
+    subject1.setOnAction(e -> CourseAssignmentsWindow.newWindow(subject1.getId() + " Assignments"));
+    subject2.setOnAction(e -> CourseAssignmentsWindow.newWindow(subject2.getId() + " Assignments"));
+    subject3.setOnAction(e -> CourseAssignmentsWindow.newWindow(subject3.getId() + " Assignments"));
+    subject4.setOnAction(e -> CourseAssignmentsWindow.newWindow(subject4.getId() + " Assignments"));
 
     subjects.getChildren().addAll(subject1, subject2, subject3, subject4);
 
@@ -282,16 +280,18 @@ public class Main extends Application {
     mainScene.getStylesheets()
         .add(getClass().getResource("/application/src/css/style.css").toExternalForm());
 
+    
     // Add the stuff and set the primary stage
-    
+
     SubjectsManagerWindow.newWindow("Welcome to Crystal!");
-    
+
     mainStage.setTitle(APP_TITLE);
     mainStage.setScene(mainScene);
     mainStage.show();
   }
-  
-  public static void createAssignmentBox(String name, String subject, String dueTime, String dueDate){
+
+  public static void createAssignmentBox(String name, String subject, String dueTime,
+      String dueDate) {
     HBox newAssignment = new HBox();
     newAssignment.getStyleClass().add("assignmentBox");
     newAssignment.setId("ass_" + subject);
