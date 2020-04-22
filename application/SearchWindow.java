@@ -14,7 +14,7 @@ public class SearchWindow {
     Pane pane = new Pane();
 
     Scene scene = new Scene(pane, 500, 500);
-    scene.getStylesheets().add(AddAssignmentWindow.class.getResource("/application/src/css/style.css").toExternalForm()); // link CSS
+    scene.getStylesheets().add(Main.class.getResource("/application/src/css/style.css").toExternalForm()); // link CSS
     
     window.setScene(scene);
     window.setTitle(title);
