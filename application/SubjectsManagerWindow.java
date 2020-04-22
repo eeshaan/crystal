@@ -29,7 +29,7 @@ public class SubjectsManagerWindow {
     root.setPadding(new Insets(20, 20, 20, 20));
     
     HBox headerBox = new HBox();
-    Text header = new Text("Welcome to Crystal!");
+    Text header = new Text(title);
     header.setId("h1");
     headerBox.getChildren().add(header);
     
@@ -68,6 +68,14 @@ public class SubjectsManagerWindow {
     Button submit = new Button("Submit classes and launch");
     Button skip = new Button("Skip adding classes and launch");
     bottom.getChildren().addAll(submit, skip);
+    
+    submit.setOnAction(e -> {
+      window.close();
+    });
+    
+    skip.setOnAction(e -> {
+      window.close();
+    });
     
     root.setBottom(bottom);
     
