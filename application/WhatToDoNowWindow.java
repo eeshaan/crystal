@@ -57,7 +57,7 @@ public class WhatToDoNowWindow {
     pane.getChildren().addAll(topText, assignmentBox2, bottomText);
     
     Scene scene = new Scene(pane, WINDOW_WIDTH, WINDOW_HEIGHT);
-    scene.getStylesheets().add(AddAssignmentWindow.class.getResource("/application/src/css/style.css").toExternalForm()); // link CSS
+    scene.getStylesheets().add(Main.class.getResource("/application/src/css/style.css").toExternalForm()); // link CSS
     
     window.setScene(scene);
     window.setTitle(title);

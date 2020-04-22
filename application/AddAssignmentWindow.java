@@ -53,7 +53,7 @@ public class AddAssignmentWindow {
     textInput.getChildren().addAll(finished);
     
     Scene vScene = new Scene(new ScrollPane(textInput), 500, 500);
-    vScene.getStylesheets().add(AddAssignmentWindow.class.getResource("/application/src/css/style.css").toExternalForm()); // link CSS
+    vScene.getStylesheets().add(Main.class.getResource("/application/src/css/style.css").toExternalForm()); // link CSS
 
     
     window.setScene(vScene);
