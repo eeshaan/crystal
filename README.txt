@@ -11,7 +11,10 @@ Team Members:
 5. Eeshaan Pirani  — LEC 001, xteam156, epirani@wisc.edu
 
 Other notes or comments to the grader:
+
 - We received approval from Deb to complete this project instead of MilkWeight.
-- CSS parsing errors should be ignored. We found that they're actually inaccurate because the font-weight property works as intended. We will look into a fix in the future, but this seems like an error on the JavaFX dev teams's part.
+
+- In terms of the "ending screen" requirement for file export, our program instead will periodically output a saved_state.json every time the user makes a change. This saved_state.json can be reloaded into the program by using the plus button.
+  - If this design choice is still unclear, you can review our Figma GUI layout: https://www.figma.com/file/2QNzRynbQduohnqaPJqacQ/Assignment-Tracker
+
 - https://github.com/eeshaan/crystal
-  - our project lives and thrives on GitHub — highly encourage you to check it out!
