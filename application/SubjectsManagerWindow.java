@@ -66,14 +66,10 @@ public class SubjectsManagerWindow {
     
     HBox bottom = new HBox();
     Button submit = new Button("Submit classes and launch");
-    Button skip = new Button("Skip adding classes and launch");
-    bottom.getChildren().addAll(submit, skip);
+    
+    bottom.getChildren().addAll(submit);
     
     submit.setOnAction(e -> {
-      window.close();
-    });
-    
-    skip.setOnAction(e -> {
       window.close();
     });
     

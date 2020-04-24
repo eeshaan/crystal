@@ -280,11 +280,10 @@ public class Main extends Application {
     mainScene.getStylesheets()
         .add(getClass().getResource("/application/src/css/style.css").toExternalForm());
 
-    
+    WelcomeWindow.newWindow("Welcome to Crystal!");
+    SubjectsManagerWindow.newWindow("Add your classes!");
+
     // Add the stuff and set the primary stage
-
-    SubjectsManagerWindow.newWindow("Welcome to Crystal!");
-
     mainStage.setTitle(APP_TITLE);
     mainStage.setScene(mainScene);
     mainStage.show();
