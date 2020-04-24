@@ -6,9 +6,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
@@ -40,6 +43,7 @@ public class SubjectsManagerWindow {
 
     pane.setHgap(10);
     pane.setVgap(10);
+    pane.setMaxWidth(WINDOW_WIDTH);
     
     TextField textField[] = new TextField[15];
     ColorPicker cp[] = new ColorPicker[15];
@@ -59,7 +63,12 @@ public class SubjectsManagerWindow {
     
     i++;
     
-    Button btn = new Button("Add another class");
+    Image addImage = new Image("/application/src/img/add-icon.png", 25, 25, false, false);
+    ImageView add = new ImageView();
+    add.setImage(addImage);
+    
+    Button btn = new Button("Add another class", add);
+    btn.setId("addAnother");
     
     btn.setOnAction(e -> {
         textField[i] = new TextField();
@@ -77,7 +86,15 @@ public class SubjectsManagerWindow {
         i++;
     });
     
-    root.getChildren().addAll(pane, btn);
+    btn.setMaxWidth(WINDOW_WIDTH);
+    
+    HBox addAnother = new HBox();
+    HBox.setHgrow(btn, Priority.ALWAYS);
+    addAnother.setPadding(new Insets(12.5, 0, 20, 0));    
+    addAnother.getChildren().add(btn);
+   
+    
+    root.getChildren().addAll(pane, addAnother);
     
     HBox bottom = new HBox();
     Button submit = new Button("Submit classes and launch");
