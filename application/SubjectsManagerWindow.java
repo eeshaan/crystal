@@ -30,7 +30,7 @@ public class SubjectsManagerWindow {
     
     HBox headerBox = new HBox();
     Text header = new Text(title);
-    header.setId("h1");
+    header.setId("h2");
     headerBox.getChildren().add(header);
     
     root.setTop(headerBox);

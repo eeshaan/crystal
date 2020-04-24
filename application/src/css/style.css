@@ -4,7 +4,7 @@
 }
 
 @font-face {
-  font-family: "Work Sans";
+  font-family: "Work Sans Light";
   src: url('/application/src/fonts/WorkSans-Light.ttf');
 }
 
@@ -31,6 +31,27 @@
 #h1 {
   -fx-font-family: "DM Serif Display";
   -fx-font-size: 30;
+}
+
+#h2 {
+  -fx-font-family: "Work Sans";
+  -fx-font-weight: 700;
+  -fx-font-size: 30;
+}
+
+#subText {
+  -fx-font-family: "Work Sans Light";
+  -fx-font-size: 14;
+}
+
+#bigButton {
+  -fx-background-color: #ffdb1e;
+  -fx-background-radius: 17px;
+  -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 4, 0.0, 0, 4);
+}
+
+#bigButton:hover {
+  -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 2, 0.0, 0, 2);
 }
 
 #workHeader {
