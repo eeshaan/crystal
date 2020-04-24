@@ -170,7 +170,7 @@ public class Main extends Application {
     layout.setImage(layoutImage);
     Button windowBtn = new Button("", layout);
     windowBtn.getStyleClass().add("iconBtn");
-    windowBtn.setOnAction(e -> SubjectsManagerWindow.newWindow("Subjects Manager"));
+    windowBtn.setOnAction(e -> ClassManagerWindow.newWindow("Class Manager"));
 
 
     // setting up add button
@@ -246,33 +246,33 @@ public class Main extends Application {
     subjectsPane.setPadding(new Insets(60, 50, 60, 50));
     rightPane.getChildren().add(subjectsPane);
 
-    Text yourSubjects = new Text("Your subjects");
-    yourSubjects.setId("yourSubjects");
+    Text yourClasses = new Text("Your classes");
+    yourClasses.setId("yourSubjects");
 
-    HBox subjectsHeader = new HBox();
-    subjectsHeader.getChildren().add(yourSubjects);
+    HBox classesHeader = new HBox();
+    classesHeader.getChildren().add(yourClasses);
 
-    FlowPane subjects = new FlowPane();
-    subjects.setPrefWidth(294);
-    subjects.getStyleClass().add("subjects");
+    FlowPane classes = new FlowPane();
+    classes.setPrefWidth(294);
+    classes.getStyleClass().add("subjects");
 
-    Button subject1 = new Button("MATH 222");
-    subject1.setId("MATH222");
-    Button subject2 = new Button("CS 400");
-    subject2.setId("CS400");
-    Button subject3 = new Button("PHILOS 101");
-    subject3.setId("PHILOS101");
-    Button subject4 = new Button("CS 252");
-    subject4.setId("CS252");
+    Button class1 = new Button("MATH 222");
+    class1.setId("MATH222");
+    Button class2 = new Button("CS 400");
+    class2.setId("CS400");
+    Button class3 = new Button("PHILOS 101");
+    class3.setId("PHILOS101");
+    Button class4 = new Button("CS 252");
+    class4.setId("CS252");
 
-    subject1.setOnAction(e -> CourseAssignmentsWindow.newWindow(subject1.getId() + " Assignments"));
-    subject2.setOnAction(e -> CourseAssignmentsWindow.newWindow(subject2.getId() + " Assignments"));
-    subject3.setOnAction(e -> CourseAssignmentsWindow.newWindow(subject3.getId() + " Assignments"));
-    subject4.setOnAction(e -> CourseAssignmentsWindow.newWindow(subject4.getId() + " Assignments"));
+    class1.setOnAction(e -> CourseAssignmentsWindow.newWindow(class1.getId() + " Assignments"));
+    class2.setOnAction(e -> CourseAssignmentsWindow.newWindow(class2.getId() + " Assignments"));
+    class3.setOnAction(e -> CourseAssignmentsWindow.newWindow(class3.getId() + " Assignments"));
+    class4.setOnAction(e -> CourseAssignmentsWindow.newWindow(class4.getId() + " Assignments"));
 
-    subjects.getChildren().addAll(subject1, subject2, subject3, subject4);
+    classes.getChildren().addAll(class1, class2, class3, class4);
 
-    subjectsPane.getChildren().addAll(subjectsHeader, subjects);
+    subjectsPane.getChildren().addAll(classesHeader, classes);
 
     root.setRight(rightPane);
 
@@ -281,7 +281,7 @@ public class Main extends Application {
         .add(getClass().getResource("/application/src/css/style.css").toExternalForm());
 
     WelcomeWindow.newWindow("Welcome to Crystal!");
-    SubjectsManagerWindow.newWindow("Add your classes!");
+    ClassManagerWindow.newWindow("Add your classes!");
 
     // Add the stuff and set the primary stage
     mainStage.setTitle(APP_TITLE);
