@@ -59,8 +59,7 @@ public class Main extends Application {
 
     // Continue working on Header
     Text workHeader = new Text("Continue working on");
-    workHeader.setId("workHeader");
-    workHeader.setStyle("-fx-padding: 100px 0 0 0;");
+    workHeader.setId("h1");
 
     // Create Left Pane
     FlowPane leftPane = new FlowPane();
@@ -104,7 +103,11 @@ public class Main extends Application {
 
     ///// Add the rest of the tasks/the next few tasks. Also must be a for loop /////
 
-    assignmentsPane.getChildren().add(workHeader);
+    HBox workHeaderHolder = new HBox();
+    workHeaderHolder.setPadding(new Insets(17.5, 0, 0, 0));
+    workHeaderHolder.getChildren().add(workHeader);
+    
+    assignmentsPane.getChildren().add(workHeaderHolder);
 
     // task 3
     HBox assignmentBox3 = new HBox();
