@@ -56,6 +56,7 @@ public class SubjectsManagerWindow {
     pane.add(cp[i], 5, i*2);
     pane.add(new Text("Difficulty (1-5):"), 7, (i*2)-1);
     pane.add(difficulty[i], 7, i*2);
+    
     i++;
     
     Button btn = new Button("Add another class");
@@ -72,8 +73,8 @@ public class SubjectsManagerWindow {
         pane.add(cp[i], 5, i*2);
         pane.add(new Text("Difficulty (1-5):"), 7, (i*2)-1);
         pane.add(difficulty[i], 7, i*2);
+        
         i++;
-
     });
     
     root.getChildren().addAll(pane, btn);
