@@ -3,21 +3,21 @@ package application;
 public class Assignment {
 	
 	private String assignmentName;
-	private String className;
+	private Class className;
 	private int difficulty;
 	private String startDate;
 	private String dueDate;
 	private String dueTime;
 	private boolean completed;
 	
-	public Assignment(String assignmentName, String className, int difficulty, String startDate, String dueDate, String dueTime) {
-		this.setAssignmentName(assignmentName);
-		this.setClassName(className);
-		this.setDifficulty(difficulty);
-		this.setStartDate(startDate);
-		this.setDueDate(dueDate);
-		this.setDueTime(dueTime);
-		setCompleted(false);
+	public Assignment(String assignmentName, Class className, int difficulty, String startDate, String dueDate, String dueTime) {
+		this.assignmentName = assignmentName;
+		this.className = className;
+		this.difficulty = difficulty;
+		this.startDate = startDate;
+		this.dueDate = dueDate;
+		this.dueTime = dueTime;
+		completed = false;
 	}
 
 	public String getAssignmentName() {
@@ -28,11 +28,11 @@ public class Assignment {
 		this.assignmentName = assignmentName;
 	}
 
-	public String getClassName() {
+	public Class getClassName() {
 		return className;
 	}
 
-	public void setClassName(String className) {
+	public void setClassName(Class className) {
 		this.className = className;
 	}
 
