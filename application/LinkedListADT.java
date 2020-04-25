@@ -2,7 +2,7 @@ package application;
 
 public interface LinkedListADT<T> {
 	
-	public void insert();
+	public void insert(T data);
 	
 	public T remove();
 	
