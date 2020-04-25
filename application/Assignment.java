@@ -1,78 +1,79 @@
 package application;
 
 public class Assignment {
-	
-	private String assignmentName;
-	private Class className;
-	private int difficulty;
-	private String startDate;
-	private String dueDate;
-	private String dueTime;
-	private boolean completed;
-	
-	public Assignment(String assignmentName, Class className, int difficulty, String startDate, String dueDate, String dueTime) {
-		this.assignmentName = assignmentName;
-		this.className = className;
-		this.difficulty = difficulty;
-		this.startDate = startDate;
-		this.dueDate = dueDate;
-		this.dueTime = dueTime;
-		completed = false;
-	}
 
-	public String getAssignmentName() {
-		return assignmentName;
-	}
+  private String assignmentName;
+  private Class className;
+  private int difficulty;
+  private String startDate;
+  private String dueDate;
+  private String dueTime;
+  private boolean completed;
 
-	public void setAssignmentName(String assignmentName) {
-		this.assignmentName = assignmentName;
-	}
+  public Assignment(String assignmentName, Class className, int difficulty, String startDate,
+      String dueDate, String dueTime, boolean completed) {
+    this.assignmentName = assignmentName;
+    this.className = className;
+    this.difficulty = difficulty;
+    this.startDate = startDate;
+    this.dueDate = dueDate;
+    this.dueTime = dueTime;
+    this.completed = completed;
+  }
 
-	public Class getClassName() {
-		return className;
-	}
+  public String getAssignmentName() {
+    return assignmentName;
+  }
 
-	public void setClassName(Class className) {
-		this.className = className;
-	}
+  public void setAssignmentName(String assignmentName) {
+    this.assignmentName = assignmentName;
+  }
 
-	public int getDifficulty() {
-		return difficulty;
-	}
+  public Class getClassName() {
+    return className;
+  }
 
-	public void setDifficulty(int difficulty) {
-		this.difficulty = difficulty;
-	}
+  public void setClassName(Class className) {
+    this.className = className;
+  }
 
-	public String getStartDate() {
-		return startDate;
-	}
+  public int getDifficulty() {
+    return difficulty;
+  }
 
-	public void setStartDate(String startDate) {
-		this.startDate = startDate;
-	}
+  public void setDifficulty(int difficulty) {
+    this.difficulty = difficulty;
+  }
 
-	public String getDueDate() {
-		return dueDate;
-	}
+  public String getStartDate() {
+    return startDate;
+  }
 
-	public void setDueDate(String dueDate) {
-		this.dueDate = dueDate;
-	}
+  public void setStartDate(String startDate) {
+    this.startDate = startDate;
+  }
 
-	public String getDueTime() {
-		return dueTime;
-	}
+  public String getDueDate() {
+    return dueDate;
+  }
 
-	public void setDueTime(String dueTime) {
-		this.dueTime = dueTime;
-	}
+  public void setDueDate(String dueDate) {
+    this.dueDate = dueDate;
+  }
 
-	public boolean isCompleted() {
-		return completed;
-	}
+  public String getDueTime() {
+    return dueTime;
+  }
 
-	public void setCompleted(boolean completed) {
-		this.completed = completed;
-	}
+  public void setDueTime(String dueTime) {
+    this.dueTime = dueTime;
+  }
+
+  public boolean isCompleted() {
+    return completed;
+  }
+
+  public void setCompleted(boolean completed) {
+    this.completed = completed;
+  }
 }
