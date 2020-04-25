@@ -1,6 +1,6 @@
 package application;
 
-public class LinkedList implements LinkedListADT {
+public class LinkedList implements LinkedListADT<Assignment> {
 
 	@Override
 	public void insert() {
@@ -9,19 +9,19 @@ public class LinkedList implements LinkedListADT {
 	}
 
 	@Override
-	public Object remove() {
+	public Assignment remove() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Object get() {
+	public Assignment get() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public boolean contains(Object data) {
+	public boolean contains(Assignment data) {
 		// TODO Auto-generated method stub
 		return false;
 	}
