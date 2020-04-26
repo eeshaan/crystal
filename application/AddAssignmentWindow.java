@@ -4,6 +4,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -53,13 +54,13 @@ public class AddAssignmentWindow {
     textInput.getChildren().addAll(assTime, timeField);
     
     Label assDate = new Label("Due Date:");
-    TextField dateField = new TextField ();
+    DatePicker dateField = new DatePicker ();
     HBox dateBox = new HBox();
     textInput.getChildren().addAll(assDate, dateField);
     
     Button submit = new Button("Submit");
     submit.setId("bigButton");
-    submit.setOnAction(e -> AddAssignmentWindow.addAssignment(nameField, nameField, timeField, dateField));
+    submit.setOnAction(e -> AddAssignmentWindow.addAssignment(nameField.getText(), nameField.getText(), timeField.getText(), dateField.getValue().toString()));
     
     HBox submitHolder = new HBox();
     submitHolder.setPadding(new Insets(20, 0, 0, 0));
@@ -74,12 +75,7 @@ public class AddAssignmentWindow {
     window.show();
   }
   
-  public static void addAssignment(TextField nameField, TextField subField, TextField timeField, TextField dateField) {
-    String name = nameField.getText();
-    String subject = subField.getText();
-    String time = timeField.getText();
-    String date = dateField.getText();
-    
-    Main.createAssignmentBox(name, subject, time, date);
+  public static void addAssignment(String nameField, String classField, String timeField, String dateField) {    
+    Main.createAssignmentBox(nameField, classField, timeField, dateField);
   }
 }
