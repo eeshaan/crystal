@@ -1,5 +1,6 @@
 package application;
 
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -8,6 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -24,7 +26,12 @@ public class AddAssignmentWindow {
     window.setTitle(title);
     // window.showAndWait();
     
-    VBox textInput = new VBox(6);
+    VBox textInput = new VBox();
+    textInput.setPadding(new Insets(20, 20, 20, 20));
+    
+    Text titleText = new Text(title);
+    titleText.setId("h2");
+    textInput.getChildren().add(titleText);
     
     // name, subject, dueTime, dueDate
     Label assName = new Label("Name:");
@@ -48,11 +55,12 @@ public class AddAssignmentWindow {
     HBox dateBox = new HBox();
     textInput.getChildren().addAll(assDate, dateField);
     
-    Button finished = new Button("Add Assignment");
+    Button finished = new Button("Submit");
+    finished.setId("bigButton");
     finished.setOnAction(e -> AddAssignmentWindow.addAssignment(nameField, subField, timeField, dateField));
     textInput.getChildren().addAll(finished);
     
-    Scene vScene = new Scene(new ScrollPane(textInput), 500, 500);
+    Scene vScene = new Scene(textInput, 500, 500);
     vScene.getStylesheets().add(Main.class.getResource("/application/src/css/style.css").toExternalForm()); // link CSS
 
     
