@@ -3,6 +3,7 @@ package application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -28,6 +29,7 @@ public class AddAssignmentWindow {
     
     VBox textInput = new VBox();
     textInput.setPadding(new Insets(20, 20, 20, 20));
+    textInput.setSpacing(5);
     
     Text titleText = new Text(title);
     titleText.setId("h2");
@@ -40,24 +42,24 @@ public class AddAssignmentWindow {
     HBox nameBox = new HBox();
     textInput.getChildren().addAll(assName, nameField);
     
-    Label assSub = new Label("Subject:");
-    TextField subField = new TextField ();
+    Label assClass = new Label("Class:");
+    ComboBox classField = new ComboBox();
     HBox subBox = new HBox();
-    textInput.getChildren().addAll(assSub, subField);
+    textInput.getChildren().addAll(assClass, classField);
     
-    Label assTime = new Label("DueTime:");
+    Label assTime = new Label("Due Time:");
     TextField timeField = new TextField ();
     HBox timeBox = new HBox();
     textInput.getChildren().addAll(assTime, timeField);
     
-    Label assDate = new Label("DueDate:");
+    Label assDate = new Label("Due Date:");
     TextField dateField = new TextField ();
     HBox dateBox = new HBox();
     textInput.getChildren().addAll(assDate, dateField);
     
     Button submit = new Button("Submit");
     submit.setId("bigButton");
-    submit.setOnAction(e -> AddAssignmentWindow.addAssignment(nameField, subField, timeField, dateField));
+    submit.setOnAction(e -> AddAssignmentWindow.addAssignment(nameField, nameField, timeField, dateField));
     
     HBox submitHolder = new HBox();
     submitHolder.setPadding(new Insets(20, 0, 0, 0));
