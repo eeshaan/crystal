@@ -79,6 +79,10 @@ public class Main extends Application {
     assignmentBox1.getStyleClass().add("assignmentBox");
     assignmentBox1.setId("ass_MATH222");
 
+    assignmentBox1.setOnMouseClicked(e -> {
+      assigmentOptions(assignmentBox1);
+    });
+    
     Text time1 = new Text("11:00 AM");
     time1.setId("time");
 
@@ -92,7 +96,11 @@ public class Main extends Application {
     HBox assignmentBox2 = new HBox();
     assignmentBox2.getStyleClass().add("assignmentBox");
     assignmentBox2.setId("ass_CS400");
-
+    
+    assignmentBox2.setOnMouseClicked(e -> {
+      assigmentOptions(assignmentBox2);
+    });
+    
     Text time2 = new Text("11:59 PM");
     time2.setId("time");
 
@@ -114,6 +122,10 @@ public class Main extends Application {
     assignmentBox3.getStyleClass().add("assignmentBox");
     assignmentBox3.setId("ass_CS252");
 
+    assignmentBox3.setOnMouseClicked(e -> {
+      assigmentOptions(assignmentBox3);
+    });
+    
     Text time3 = new Text("Friday, April 17 at 11:59 PM");
     time3.setId("time");
 
@@ -126,6 +138,10 @@ public class Main extends Application {
     HBox assignmentBox4 = new HBox();
     assignmentBox4.getStyleClass().add("assignmentBox");
     assignmentBox4.setId("ass_PHILOS101");
+    
+    assignmentBox4.setOnMouseClicked(e -> {
+      assigmentOptions(assignmentBox4);
+    });
 
     Text time4 = new Text("Sunday, April 19 at 8:00 PM");
     time4.setId("time");
@@ -305,6 +321,47 @@ public class Main extends Application {
     newAssignment.getChildren().addAll(new Text("Due "), newTime, newDesc);
 
     assignmentsPane.getChildren().add(newAssignment);
+  }
+  
+  private static void assigmentOptions(HBox assignmentBox) {
+    Text manage = new Text("Manage this assignment");
+    manage.setId("h2");
+    
+    HBox manageHolder = new HBox();
+    manageHolder.setPadding(new Insets(0, 0, 17.5, 0));
+    manageHolder.getChildren().add(manage);
+    
+    Button completed = new Button("Mark as completed");
+    completed.setId("bigButton");
+    
+    Button delete = new Button("Delete this assignment");
+    delete.setId("bigButton");
+    delete.setStyle("-fx-background-color: red;");
+   
+    HBox buttonOptions = new HBox();
+    buttonOptions.setSpacing(10);
+    buttonOptions.getChildren().addAll(completed, delete);
+    
+    VBox assignmentOptions = new VBox();
+    assignmentOptions.setPadding(new Insets(10, 10, 10, 10));
+    assignmentOptions.getChildren().addAll(manageHolder, buttonOptions);
+    
+    Scene dialogScene = new Scene(assignmentOptions, 500, 115);
+    dialogScene.getStylesheets().add(Main.class.getResource("/application/src/css/style.css").toExternalForm());
+    
+    Stage dialogStage = new Stage();
+    dialogStage.setScene(dialogScene);
+    dialogStage.show();
+    
+    completed.setOnAction(e -> {
+      assignmentBox.getStyleClass().add("completed");
+      dialogStage.close();
+    });
+    
+    delete.setOnAction(e -> {
+      assignmentsPane.getChildren().remove(assignmentBox);
+      dialogStage.close();
+    });
   }
 
   /**

@@ -66,11 +66,6 @@
   -fx-background-color: #fff;
 }
 
-.assignmentBox {
-  -fx-padding: 20px 20px 20px 20px;
-  -fx-border-width: 0 0 0 3.75px;
-}
-
 #leftPaneHeader {
   -fx-background-color: #fff;
 }
@@ -217,4 +212,17 @@ TODO: there is no -fx-margin property, but we can hack around this by adding equ
 #ass_PHILOS101 {
   -fx-background-color: rgba(29, 203, 57, 0.15);
   -fx-border-color: rgb(29, 203, 57);
+}
+
+.assignmentBox {
+  -fx-padding: 20px 20px 20px 20px;
+  -fx-border-width: 0 0 0 3.75px;
+}
+
+.completed {
+  -fx-background-color: #f9f9f9 !important;
+}
+
+.completed > * {
+  -fx-strikethrough: true;
 }
