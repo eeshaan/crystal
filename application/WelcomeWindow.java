@@ -25,8 +25,6 @@ public class WelcomeWindow {
   private static final int WINDOW_WIDTH = 680;
   private static final int WINDOW_HEIGHT = 200;
 
-  private static File file;
-
 
   public static void newWindow(String title) {
     Stage window = new Stage();
@@ -59,7 +57,6 @@ public class WelcomeWindow {
     load.setOnAction(e -> {
       File selectedFile = fileChooser.showOpenDialog(window);
       parseJson(selectedFile);
-      file = selectedFile;
     });
 
 
@@ -105,7 +102,7 @@ public class WelcomeWindow {
         int classDifficulty = Integer.parseInt((String) jsonClass.get("difficulty"));
 
         Class newClass = new Class(className, red, green, blue, classDifficulty);
-
+        // Insert into data structure that we choose
       }
 
       Object assignmentsObject = jo.get("assignments");
@@ -132,10 +129,8 @@ public class WelcomeWindow {
       e.printStackTrace();
     } catch (ParseException e) {
       e.printStackTrace();
+    } catch (NullPointerException e) {
     }
   }
 
-  public File getJSON() {
-    return file;
-  }
 }
