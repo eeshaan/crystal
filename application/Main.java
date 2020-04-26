@@ -334,18 +334,10 @@ public class Main extends Application {
     Button completed = new Button("Mark as completed");
     completed.setId("bigButton");
     
-    completed.setOnAction(e -> {
-      assignmentBox.getStyleClass().add("completed");
-    });
-    
     Button delete = new Button("Delete this assignment");
     delete.setId("bigButton");
     delete.setStyle("-fx-background-color: red;");
-    
-    delete.setOnAction(e -> {
-      assignmentsPane.getChildren().remove(assignmentBox);
-    });
-    
+   
     HBox buttonOptions = new HBox();
     buttonOptions.setSpacing(10);
     buttonOptions.getChildren().addAll(completed, delete);
@@ -360,6 +352,16 @@ public class Main extends Application {
     Stage dialogStage = new Stage();
     dialogStage.setScene(dialogScene);
     dialogStage.show();
+    
+    completed.setOnAction(e -> {
+      assignmentBox.getStyleClass().add("completed");
+      dialogStage.close();
+    });
+    
+    delete.setOnAction(e -> {
+      assignmentsPane.getChildren().remove(assignmentBox);
+      dialogStage.close();
+    });
   }
 
   /**
