@@ -145,10 +145,13 @@
 }
 
 .date-picker-popup>*>.day-cell:hover,
-.date-picker-popup>*>.selected,
+.date-picker-popup>*>.selected {
+  -fx-background-color: #e92121;
+  -fx-text-fill: #fff;
+}
+
 .date-picker-popup>*>.today {
   -fx-background-color: #3c82f9;
-  -fx-text-fill: #fff;
 }
 
 .date-picker-popup>*>.previous-month,

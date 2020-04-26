@@ -1,13 +1,17 @@
 package application;
 
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -23,49 +27,58 @@ public class AddAssignmentWindow {
     window.setScene(scene);
     window.setTitle(title);
     // window.showAndWait();
-    
-    VBox textInput = new VBox(6);
-    
+
+    VBox textInput = new VBox();
+    textInput.setPadding(new Insets(20, 20, 20, 20));
+    textInput.setSpacing(5);
+
+    Text titleText = new Text(title);
+    titleText.setId("h2");
+    textInput.getChildren().add(titleText);
+
     // name, subject, dueTime, dueDate
     Label assName = new Label("Name:");
-    TextField nameField = new TextField ();
+    TextField nameField = new TextField();
     nameField.getText();
     HBox nameBox = new HBox();
     textInput.getChildren().addAll(assName, nameField);
-    
-    Label assSub = new Label("Subject:");
-    TextField subField = new TextField ();
+
+    Label assClass = new Label("Class:");
+    ComboBox classField = new ComboBox();
     HBox subBox = new HBox();
-    textInput.getChildren().addAll(assSub, subField);
-    
-    Label assTime = new Label("DueTime:");
-    TextField timeField = new TextField ();
+    textInput.getChildren().addAll(assClass, classField);
+
+    Label assTime = new Label("Due Time:");
+    TextField timeField = new TextField();
     HBox timeBox = new HBox();
     textInput.getChildren().addAll(assTime, timeField);
-    
-    Label assDate = new Label("DueDate:");
-    TextField dateField = new TextField ();
+
+    Label assDate = new Label("Due Date:");
+    DatePicker dateField = new DatePicker();
     HBox dateBox = new HBox();
     textInput.getChildren().addAll(assDate, dateField);
-    
-    Button finished = new Button("Add Assignment");
-    finished.setOnAction(e -> AddAssignmentWindow.addAssignment(nameField, subField, timeField, dateField));
-    textInput.getChildren().addAll(finished);
-    
-    Scene vScene = new Scene(new ScrollPane(textInput), 500, 500);
-    vScene.getStylesheets().add(Main.class.getResource("/application/src/css/style.css").toExternalForm()); // link CSS
 
-    
+    Button submit = new Button("Submit");
+    submit.setId("bigButton");
+    submit.setOnAction(e -> AddAssignmentWindow.addAssignment(nameField.getText(),
+        nameField.getText(), timeField.getText(), dateField.getValue().toString()));
+
+    HBox submitHolder = new HBox();
+    submitHolder.setPadding(new Insets(20, 0, 0, 0));
+    submitHolder.getChildren().add(submit);
+    textInput.getChildren().addAll(submitHolder);
+
+    Scene vScene = new Scene(textInput, 500, 500);
+    vScene.getStylesheets()
+        .add(Main.class.getResource("/application/src/css/style.css").toExternalForm()); // link CSS
+
+
     window.setScene(vScene);
     window.show();
   }
-  
-  public static void addAssignment(TextField nameField, TextField subField, TextField timeField, TextField dateField) {
-    String name = nameField.getText();
-    String subject = subField.getText();
-    String time = timeField.getText();
-    String date = dateField.getText();
-    
-    Main.createAssignmentBox(name, subject, time, date);
+
+  public static void addAssignment(String nameField, String classField, String timeField,
+      String dateField) {
+    Main.createAssignmentBox(nameField, classField, timeField, dateField);
   }
 }
