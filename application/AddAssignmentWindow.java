@@ -55,10 +55,14 @@ public class AddAssignmentWindow {
     HBox dateBox = new HBox();
     textInput.getChildren().addAll(assDate, dateField);
     
-    Button finished = new Button("Submit");
-    finished.setId("bigButton");
-    finished.setOnAction(e -> AddAssignmentWindow.addAssignment(nameField, subField, timeField, dateField));
-    textInput.getChildren().addAll(finished);
+    Button submit = new Button("Submit");
+    submit.setId("bigButton");
+    submit.setOnAction(e -> AddAssignmentWindow.addAssignment(nameField, subField, timeField, dateField));
+    
+    HBox submitHolder = new HBox();
+    submitHolder.setPadding(new Insets(20, 0, 0, 0));
+    submitHolder.getChildren().add(submit); 
+    textInput.getChildren().addAll(submitHolder);
     
     Scene vScene = new Scene(textInput, 500, 500);
     vScene.getStylesheets().add(Main.class.getResource("/application/src/css/style.css").toExternalForm()); // link CSS
