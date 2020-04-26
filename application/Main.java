@@ -342,6 +342,10 @@ public class Main extends Application {
     delete.setId("bigButton");
     delete.setStyle("-fx-background-color: red;");
     
+    delete.setOnAction(e -> {
+      assignmentsPane.getChildren().remove(assignmentBox);
+    });
+    
     HBox buttonOptions = new HBox();
     buttonOptions.setSpacing(10);
     buttonOptions.getChildren().addAll(completed, delete);
