@@ -27,55 +27,58 @@ public class AddAssignmentWindow {
     window.setScene(scene);
     window.setTitle(title);
     // window.showAndWait();
-    
+
     VBox textInput = new VBox();
     textInput.setPadding(new Insets(20, 20, 20, 20));
     textInput.setSpacing(5);
-    
+
     Text titleText = new Text(title);
     titleText.setId("h2");
     textInput.getChildren().add(titleText);
-    
+
     // name, subject, dueTime, dueDate
     Label assName = new Label("Name:");
-    TextField nameField = new TextField ();
+    TextField nameField = new TextField();
     nameField.getText();
     HBox nameBox = new HBox();
     textInput.getChildren().addAll(assName, nameField);
-    
+
     Label assClass = new Label("Class:");
     ComboBox classField = new ComboBox();
     HBox subBox = new HBox();
     textInput.getChildren().addAll(assClass, classField);
-    
+
     Label assTime = new Label("Due Time:");
-    TextField timeField = new TextField ();
+    TextField timeField = new TextField();
     HBox timeBox = new HBox();
     textInput.getChildren().addAll(assTime, timeField);
-    
+
     Label assDate = new Label("Due Date:");
-    DatePicker dateField = new DatePicker ();
+    DatePicker dateField = new DatePicker();
     HBox dateBox = new HBox();
     textInput.getChildren().addAll(assDate, dateField);
-    
+
     Button submit = new Button("Submit");
     submit.setId("bigButton");
-    submit.setOnAction(e -> AddAssignmentWindow.addAssignment(nameField.getText(), nameField.getText(), timeField.getText(), dateField.getValue().toString()));
-    
+    submit.setOnAction(e -> AddAssignmentWindow.addAssignment(nameField.getText(),
+        nameField.getText(), timeField.getText(), dateField.getValue().toString()));
+
     HBox submitHolder = new HBox();
     submitHolder.setPadding(new Insets(20, 0, 0, 0));
-    submitHolder.getChildren().add(submit); 
+    submitHolder.getChildren().add(submit);
     textInput.getChildren().addAll(submitHolder);
-    
-    Scene vScene = new Scene(textInput, 500, 500);
-    vScene.getStylesheets().add(Main.class.getResource("/application/src/css/style.css").toExternalForm()); // link CSS
 
-    
+    Scene vScene = new Scene(textInput, 500, 500);
+    vScene.getStylesheets()
+        .add(Main.class.getResource("/application/src/css/style.css").toExternalForm()); // link CSS
+
+
     window.setScene(vScene);
     window.show();
   }
-  
-  public static void addAssignment(String nameField, String classField, String timeField, String dateField) {    
+
+  public static void addAssignment(String nameField, String classField, String timeField,
+      String dateField) {
     Main.createAssignmentBox(nameField, classField, timeField, dateField);
   }
 }
