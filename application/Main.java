@@ -80,7 +80,7 @@ public class Main extends Application {
     assignmentBox1.setId("ass_MATH222");
 
     assignmentBox1.setOnMouseClicked(e -> {
-      assigmentOptions();
+      assigmentOptions(assignmentBox1);
     });
     
     Text time1 = new Text("11:00 AM");
@@ -98,7 +98,7 @@ public class Main extends Application {
     assignmentBox2.setId("ass_CS400");
     
     assignmentBox2.setOnMouseClicked(e -> {
-      assigmentOptions();
+      assigmentOptions(assignmentBox2);
     });
     
     Text time2 = new Text("11:59 PM");
@@ -123,7 +123,7 @@ public class Main extends Application {
     assignmentBox3.setId("ass_CS252");
 
     assignmentBox3.setOnMouseClicked(e -> {
-      assigmentOptions();
+      assigmentOptions(assignmentBox3);
     });
     
     Text time3 = new Text("Friday, April 17 at 11:59 PM");
@@ -140,7 +140,7 @@ public class Main extends Application {
     assignmentBox4.setId("ass_PHILOS101");
     
     assignmentBox4.setOnMouseClicked(e -> {
-      assigmentOptions();
+      assigmentOptions(assignmentBox4);
     });
 
     Text time4 = new Text("Sunday, April 19 at 8:00 PM");
@@ -323,7 +323,7 @@ public class Main extends Application {
     assignmentsPane.getChildren().add(newAssignment);
   }
   
-  private static void assigmentOptions() {
+  private static void assigmentOptions(HBox assignmentBox) {
     Text manage = new Text("Manage this assignment");
     manage.setId("h2");
     
@@ -333,6 +333,10 @@ public class Main extends Application {
     
     Button completed = new Button("Mark as completed");
     completed.setId("bigButton");
+    
+    completed.setOnAction(e -> {
+      assignmentBox.getStyleClass().add("completed");
+    });
     
     Button delete = new Button("Delete this assignment");
     delete.setId("bigButton");
