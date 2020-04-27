@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import org.json.simple.JSONArray;
@@ -53,6 +54,16 @@ public class Main extends Application {
   private static JSONArray classesJSONArray = WelcomeWindow.getJSONClasses();
   private static JSONArray assignmentsJSONArray = WelcomeWindow.getJSONAssignments();
 
+  private static HashTable<String, Class> classes;
+  private static HashTable<Date, LinkedList> assignmentsByDate;
+  private static HashTable<String, Assignment> assignments;
+  
+  public static HashTable<String, Class> getClasses() {
+	  return classes;
+  }
+  
+  
+  
   @Override
   public void start(Stage mainStage) throws Exception {
     // Main layout is Border Pane example (top,left,center,right,bottom)
@@ -234,7 +245,7 @@ public class Main extends Application {
     popupContent.setLayoutY(-13);
 
     calendarView.getChildren().add(popupContent);
-
+    
     dp.setOnAction(e -> {
       LocalDate date = dp.getValue();
       if (date.getDayOfYear() == date.now().getDayOfYear()

@@ -11,7 +11,7 @@ package application;
  *
  * DO NOT EDIT THIS INTERFACE
  */
-public interface HashTableADT<K extends Comparable<K>, V> {
+public interface HashTableADT<K, V> {
 
 	// Returns the load factor threshold that was
 	// passed into the constructor when creating

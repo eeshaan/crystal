@@ -6,6 +6,9 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -97,7 +100,8 @@ public class WelcomeWindow {
       JSONObject jo = (JSONObject) obj;
       Object classesObject = jo.get("classes");
       JSONArray classesJSONArrayToSet = (JSONArray) classesObject;
-
+      
+      HashTable<String, Class> classes = Main.getClasses();
       for (int c = 0; c < classesJSONArrayToSet.size(); c++) {
         JSONObject jsonClass = (JSONObject) classesJSONArrayToSet.get(c);
         String className = (String) jsonClass.get("className");
@@ -111,8 +115,7 @@ public class WelcomeWindow {
         classesJSONArray = classesJSONArrayToSet;
 
         Class newClass = new Class(className, red, green, blue, classDifficulty);
-        // Insert into data structure that we choose
-
+        classes.insert(className, newClass);
       }
 
       Object assignmentsObject = jo.get("assignments");
@@ -123,16 +126,24 @@ public class WelcomeWindow {
         String assignmentName = (String) jsonAssignment.get("assignmentName");
         String className = (String) jsonAssignment.get("class");
         int difficulty = Integer.parseInt((String) jsonAssignment.get("difficulty"));
-        String startDate = (String) jsonAssignment.get("startDate");
-        String dueDate = (String) jsonAssignment.get("dueDate");
+        
+        SimpleDateFormat sdformat = new SimpleDateFormat("MM-dd-yyyy");
+        Date startDate = null;
+        Date dueDate = null;
+		try {
+			startDate = sdformat.parse((String) jsonAssignment.get("startDate"));
+			dueDate = sdformat.parse((String) jsonAssignment.get("dueDate"));
+		} catch (java.text.ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
         String dueTime = (String) jsonAssignment.get("dueTime");
         boolean completed = (boolean) jsonAssignment.get("completed");
 
         assignmentsJSONArray = assignmentsJSONArrayToSet;
         // cannot create assignment until classes are stored in datatype
-        // Assignment newAssignment = new Assignment(assignmentName, className, difficulty,
-        // startDate, dueDate, dueTime, completed);
-
+        Assignment newAssignment = new Assignment(assignmentName, classes.get(className), difficulty, startDate, dueDate, dueTime, completed);
       }
 
     } catch (FileNotFoundException e) {

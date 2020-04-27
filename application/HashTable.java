@@ -31,7 +31,7 @@ import java.util.ArrayList;
  * @param <K> extends type Comparable<K> type of keys
  * @param <V> type of values
  */
-public class HashTable<K extends Comparable<K>, V> implements HashTableADT<K, V> {
+public class HashTable<K, V> implements HashTableADT<K, V> {
 
 	private ArrayList<LinkedNode> data; // ArrayList of buckets (linked lists)
 	private double loadFactorThreshold; // threshold for load factor to resize
@@ -112,7 +112,7 @@ public class HashTable<K extends Comparable<K>, V> implements HashTableADT<K, V>
 			data.set(hashIndex, newNode);
 		} else {
 			while (node != null) {
-				if (key.compareTo(node.key) == 0) {
+				if (key.equals(node.key)) {
 					// if key exists already change the value associated with it
 					node.value = value;
 					break;
@@ -176,19 +176,14 @@ public class HashTable<K extends Comparable<K>, V> implements HashTableADT<K, V>
 
 		LinkedNode node = head;
 		while (node != null) {
-			if (node.key.compareTo(key) == 0 && node == head) {
+			if (node.key.equals(key) && node == head) {
 				// key is in head node of the list
 				data.set(hashIndex, node.next);
 				numKeys--;
 				return true;
-			} else if (node.next != null && node.next.key.compareTo(key) == 0) {
+			} else if (node.next != null && node.next.key.equals(key)) {
 				// key is in a body node
 				node.next = node.next.next;
-				numKeys--;
-				return true;
-			} else if (node.next == null && node.key.compareTo(key) == 0) {
-				// key is in the tail node
-				node = null;
 				numKeys--;
 				return true;
 			}
@@ -217,7 +212,7 @@ public class HashTable<K extends Comparable<K>, V> implements HashTableADT<K, V>
 		LinkedNode node = data.get(hashIndex);
 
 		while (node != null) {
-			if (node.key.compareTo(key) == 0) // found key
+			if (node.key.equals(key)) // found key
 				return node.value;
 
 			node = node.next; // iterate through list
