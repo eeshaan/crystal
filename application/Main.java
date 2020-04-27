@@ -345,8 +345,12 @@ public class Main extends Application {
   public static void updateSaveState() {
     try (FileWriter file = new FileWriter("savestate.json")) {
 
+      file.write("{");
+      file.write("\"classes\": ");
       file.write(classesJsonArray.toJSONString());
+      file.write(", \"assignments\": ");
       file.write(assignmentsJsonArray.toJSONString());
+      file.write("}");
       file.flush();
 
     } catch (IOException e1) {
