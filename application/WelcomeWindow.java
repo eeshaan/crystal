@@ -3,7 +3,9 @@ package application;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -24,6 +26,9 @@ public class WelcomeWindow {
 
   private static final int WINDOW_WIDTH = 680;
   private static final int WINDOW_HEIGHT = 200;
+
+  private static JSONArray classesJsonArray = new JSONArray();
+  private static JSONArray assignmentsJsonArray = new JSONArray();
 
 
   public static void newWindow(String title) {
@@ -64,6 +69,8 @@ public class WelcomeWindow {
         new Button("This is my first time. (Start adding classes and assignments from scratch.)");
     addClasses.setId("bigButton");
 
+    addClasses.setOnAction(e -> clearSaveState());
+
     HBox addButtonHolder = new HBox();
     addButtonHolder.setPadding(new Insets(10, 0, 0, 0));
     addButtonHolder.getChildren().add(addClasses);
@@ -101,8 +108,11 @@ public class WelcomeWindow {
         int blue = Integer.parseInt((String) classColor.get("b"));
         int classDifficulty = Integer.parseInt((String) jsonClass.get("difficulty"));
 
+        classesJsonArray = classesJSONArray;
+
         Class newClass = new Class(className, red, green, blue, classDifficulty);
         // Insert into data structure that we choose
+
       }
 
       Object assignmentsObject = jo.get("assignments");
@@ -118,9 +128,11 @@ public class WelcomeWindow {
         String dueTime = (String) jsonAssignment.get("dueTime");
         boolean completed = (boolean) jsonAssignment.get("completed");
 
+        assignmentsJsonArray = assignmentsJSONArray;
         // cannot create assignment until classes are stored in datatype
         // Assignment newAssignment = new Assignment(assignmentName, className, difficulty,
         // startDate, dueDate, dueTime, completed);
+
       }
 
     } catch (FileNotFoundException e) {
@@ -133,4 +145,25 @@ public class WelcomeWindow {
     }
   }
 
+  public static JSONArray getJsonClasses() {
+    return classesJsonArray;
+  }
+
+  public static JSONArray getJsonAssignments() {
+    return assignmentsJsonArray;
+  }
+
+  public static void clearSaveState() {
+    try {
+      FileWriter fw;
+      fw = new FileWriter("savestate.json", false);
+      PrintWriter pw = new PrintWriter(fw, false);
+      pw.flush();
+      pw.close();
+      fw.close();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
+  }
 }

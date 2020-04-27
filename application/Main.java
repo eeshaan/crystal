@@ -4,12 +4,15 @@
 package application;
 
 import java.time.LocalDate;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
-
+import org.json.simple.JSONArray;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -46,6 +49,9 @@ public class Main extends Application {
   private static final int WINDOW_HEIGHT = 880;
 
   private static VBox assignmentsPane;
+
+  private static JSONArray classesJsonArray = WelcomeWindow.getJsonClasses();
+  private static JSONArray assignmentsJsonArray = WelcomeWindow.getJsonAssignments();
 
   @Override
   public void start(Stage mainStage) throws Exception {
@@ -106,7 +112,7 @@ public class Main extends Application {
     HBox workHeaderHolder = new HBox();
     workHeaderHolder.setPadding(new Insets(17.5, 0, 0, 0));
     workHeaderHolder.getChildren().add(workHeader);
-    
+
     assignmentsPane.getChildren().add(workHeaderHolder);
 
     // task 3
@@ -284,12 +290,18 @@ public class Main extends Application {
         .add(getClass().getResource("/application/src/css/style.css").toExternalForm());
 
     WelcomeWindow.newWindow("Welcome to Crystal!");
+    
+    classesJsonArray = WelcomeWindow.getJsonClasses();
+    assignmentsJsonArray = WelcomeWindow.getJsonAssignments();
+
+    
     ClassManagerWindow.newWindow("Add your classes!");
 
     // Add the stuff and set the primary stage
     mainStage.setTitle(APP_TITLE);
     mainStage.setScene(mainScene);
     mainStage.show();
+    mainStage.setOnCloseRequest(e -> updateSaveState());
   }
 
   public static void createAssignmentBox(String name, String subject, String dueTime,
@@ -314,4 +326,31 @@ public class Main extends Application {
     launch(args);
   }
 
+  public static JSONArray getJsonClasses() {
+    return classesJsonArray;
+  }
+
+  public static JSONArray getJsonAssignmenst() {
+    return assignmentsJsonArray;
+  }
+
+  public static void setJsonClasses(JSONArray newJsonArray) {
+    classesJsonArray = newJsonArray;
+  }
+
+  public static void setJsonAssignmenst(JSONArray newJsonArray) {
+    assignmentsJsonArray = newJsonArray;
+  }
+
+  public static void updateSaveState() {
+    try (FileWriter file = new FileWriter("savestate.json")) {
+
+      file.write(classesJsonArray.toJSONString());
+      file.write(assignmentsJsonArray.toJSONString());
+      file.flush();
+
+    } catch (IOException e1) {
+      e1.printStackTrace();
+    }
+  }
 }
