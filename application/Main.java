@@ -82,7 +82,7 @@ public class Main extends Application {
     assignmentBox1.setOnMouseClicked(e -> {
       assigmentOptions(assignmentBox1);
     });
-    
+
     Text time1 = new Text("11:00 AM");
     time1.setId("time");
 
@@ -96,11 +96,11 @@ public class Main extends Application {
     HBox assignmentBox2 = new HBox();
     assignmentBox2.getStyleClass().add("assignmentBox");
     assignmentBox2.setId("ass_CS400");
-    
+
     assignmentBox2.setOnMouseClicked(e -> {
       assigmentOptions(assignmentBox2);
     });
-    
+
     Text time2 = new Text("11:59 PM");
     time2.setId("time");
 
@@ -114,7 +114,7 @@ public class Main extends Application {
     HBox workHeaderHolder = new HBox();
     workHeaderHolder.setPadding(new Insets(17.5, 0, 0, 0));
     workHeaderHolder.getChildren().add(workHeader);
-    
+
     assignmentsPane.getChildren().add(workHeaderHolder);
 
     // task 3
@@ -125,7 +125,7 @@ public class Main extends Application {
     assignmentBox3.setOnMouseClicked(e -> {
       assigmentOptions(assignmentBox3);
     });
-    
+
     Text time3 = new Text("Friday, April 17 at 11:59 PM");
     time3.setId("time");
 
@@ -138,7 +138,7 @@ public class Main extends Application {
     HBox assignmentBox4 = new HBox();
     assignmentBox4.getStyleClass().add("assignmentBox");
     assignmentBox4.setId("ass_PHILOS101");
-    
+
     assignmentBox4.setOnMouseClicked(e -> {
       assigmentOptions(assignmentBox4);
     });
@@ -155,10 +155,13 @@ public class Main extends Application {
 
     // Setting up regions for spacing
     // Horizontal region for spacing
-    Region hRegion = new Region();
-    hRegion.setPrefWidth(120);
-    HBox.setHgrow(hRegion, Priority.ALWAYS);
 
+    Region hRegionHeader = new Region();
+    hRegionHeader.setPrefWidth(120);
+    HBox.setHgrow(hRegionHeader, Priority.ALWAYS);
+
+    Region hRegionFooter = new Region();
+    HBox.setHgrow(hRegionFooter, Priority.ALWAYS);
 
     ///// Setting Children for leftPaneHeader /////
 
@@ -192,6 +195,14 @@ public class Main extends Application {
     windowBtn.setOnAction(e -> ClassManagerWindow.newWindow("Class Manager"));
 
 
+    // setting up exit button
+    Button exit = new Button("Exit Crystal.");
+    // exit.setAlignment(Pos.CENTER);
+    exit.setId("exit");
+    exit.setOnAction(e -> {
+      exitDialog();
+    });
+
     // setting up add button
     Image addImage = new Image("/application/src/img/add-icon.png", 56, 56, false, false);
     ImageView add = new ImageView();
@@ -202,16 +213,16 @@ public class Main extends Application {
     addBtn.setOnAction(e -> AddAssignmentWindow.newWindow("Add Assignment"));
 
     // setting up header HBox
-    HBox leftPaneHeader = new HBox(dateText, hRegion, wtdBtn, searchBtn, windowBtn);
+    HBox leftPaneHeader = new HBox(dateText, hRegionHeader, wtdBtn, searchBtn, windowBtn);
     leftPaneHeader.setPrefHeight(106);
     leftPaneHeader.setPadding(new Insets(40, 65, 40, 65));
     leftPaneHeader.setAlignment(Pos.CENTER);
     leftPaneHeader.setId("leftPaneHeader");
 
-    HBox leftPaneFooter = new HBox(addBtn);
+    HBox leftPaneFooter = new HBox(exit, hRegionFooter, addBtn);
     leftPaneFooter.setPrefSize(750, 106);
     leftPaneFooter.setPadding(new Insets(0, 65, 40, 65));
-    leftPaneFooter.setAlignment(Pos.TOP_RIGHT);
+    leftPaneFooter.setAlignment(Pos.BOTTOM_CENTER);
 
     leftPane.getChildren().addAll(leftPaneHeader, assignmentsPane, leftPaneFooter);
 
@@ -322,45 +333,98 @@ public class Main extends Application {
 
     assignmentsPane.getChildren().add(newAssignment);
   }
-  
+
   private static void assigmentOptions(HBox assignmentBox) {
     Text manage = new Text("Manage this assignment");
     manage.setId("h2");
-    
+
     HBox manageHolder = new HBox();
     manageHolder.setPadding(new Insets(0, 0, 17.5, 0));
     manageHolder.getChildren().add(manage);
-    
+
     Button completed = new Button("Mark as completed");
     completed.setId("bigButton");
-    
+
     Button delete = new Button("Delete this assignment");
     delete.setId("bigButton");
     delete.setStyle("-fx-background-color: red;");
-   
+
     HBox buttonOptions = new HBox();
     buttonOptions.setSpacing(10);
     buttonOptions.getChildren().addAll(completed, delete);
-    
+
     VBox assignmentOptions = new VBox();
     assignmentOptions.setPadding(new Insets(10, 10, 10, 10));
     assignmentOptions.getChildren().addAll(manageHolder, buttonOptions);
-    
+
     Scene dialogScene = new Scene(assignmentOptions, 500, 115);
-    dialogScene.getStylesheets().add(Main.class.getResource("/application/src/css/style.css").toExternalForm());
-    
+    dialogScene.getStylesheets()
+        .add(Main.class.getResource("/application/src/css/style.css").toExternalForm());
+
     Stage dialogStage = new Stage();
     dialogStage.setScene(dialogScene);
     dialogStage.show();
-    
+
     completed.setOnAction(e -> {
       assignmentBox.getStyleClass().add("completed");
       dialogStage.close();
     });
-    
+
     delete.setOnAction(e -> {
       assignmentsPane.getChildren().remove(assignmentBox);
       dialogStage.close();
+    });
+  }
+
+  private static void exitDialog() {
+    Text exitHeader = new Text("Exit Crystal");
+    exitHeader.setId("h2");
+
+    HBox exitHeaderHolder = new HBox();
+    exitHeaderHolder.setPadding(new Insets(0, 0, 17.5, 0));
+    exitHeaderHolder.getChildren().add(exitHeader);
+
+    Text whenText = new Text("When you close Crystal, your changes will automatically be added to ");
+    Text fileText = new Text("saved_state.json");
+    Text loadText = new Text("You can load this file back into Crystal next time you run the application.");
+    
+    fileText.setId("mono");
+    
+    FlowPane textHolder = new FlowPane();
+    textHolder.setPadding(new Insets(0, 0, 27.5, 0));
+    textHolder.setPrefWrapLength(500);
+    textHolder.getChildren().addAll(whenText, fileText, loadText);
+    
+    Button cancel = new Button("Cancel");
+    cancel.setId("bigButton");
+
+    Button close = new Button("Close Crystal");
+    close.setId("bigButton");
+    close.setStyle("-fx-background-color: red;");
+
+    HBox buttonOptions = new HBox();
+    buttonOptions.setAlignment(Pos.BOTTOM_LEFT);
+    buttonOptions.setSpacing(10);
+    buttonOptions.getChildren().addAll(cancel, close);
+
+    VBox exitOptions = new VBox();
+    exitOptions.setPadding(new Insets(10, 10, 10, 10));
+    exitOptions.getChildren().addAll(exitHeaderHolder, textHolder, buttonOptions);
+
+    Scene dialogScene = new Scene(exitOptions, 600, 200);
+    dialogScene.getStylesheets()
+        .add(Main.class.getResource("/application/src/css/style.css").toExternalForm());
+
+    Stage dialogStage = new Stage();
+    dialogStage.setScene(dialogScene);
+    dialogStage.show();
+    
+    cancel.setOnAction(e -> {
+      dialogStage.close();
+    });
+    
+    close.setOnAction(e -> {
+      System.exit(0);
     });
   }
 

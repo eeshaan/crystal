@@ -23,9 +23,18 @@
   src: url('/application/src/fonts/WorkSans-Bold.ttf');
 }
 
+@font-face {
+  font-family: "Roboto Mono";
+  src: url('/application/src/fonts/RobotoMono-Regular.ttf');
+}
+
 .root {
   -fx-background-color: #fff;
   -fx-font: 16px 'Work Sans';
+}
+
+#mono {
+  -fx-font-family: "Roboto Mono";
 }
 
 #h1 {
@@ -228,4 +237,10 @@ TODO: there is no -fx-margin property, but we can hack around this by adding equ
 
 .completed > * {
   -fx-strikethrough: true;
+}
+
+#exit {
+  -fx-background-color: #fff;
+  -fx-underline: true;
+  -fx-font-size: 12.5px;
 }
