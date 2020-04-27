@@ -50,8 +50,8 @@ public class Main extends Application {
 
   private static VBox assignmentsPane;
 
-  private static JSONArray classesJsonArray = WelcomeWindow.getJsonClasses();
-  private static JSONArray assignmentsJsonArray = WelcomeWindow.getJsonAssignments();
+  private static JSONArray classesJSONArray = WelcomeWindow.getJSONClasses();
+  private static JSONArray assignmentsJSONArray = WelcomeWindow.getJSONAssignments();
 
   @Override
   public void start(Stage mainStage) throws Exception {
@@ -291,8 +291,8 @@ public class Main extends Application {
 
     WelcomeWindow.newWindow("Welcome to Crystal!");
     
-    classesJsonArray = WelcomeWindow.getJsonClasses();
-    assignmentsJsonArray = WelcomeWindow.getJsonAssignments();
+    classesJSONArray = WelcomeWindow.getJSONClasses();
+    assignmentsJSONArray = WelcomeWindow.getJSONAssignments();
 
     
     ClassManagerWindow.newWindow("Add your classes!");
@@ -326,20 +326,20 @@ public class Main extends Application {
     launch(args);
   }
 
-  public static JSONArray getJsonClasses() {
-    return classesJsonArray;
+  public static JSONArray getJSONClasses() {
+    return classesJSONArray;
   }
 
-  public static JSONArray getJsonAssignmenst() {
-    return assignmentsJsonArray;
+  public static JSONArray getJSONAssignments() {
+    return assignmentsJSONArray;
   }
 
-  public static void setJsonClasses(JSONArray newJsonArray) {
-    classesJsonArray = newJsonArray;
+  public static void setJSONClasses(JSONArray newJSONArray) {
+    classesJSONArray = newJSONArray;
   }
 
-  public static void setJsonAssignmenst(JSONArray newJsonArray) {
-    assignmentsJsonArray = newJsonArray;
+  public static void setJSONAssignments(JSONArray newJSONArray) {
+    assignmentsJSONArray = newJSONArray;
   }
 
   public static void updateSaveState() {
@@ -347,9 +347,9 @@ public class Main extends Application {
 
       file.write("{");
       file.write("\"classes\": ");
-      file.write(classesJsonArray.toJSONString());
+      file.write(classesJSONArray.toJSONString());
       file.write(", \"assignments\": ");
-      file.write(assignmentsJsonArray.toJSONString());
+      file.write(assignmentsJSONArray.toJSONString());
       file.write("}");
       file.flush();
 

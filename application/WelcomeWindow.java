@@ -27,8 +27,8 @@ public class WelcomeWindow {
   private static final int WINDOW_WIDTH = 680;
   private static final int WINDOW_HEIGHT = 200;
 
-  private static JSONArray classesJsonArray = new JSONArray();
-  private static JSONArray assignmentsJsonArray = new JSONArray();
+  private static JSONArray classesJSONArray = new JSONArray();
+  private static JSONArray assignmentsJSONArray = new JSONArray();
 
 
   public static void newWindow(String title) {
@@ -61,7 +61,7 @@ public class WelcomeWindow {
 
     load.setOnAction(e -> {
       File selectedFile = fileChooser.showOpenDialog(window);
-      parseJson(selectedFile);
+      parseJSON(selectedFile);
     });
 
 
@@ -89,17 +89,17 @@ public class WelcomeWindow {
     window.showAndWait();
   }
 
-  public static void parseJson(File f) {
+  public static void parseJSON(File f) {
     JSONParser jsonParser = new JSONParser();
     try {
       FileReader jsonFileReader = new FileReader(f.getName());
       Object obj = jsonParser.parse(jsonFileReader);
       JSONObject jo = (JSONObject) obj;
       Object classesObject = jo.get("classes");
-      JSONArray classesJSONArray = (JSONArray) classesObject;
+      JSONArray classesJSONArrayToSet = (JSONArray) classesObject;
 
-      for (int c = 0; c < classesJSONArray.size(); c++) {
-        JSONObject jsonClass = (JSONObject) classesJSONArray.get(c);
+      for (int c = 0; c < classesJSONArrayToSet.size(); c++) {
+        JSONObject jsonClass = (JSONObject) classesJSONArrayToSet.get(c);
         String className = (String) jsonClass.get("className");
         JSONObject classColor = (JSONObject) jsonClass.get("classColor");
 
@@ -108,7 +108,7 @@ public class WelcomeWindow {
         int blue = Integer.parseInt((String) classColor.get("b"));
         int classDifficulty = Integer.parseInt((String) jsonClass.get("difficulty"));
 
-        classesJsonArray = classesJSONArray;
+        classesJSONArray = classesJSONArrayToSet;
 
         Class newClass = new Class(className, red, green, blue, classDifficulty);
         // Insert into data structure that we choose
@@ -116,10 +116,10 @@ public class WelcomeWindow {
       }
 
       Object assignmentsObject = jo.get("assignments");
-      JSONArray assignmentsJSONArray = (JSONArray) assignmentsObject;
+      JSONArray assignmentsJSONArrayToSet = (JSONArray) assignmentsObject;
 
-      for (int a = 0; a < assignmentsJSONArray.size(); a++) {
-        JSONObject jsonAssignment = (JSONObject) assignmentsJSONArray.get(a);
+      for (int a = 0; a < assignmentsJSONArrayToSet.size(); a++) {
+        JSONObject jsonAssignment = (JSONObject) assignmentsJSONArrayToSet.get(a);
         String assignmentName = (String) jsonAssignment.get("assignmentName");
         String className = (String) jsonAssignment.get("class");
         int difficulty = Integer.parseInt((String) jsonAssignment.get("difficulty"));
@@ -128,7 +128,7 @@ public class WelcomeWindow {
         String dueTime = (String) jsonAssignment.get("dueTime");
         boolean completed = (boolean) jsonAssignment.get("completed");
 
-        assignmentsJsonArray = assignmentsJSONArray;
+        assignmentsJSONArray = assignmentsJSONArrayToSet;
         // cannot create assignment until classes are stored in datatype
         // Assignment newAssignment = new Assignment(assignmentName, className, difficulty,
         // startDate, dueDate, dueTime, completed);
@@ -145,12 +145,12 @@ public class WelcomeWindow {
     }
   }
 
-  public static JSONArray getJsonClasses() {
-    return classesJsonArray;
+  public static JSONArray getJSONClasses() {
+    return classesJSONArray;
   }
 
-  public static JSONArray getJsonAssignments() {
-    return assignmentsJsonArray;
+  public static JSONArray getJSONAssignments() {
+    return assignmentsJSONArray;
   }
 
   public static void clearSaveState() {

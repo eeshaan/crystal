@@ -60,7 +60,7 @@ public class AddAssignmentWindow {
     finished.setOnAction(e -> {
       AddAssignmentWindow.addAssignment(nameField, subField, timeField, dateField);
 
-      JSONArray assignmentsJSONArray = Main.getJsonAssignmenst();
+      JSONArray assignmentsJSONArray = Main.getJSONAssignments();
 
       JSONObject newAssignment = new JSONObject();
       newAssignment.put("assignmentName", nameField.getText());
@@ -72,7 +72,7 @@ public class AddAssignmentWindow {
       newAssignment.put("completed", false);
 
       assignmentsJSONArray.add(newAssignment);
-      Main.setJsonAssignmenst(assignmentsJSONArray);
+      Main.setJSONAssignments(assignmentsJSONArray);
 
       
 
