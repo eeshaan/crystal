@@ -4,11 +4,11 @@ public interface LinkedListADT<T> {
 	
 	public void insert(T data);
 	
-	public T remove();
+	public T remove(String name);
 	
-	public T get();
+	public T get(String name);
 	
-	public boolean contains(T data);
+	public boolean contains(String name);
 	
-	public boolean size();
+	public int size();
 }
