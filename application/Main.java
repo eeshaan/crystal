@@ -343,7 +343,7 @@ public class Main extends Application {
   }
 
   public static void updateSaveState() {
-    try (FileWriter file = new FileWriter("savestate.json")) {
+    try (FileWriter file = new FileWriter("saved_state.json")) {
 
       file.write("{");
       file.write("\"classes\": ");

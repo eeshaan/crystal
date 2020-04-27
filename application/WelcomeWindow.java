@@ -156,7 +156,7 @@ public class WelcomeWindow {
   public static void clearSaveState() {
     try {
       FileWriter fw;
-      fw = new FileWriter("savestate.json", false);
+      fw = new FileWriter("saved_state.json", false);
       PrintWriter pw = new PrintWriter(fw, false);
       pw.flush();
       pw.close();
