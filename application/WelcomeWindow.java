@@ -121,13 +121,15 @@ public class WelcomeWindow {
       Object assignmentsObject = jo.get("assignments");
       JSONArray assignmentsJSONArrayToSet = (JSONArray) assignmentsObject;
 
+      HashTable<Date, LinkedList> assignmentsByDate = Main.getAssignmentsByDate();
+      HashTable<String, Assignment> assignments = Main.getAssignments();
       for (int a = 0; a < assignmentsJSONArrayToSet.size(); a++) {
         JSONObject jsonAssignment = (JSONObject) assignmentsJSONArrayToSet.get(a);
         String assignmentName = (String) jsonAssignment.get("assignmentName");
         String className = (String) jsonAssignment.get("class");
         int difficulty = Integer.parseInt((String) jsonAssignment.get("difficulty"));
         
-        SimpleDateFormat sdformat = new SimpleDateFormat("MM-dd-yyyy");
+        SimpleDateFormat sdformat = new SimpleDateFormat("MMMMM dd, yyyy");
         Date startDate = null;
         Date dueDate = null;
 		try {
@@ -144,6 +146,7 @@ public class WelcomeWindow {
         assignmentsJSONArray = assignmentsJSONArrayToSet;
         // cannot create assignment until classes are stored in datatype
         Assignment newAssignment = new Assignment(assignmentName, classes.get(className), difficulty, startDate, dueDate, dueTime, completed);
+        assignments.insert(assignmentName, newAssignment);
       }
 
     } catch (FileNotFoundException e) {

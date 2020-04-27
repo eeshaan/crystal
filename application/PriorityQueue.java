@@ -54,6 +54,22 @@ public class PriorityQueue implements PriorityQueueADT<Assignment> {
 	                             // priority heap
 	    return temp;
 	  }
+	  
+	  public Assignment remove(String name) {
+		  int i;
+		  for(i = 0; i < data.length; i++) {
+			  if(data[i].getAssignmentName().equals(name)) {
+				  break;
+			  }
+		  }
+		  
+		  Assignment temp = data[i];
+		  data[i] = data[size];
+		  data[size] = null;
+		  maxHeapPercolateDown(i); // Sorts order of elements to ensure that it is organized like a min
+		                             // priority heap
+		  return temp;
+	  }
 
 	  @Override
 	  public Assignment peekBest() {

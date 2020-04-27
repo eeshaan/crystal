@@ -57,12 +57,23 @@ public class Main extends Application {
   private static HashTable<String, Class> classes;
   private static HashTable<Date, LinkedList> assignmentsByDate;
   private static HashTable<String, Assignment> assignments;
+  private static PriorityQueue whatToDoNow;
   
   public static HashTable<String, Class> getClasses() {
 	  return classes;
   }
   
+  public static HashTable<Date, LinkedList> getAssignmentsByDate() {
+	  return assignmentsByDate;
+  }
   
+  public static HashTable<String, Assignment> getAssignments() {
+	  return assignments;
+  }
+  
+  public static PriorityQueue getWhatToDoNow() {
+	  return whatToDoNow;
+  }
   
   @Override
   public void start(Stage mainStage) throws Exception {
