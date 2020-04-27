@@ -46,7 +46,7 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
   private static final String APP_TITLE = "Crystal";
-  private static final int WINDOW_WIDTH = 1144; // divide Figma by 2.039335664
+  private static final int WINDOW_WIDTH = 1180; // divide Figma by 2.039335664
   private static final int WINDOW_HEIGHT = 880;
 
   private static VBox assignmentsPane;
@@ -270,7 +270,7 @@ public class Main extends Application {
 
     HBox leftPaneFooter = new HBox(exit, hRegionFooter, addBtn);
     leftPaneFooter.setPrefSize(750, 106);
-    leftPaneFooter.setPadding(new Insets(0, 65, 40, 65));
+    leftPaneFooter.setPadding(new Insets(0, 40, 40, 65));
     leftPaneFooter.setAlignment(Pos.BOTTOM_CENTER);
 
     leftPane.getChildren().addAll(leftPaneHeader, assignmentsPane, leftPaneFooter);
