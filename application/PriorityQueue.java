@@ -130,7 +130,7 @@ public class PriorityQueue implements PriorityQueueADT<Assignment> {
 	  public String toString() {
 	    String res = "";
 	    for (int i = 0; i < size; i++)
-	      res += data[i].toString() + " ";
+	      res += data[i].getAssignmentName() + " ";
 
 	    return size == 0 ? " " : res;
 	  }

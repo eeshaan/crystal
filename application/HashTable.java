@@ -62,6 +62,18 @@ public class HashTable<K, V> implements HashTableADT<K, V> {
 			this.value = value;
 		}
 	}
+	
+	@Override
+	public String toString() {
+		String res = "";
+		
+		for(LinkedNode node : data) {
+			while(node != null) {
+				res += node.key + " ";
+			}
+		}
+		return res;
+	}
 
 	/**
 	 * No argument constructor for HashTable object. Sets capacity to 11,

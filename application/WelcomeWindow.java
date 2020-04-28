@@ -139,22 +139,23 @@ public class WelcomeWindow {
 				boolean completed = (boolean) jsonAssignment.get("completed");
 
 				assignmentsJSONArray = assignmentsJSONArrayToSet;
-				// cannot create assignment until classes are stored in datatype
+				
 				Assignment newAssignment = new Assignment(assignmentName, classes.get(className), difficulty, startDate,
 						dueDate, dueTime, completed);
 				assignments.insert(assignmentName, newAssignment);
 				whatToDoNow.insert(newAssignment);
 
-				if (assignmentsByDate.get(dueDate) != null) {
-					LinkedList list = new LinkedList();
-					list.insert(newAssignment);
-					assignmentsByDate.insert(dueDate, list);
-				} else {
-					assignmentsByDate.get(dueDate).insert(newAssignment);
-				}
+				LinkedList list;
+				if (assignmentsByDate.get(dueDate) == null)
+					list = new LinkedList();
+				else
+					list = assignmentsByDate.get(dueDate);
+
+				list.insert(newAssignment);
+				assignmentsByDate.insert(dueDate, list);
 
 			}
-			
+
 			Main.setAssignments(assignments);
 			Main.setAssignmentsByDate(assignmentsByDate);
 			Main.setWhatToDoNow(whatToDoNow);
@@ -168,10 +169,6 @@ public class WelcomeWindow {
 			e.printStackTrace();
 		} catch (NullPointerException e) {
 		}
-//		HashTable<Date, LinkedList> assignmentsByDate = Main.getAssignmentsByDate();
-//		HashTable<String, Assignment> assignments = Main.getAssignments();
-//		PriorityQueue whatToDoNow = Main.getWhatToDoNow();
-//		HashTable<String, Class> classes = Main.getClasses();
 	}
 
 	public static JSONArray getJSONClasses() {
