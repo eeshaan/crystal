@@ -69,27 +69,27 @@ public class AddAssignmentWindow {
     Button submit = new Button("Submit");
     submit.setId("bigButton");
     submit.setOnAction(e -> {
-      AddAssignmentWindow.addAssignment(nameField.getText(),
-        classField.getValue().toString(), timeField.getText(), dateField.getValue().toString());
+      AddAssignmentWindow.addAssignment(nameField.getText(), classField.getValue().toString(),
+          timeField.getText(), dateField.getValue().toString());
 
-     
-        JSONArray assignmentsJSONArray = Main.getJSONAssignments();
 
-        JSONObject newAssignment = new JSONObject();
-        newAssignment.put("assignmentName", nameField.getText());
-        newAssignment.put("class", classField.getValue().toString());
-        // newAssignment.put("difficulty", "1");
-        // newAssignment.put("startDate", "");
-        newAssignment.put("dueDate", dateField.getValue().toString());
-        newAssignment.put("dueTime", timeField.getText());
-        newAssignment.put("completed", false);
-  
-        assignmentsJSONArray.add(newAssignment);
-        Main.setJSONAssignments(assignmentsJSONArray);
-  
-        
-  
-        // also add assignment to the data structures that we choose   
+      JSONArray assignmentsJSONArray = Main.getJSONAssignments();
+
+      JSONObject newAssignment = new JSONObject();
+      newAssignment.put("assignmentName", nameField.getText());
+      newAssignment.put("class", classField.getValue().toString());
+      // newAssignment.put("difficulty", "1");
+      // newAssignment.put("startDate", "");
+      newAssignment.put("dueDate", dateField.getValue().toString());
+      newAssignment.put("dueTime", timeField.getText());
+      newAssignment.put("completed", false);
+
+      assignmentsJSONArray.add(newAssignment);
+      Main.setJSONAssignments(assignmentsJSONArray);
+
+
+
+      // also add assignment to the data structures that we choose
     });
 
     HBox submitHolder = new HBox();
@@ -99,7 +99,7 @@ public class AddAssignmentWindow {
 
     Scene vScene = new Scene(textInput, 500, 500);
     vScene.getStylesheets()
-    .add(Main.class.getResource("/application/src/css/style.css").toExternalForm()); // link CSS
+        .add(Main.class.getResource("/application/src/css/style.css").toExternalForm()); // link CSS
 
     window.setScene(vScene);
     window.show();
