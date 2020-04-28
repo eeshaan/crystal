@@ -1,37 +1,37 @@
 package application;
 
 public class Class {
-	private String className;
-	private int[] classColor;
-	private int difficulty;
-	
-	public Class(String className, int r, int g, int b, int difficulty) {
-		this.className =className;
-		classColor = new int[]{r, g, b};
-		this.difficulty = difficulty;
-	}
+  private String className;
+  private int[] classColor;
+  private int difficulty;
 
-	public int[] getClassColor() {
-		return classColor;
-	}
+  public Class(String className, int r, int g, int b, int difficulty) {
+    this.className = className;
+    classColor = new int[] {r, g, b};
+    this.difficulty = difficulty;
+  }
 
-	public void setClassColor(int[] classColor) {
-		this.classColor = classColor;
-	}
+  public int[] getClassColor() {
+    return classColor;
+  }
 
-	public String getClassName() {
-		return className;
-	}
+  public void setClassColor(int[] classColor) {
+    this.classColor = classColor;
+  }
 
-	public void setClassName(String className) {
-		this.className = className;
-	}
+  public String getClassName() {
+    return className;
+  }
 
-	public int getDifficulty() {
-		return difficulty;
-	}
+  public void setClassName(String className) {
+    this.className = className;
+  }
 
-	public void setDifficulty(int difficulty) {
-		this.difficulty = difficulty;
-	}
+  public int getDifficulty() {
+    return difficulty;
+  }
+
+  public void setDifficulty(int difficulty) {
+    this.difficulty = difficulty;
+  }
 }

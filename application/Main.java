@@ -58,47 +58,47 @@ public class Main extends Application {
   private static HashTable<Date, LinkedList> assignmentsByDate;
   private static HashTable<String, Assignment> assignments;
   private static PriorityQueue whatToDoNow;
-  
+
   public static HashTable<String, Class> getClasses() {
-	  return classes;
+    return classes;
   }
-  
+
   public static void setClasses(HashTable<String, Class> classes) {
-	  Main.classes = classes;
+    Main.classes = classes;
   }
-  
+
   public static HashTable<Date, LinkedList> getAssignmentsByDate() {
-	  return assignmentsByDate;
+    return assignmentsByDate;
   }
-  
+
   public static void setAssignmentsByDate(HashTable<Date, LinkedList> assignmentsByDate) {
-	  Main.assignmentsByDate = assignmentsByDate;
+    Main.assignmentsByDate = assignmentsByDate;
   }
-  
+
   public static HashTable<String, Assignment> getAssignments() {
-	  return assignments;
+    return assignments;
   }
-  
+
   public static void setAssignments(HashTable<String, Assignment> assignments) {
-	  Main.assignments = assignments;
+    Main.assignments = assignments;
   }
-  
+
   public static PriorityQueue getWhatToDoNow() {
-	  return whatToDoNow;
+    return whatToDoNow;
   }
-  
+
   public static void setWhatToDoNow(PriorityQueue whatToDoNow) {
-	  Main.whatToDoNow = whatToDoNow;
+    Main.whatToDoNow = whatToDoNow;
   }
-  
+
   @Override
   public void start(Stage mainStage) throws Exception {
-	  
-	classes = new HashTable<>();  
-	assignmentsByDate = new HashTable<>();
-	assignments = new HashTable<>();
-	whatToDoNow = new PriorityQueue();
-	  
+
+    classes = new HashTable<>();
+    assignmentsByDate = new HashTable<>();
+    assignments = new HashTable<>();
+    whatToDoNow = new PriorityQueue();
+
     // Main layout is Border Pane example (top,left,center,right,bottom)
     BorderPane root = new BorderPane();
     root.setPadding(new Insets(0, 0, 0, 0));
@@ -305,7 +305,7 @@ public class Main extends Application {
     popupContent.setLayoutY(-13);
 
     calendarView.getChildren().add(popupContent);
-    
+
     dp.setOnAction(e -> {
       LocalDate date = dp.getValue();
       if (date.getDayOfYear() == date.now().getDayOfYear()
@@ -361,11 +361,11 @@ public class Main extends Application {
         .add(getClass().getResource("/application/src/css/style.css").toExternalForm());
 
     WelcomeWindow.newWindow("Welcome to Crystal!");
-    
+
     classesJSONArray = WelcomeWindow.getJSONClasses();
     assignmentsJSONArray = WelcomeWindow.getJSONAssignments();
 
-    
+
     ClassManagerWindow.newWindow("Add your classes!");
 
     // Add the stuff and set the primary stage
@@ -394,9 +394,8 @@ public class Main extends Application {
     Text manage = new Text("Manage this assignment");
     manage.setId("h2");
 
-    HBox manageHolder = new HBox();
+    HBox manageHolder = new HBox(manage);
     manageHolder.setPadding(new Insets(0, 0, 17.5, 0));
-    manageHolder.getChildren().add(manage);
 
     Button completed = new Button("Mark as completed");
     completed.setId("bigButton");
@@ -405,13 +404,11 @@ public class Main extends Application {
     delete.setId("bigButton");
     delete.setStyle("-fx-background-color: red;");
 
-    HBox buttonOptions = new HBox();
+    HBox buttonOptions = new HBox(completed, delete);
     buttonOptions.setSpacing(10);
-    buttonOptions.getChildren().addAll(completed, delete);
 
-    VBox assignmentOptions = new VBox();
+    VBox assignmentOptions = new VBox(manageHolder, buttonOptions);
     assignmentOptions.setPadding(new Insets(10, 10, 10, 10));
-    assignmentOptions.getChildren().addAll(manageHolder, buttonOptions);
 
     Scene dialogScene = new Scene(assignmentOptions, 500, 115);
     dialogScene.getStylesheets()
@@ -436,21 +433,21 @@ public class Main extends Application {
     Text exitHeader = new Text("Exit Crystal");
     exitHeader.setId("h2");
 
-    HBox exitHeaderHolder = new HBox();
+    HBox exitHeaderHolder = new HBox(exitHeader);
     exitHeaderHolder.setPadding(new Insets(0, 0, 17.5, 0));
-    exitHeaderHolder.getChildren().add(exitHeader);
 
-    Text whenText = new Text("When you close Crystal, your changes will automatically be added to ");
+    Text whenText =
+        new Text("When you close Crystal, your changes will automatically be added to ");
     Text fileText = new Text("saved_state.json");
-    Text loadText = new Text("You can load this file back into Crystal next time you run the application.");
-    
+    Text loadText =
+        new Text("You can load this file back into Crystal next time you run the application.");
+
     fileText.setId("mono");
-    
-    FlowPane textHolder = new FlowPane();
+
+    FlowPane textHolder = new FlowPane(whenText, fileText, loadText);
     textHolder.setPadding(new Insets(0, 0, 27.5, 0));
     textHolder.setPrefWrapLength(500);
-    textHolder.getChildren().addAll(whenText, fileText, loadText);
-    
+
     Button cancel = new Button("Cancel");
     cancel.setId("bigButton");
 
@@ -458,14 +455,12 @@ public class Main extends Application {
     close.setId("bigButton");
     close.setStyle("-fx-background-color: red;");
 
-    HBox buttonOptions = new HBox();
+    HBox buttonOptions = new HBox(cancel, close);
     buttonOptions.setAlignment(Pos.BOTTOM_LEFT);
     buttonOptions.setSpacing(10);
-    buttonOptions.getChildren().addAll(cancel, close);
 
-    VBox exitOptions = new VBox();
+    VBox exitOptions = new VBox(exitHeaderHolder, textHolder, buttonOptions);
     exitOptions.setPadding(new Insets(10, 10, 10, 10));
-    exitOptions.getChildren().addAll(exitHeaderHolder, textHolder, buttonOptions);
 
     Scene dialogScene = new Scene(exitOptions, 600, 200);
     dialogScene.getStylesheets()
@@ -474,11 +469,11 @@ public class Main extends Application {
     Stage dialogStage = new Stage();
     dialogStage.setScene(dialogScene);
     dialogStage.show();
-    
+
     cancel.setOnAction(e -> {
       dialogStage.close();
     });
-    
+
     close.setOnAction(e -> {
       updateSaveState();
       System.exit(0);

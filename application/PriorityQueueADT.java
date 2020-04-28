@@ -1,14 +1,14 @@
 package application;
 
 public interface PriorityQueueADT<T> {
-	
-	  public void insert(T newObject);
 
-	  public T removeBest();
-	  
-	  public T peekBest();
+  public void insert(T newObject);
 
-	  public int size();
+  public T removeBest();
 
-	  public boolean isEmpty();
+  public T peekBest();
+
+  public int size();
+
+  public boolean isEmpty();
 }
