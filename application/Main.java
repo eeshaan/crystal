@@ -63,20 +63,42 @@ public class Main extends Application {
 	  return classes;
   }
   
+  public static void setClasses(HashTable<String, Class> classes) {
+	  Main.classes = classes;
+  }
+  
   public static HashTable<Date, LinkedList> getAssignmentsByDate() {
 	  return assignmentsByDate;
+  }
+  
+  public static void setAssignmentsByDate(HashTable<Date, LinkedList> assignmentsByDate) {
+	  Main.assignmentsByDate = assignmentsByDate;
   }
   
   public static HashTable<String, Assignment> getAssignments() {
 	  return assignments;
   }
   
+  public static void setAssignments(HashTable<String, Assignment> assignments) {
+	  Main.assignments = assignments;
+  }
+  
   public static PriorityQueue getWhatToDoNow() {
 	  return whatToDoNow;
   }
   
+  public static void setWhatToDoNow(PriorityQueue whatToDoNow) {
+	  Main.whatToDoNow = whatToDoNow;
+  }
+  
   @Override
   public void start(Stage mainStage) throws Exception {
+	  
+	classes = new HashTable<>();  
+	assignmentsByDate = new HashTable<>();
+	assignments = new HashTable<>();
+	whatToDoNow = new PriorityQueue();
+	  
     // Main layout is Border Pane example (top,left,center,right,bottom)
     BorderPane root = new BorderPane();
     root.setPadding(new Insets(0, 0, 0, 0));
