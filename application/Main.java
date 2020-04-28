@@ -394,9 +394,8 @@ public class Main extends Application {
     Text manage = new Text("Manage this assignment");
     manage.setId("h2");
 
-    HBox manageHolder = new HBox();
+    HBox manageHolder = new HBox(manage);
     manageHolder.setPadding(new Insets(0, 0, 17.5, 0));
-    manageHolder.getChildren().add(manage);
 
     Button completed = new Button("Mark as completed");
     completed.setId("bigButton");
@@ -405,13 +404,11 @@ public class Main extends Application {
     delete.setId("bigButton");
     delete.setStyle("-fx-background-color: red;");
 
-    HBox buttonOptions = new HBox();
+    HBox buttonOptions = new HBox(completed, delete);
     buttonOptions.setSpacing(10);
-    buttonOptions.getChildren().addAll(completed, delete);
 
-    VBox assignmentOptions = new VBox();
+    VBox assignmentOptions = new VBox(manageHolder, buttonOptions);
     assignmentOptions.setPadding(new Insets(10, 10, 10, 10));
-    assignmentOptions.getChildren().addAll(manageHolder, buttonOptions);
 
     Scene dialogScene = new Scene(assignmentOptions, 500, 115);
     dialogScene.getStylesheets()
@@ -436,9 +433,8 @@ public class Main extends Application {
     Text exitHeader = new Text("Exit Crystal");
     exitHeader.setId("h2");
 
-    HBox exitHeaderHolder = new HBox();
+    HBox exitHeaderHolder = new HBox(exitHeader);
     exitHeaderHolder.setPadding(new Insets(0, 0, 17.5, 0));
-    exitHeaderHolder.getChildren().add(exitHeader);
 
     Text whenText =
         new Text("When you close Crystal, your changes will automatically be added to ");
@@ -448,10 +444,9 @@ public class Main extends Application {
 
     fileText.setId("mono");
 
-    FlowPane textHolder = new FlowPane();
+    FlowPane textHolder = new FlowPane(whenText, fileText, loadText);
     textHolder.setPadding(new Insets(0, 0, 27.5, 0));
     textHolder.setPrefWrapLength(500);
-    textHolder.getChildren().addAll(whenText, fileText, loadText);
 
     Button cancel = new Button("Cancel");
     cancel.setId("bigButton");
@@ -460,14 +455,12 @@ public class Main extends Application {
     close.setId("bigButton");
     close.setStyle("-fx-background-color: red;");
 
-    HBox buttonOptions = new HBox();
+    HBox buttonOptions = new HBox(cancel, close);
     buttonOptions.setAlignment(Pos.BOTTOM_LEFT);
     buttonOptions.setSpacing(10);
-    buttonOptions.getChildren().addAll(cancel, close);
 
-    VBox exitOptions = new VBox();
+    VBox exitOptions = new VBox(exitHeaderHolder, textHolder, buttonOptions);
     exitOptions.setPadding(new Insets(10, 10, 10, 10));
-    exitOptions.getChildren().addAll(exitHeaderHolder, textHolder, buttonOptions);
 
     Scene dialogScene = new Scene(exitOptions, 600, 200);
     dialogScene.getStylesheets()
