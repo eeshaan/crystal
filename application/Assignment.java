@@ -22,7 +22,8 @@ public class Assignment implements Comparable<Assignment> {
 		this.dueDate = dueDate;
 		this.dueTime = dueTime;
 		this.completed = completed;
-		priority = difficulty * className.getDifficulty();
+		
+		priority = difficulty * className.getDifficulty() * dueDate.compareTo(startDate);
 	}
 
 	public String getAssignmentName() {
@@ -84,5 +85,10 @@ public class Assignment implements Comparable<Assignment> {
 	@Override
 	public int compareTo(Assignment o) {
 		return this.priority - o.priority;
+	}
+	
+	@Override
+	public String toString() {
+		return this.assignmentName;
 	}
 }
