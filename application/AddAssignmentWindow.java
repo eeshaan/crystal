@@ -5,6 +5,9 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -15,6 +18,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -22,6 +27,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.converter.LocalTimeStringConverter;
 
 public class AddAssignmentWindow {
 
@@ -49,18 +55,43 @@ public class AddAssignmentWindow {
     HBox subBox = new HBox();
 
     Label assignmentTime = new Label("Due Time:");
-    TextField timeField = new TextField();
+    Spinner<LocalTime> spinner = new Spinner<>();
+    SpinnerValueFactory<LocalTime> timeField = new SpinnerValueFactory<LocalTime>() {
+    	{
+    	setConverter(new LocalTimeStringConverter(DateTimeFormatter.ofPattern("hh:mm a"),null));
+    	}
+    	@Override
+    	public void decrement(int steps) {
+    		if (getValue() == null) {
+    			setValue(LocalTime.now());
+    		} else {
+    			LocalTime value = (LocalTime) getValue();
+    			setValue(value.minusMinutes(steps));
+    		}	
+    	}
+    	@Override
+    	public void increment(int steps) {
+    		if (getValue() == null) {
+    			setValue(LocalTime.now());
+    		} else {
+    			LocalTime value = (LocalTime) getValue();
+    			setValue(value.plusMinutes(steps));
+    		}
+    	}
+    };
+    spinner.setValueFactory(timeField);
+    spinner.setEditable(true);
     HBox timeBox = new HBox();
+    timeBox.getChildren().add(spinner);
 
     Label assignmentDate = new Label("Due Date:");
     DatePicker dateField = new DatePicker();
-    HBox dateBox = new HBox();
 
     Button submit = new Button("Submit");
     submit.setId("bigButton");
     submit.setOnAction(e -> {
-      AddAssignmentWindow.addAssignment(nameField.getText(), classField.getValue().toString(),
-          timeField.getText(), dateField.getValue().toString());
+      AddAssignmentWindow.addAssignment(nameField.getText(), title,
+          timeField.getValue().toString(), dateField.getValue().toString());
 
 
       JSONArray assignmentsJSONArray = Main.getJSONAssignments();
@@ -71,7 +102,7 @@ public class AddAssignmentWindow {
       // newAssignment.put("difficulty", "1");
       // newAssignment.put("startDate", "");
       newAssignment.put("dueDate", dateField.getValue().toString());
-      newAssignment.put("dueTime", timeField.getText());
+      newAssignment.put("dueTime", timeField.getValue().toString());
       newAssignment.put("completed", false);
 
       assignmentsJSONArray.add(newAssignment);
@@ -86,7 +117,7 @@ public class AddAssignmentWindow {
     submitHolder.setPadding(new Insets(20, 0, 0, 0));
 
     VBox formBox = new VBox(titleText, assignmentName, nameField, assignmentClass, classField,
-        assignmentTime, timeField, assignmentDate, dateField, submitHolder);
+        assignmentTime, timeBox, assignmentDate, dateField, submitHolder);
     formBox.setPadding(new Insets(20, 20, 20, 20));
     formBox.setSpacing(5);
 
