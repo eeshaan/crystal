@@ -1,23 +1,28 @@
 package application;
 
-public class Assignment {
-	
+import java.util.Date;
+
+public class Assignment implements Comparable<Assignment> {
+
 	private String assignmentName;
 	private Class className;
 	private int difficulty;
-	private String startDate;
-	private String dueDate;
+	private Date startDate;
+	private Date dueDate;
 	private String dueTime;
 	private boolean completed;
-	
-	public Assignment(String assignmentName, Class className, int difficulty, String startDate, String dueDate, String dueTime) {
+	private int priority;
+
+	public Assignment(String assignmentName, Class className, int difficulty, Date startDate, Date dueDate,
+			String dueTime, boolean completed) {
 		this.assignmentName = assignmentName;
 		this.className = className;
 		this.difficulty = difficulty;
 		this.startDate = startDate;
 		this.dueDate = dueDate;
 		this.dueTime = dueTime;
-		completed = false;
+		this.completed = completed;
+		priority = difficulty * className.getDifficulty();
 	}
 
 	public String getAssignmentName() {
@@ -44,19 +49,19 @@ public class Assignment {
 		this.difficulty = difficulty;
 	}
 
-	public String getStartDate() {
+	public Date getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(String startDate) {
+	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
 	}
 
-	public String getDueDate() {
+	public Date getDueDate() {
 		return dueDate;
 	}
 
-	public void setDueDate(String dueDate) {
+	public void setDueDate(Date dueDate) {
 		this.dueDate = dueDate;
 	}
 
@@ -74,5 +79,10 @@ public class Assignment {
 
 	public void setCompleted(boolean completed) {
 		this.completed = completed;
+	}
+
+	@Override
+	public int compareTo(Assignment o) {
+		return this.priority - o.priority;
 	}
 }

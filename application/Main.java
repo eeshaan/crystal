@@ -4,12 +4,16 @@
 package application;
 
 import java.time.LocalDate;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-
+import org.json.simple.JSONArray;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -47,8 +51,54 @@ public class Main extends Application {
 
   private static VBox assignmentsPane;
 
+  private static JSONArray classesJSONArray = WelcomeWindow.getJSONClasses();
+  private static JSONArray assignmentsJSONArray = WelcomeWindow.getJSONAssignments();
+
+  private static HashTable<String, Class> classes;
+  private static HashTable<Date, LinkedList> assignmentsByDate;
+  private static HashTable<String, Assignment> assignments;
+  private static PriorityQueue whatToDoNow;
+  
+  public static HashTable<String, Class> getClasses() {
+	  return classes;
+  }
+  
+  public static void setClasses(HashTable<String, Class> classes) {
+	  Main.classes = classes;
+  }
+  
+  public static HashTable<Date, LinkedList> getAssignmentsByDate() {
+	  return assignmentsByDate;
+  }
+  
+  public static void setAssignmentsByDate(HashTable<Date, LinkedList> assignmentsByDate) {
+	  Main.assignmentsByDate = assignmentsByDate;
+  }
+  
+  public static HashTable<String, Assignment> getAssignments() {
+	  return assignments;
+  }
+  
+  public static void setAssignments(HashTable<String, Assignment> assignments) {
+	  Main.assignments = assignments;
+  }
+  
+  public static PriorityQueue getWhatToDoNow() {
+	  return whatToDoNow;
+  }
+  
+  public static void setWhatToDoNow(PriorityQueue whatToDoNow) {
+	  Main.whatToDoNow = whatToDoNow;
+  }
+  
   @Override
   public void start(Stage mainStage) throws Exception {
+	  
+	classes = new HashTable<>();  
+	assignmentsByDate = new HashTable<>();
+	assignments = new HashTable<>();
+	whatToDoNow = new PriorityQueue();
+	  
     // Main layout is Border Pane example (top,left,center,right,bottom)
     BorderPane root = new BorderPane();
     root.setPadding(new Insets(0, 0, 0, 0));
@@ -255,7 +305,7 @@ public class Main extends Application {
     popupContent.setLayoutY(-13);
 
     calendarView.getChildren().add(popupContent);
-
+    
     dp.setOnAction(e -> {
       LocalDate date = dp.getValue();
       if (date.getDayOfYear() == date.now().getDayOfYear()
@@ -311,12 +361,18 @@ public class Main extends Application {
         .add(getClass().getResource("/application/src/css/style.css").toExternalForm());
 
     WelcomeWindow.newWindow("Welcome to Crystal!");
+    
+    classesJSONArray = WelcomeWindow.getJSONClasses();
+    assignmentsJSONArray = WelcomeWindow.getJSONAssignments();
+
+    
     ClassManagerWindow.newWindow("Add your classes!");
 
     // Add the stuff and set the primary stage
     mainStage.setTitle(APP_TITLE);
     mainStage.setScene(mainScene);
     mainStage.show();
+    mainStage.setOnCloseRequest(e -> updateSaveState());
   }
 
   public static void createAssignmentBox(String name, String subject, String dueTime,
@@ -435,4 +491,35 @@ public class Main extends Application {
     launch(args);
   }
 
+  public static JSONArray getJSONClasses() {
+    return classesJSONArray;
+  }
+
+  public static JSONArray getJSONAssignments() {
+    return assignmentsJSONArray;
+  }
+
+  public static void setJSONClasses(JSONArray newJSONArray) {
+    classesJSONArray = newJSONArray;
+  }
+
+  public static void setJSONAssignments(JSONArray newJSONArray) {
+    assignmentsJSONArray = newJSONArray;
+  }
+
+  public static void updateSaveState() {
+    try (FileWriter file = new FileWriter("saved_state.json")) {
+
+      file.write("{");
+      file.write("\"classes\": ");
+      file.write(classesJSONArray.toJSONString());
+      file.write(", \"assignments\": ");
+      file.write(assignmentsJSONArray.toJSONString());
+      file.write("}");
+      file.flush();
+
+    } catch (IOException e1) {
+      e1.printStackTrace();
+    }
+  }
 }

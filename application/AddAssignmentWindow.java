@@ -1,6 +1,14 @@
 package application;
 
 import javafx.geometry.Insets;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -60,8 +68,29 @@ public class AddAssignmentWindow {
 
     Button submit = new Button("Submit");
     submit.setId("bigButton");
-    submit.setOnAction(e -> AddAssignmentWindow.addAssignment(nameField.getText(),
-        nameField.getText(), timeField.getText(), dateField.getValue().toString()));
+    submit.setOnAction(e -> {
+      AddAssignmentWindow.addAssignment(nameField.getText(),
+        classField.getValue().toString(), timeField.getText(), dateField.getValue().toString());
+
+     
+        JSONArray assignmentsJSONArray = Main.getJSONAssignments();
+
+        JSONObject newAssignment = new JSONObject();
+        newAssignment.put("assignmentName", nameField.getText());
+        newAssignment.put("class", classField.getValue().toString());
+        // newAssignment.put("difficulty", "1");
+        // newAssignment.put("startDate", "");
+        newAssignment.put("dueDate", dateField.getValue().toString());
+        newAssignment.put("dueTime", timeField.getText());
+        newAssignment.put("completed", false);
+  
+        assignmentsJSONArray.add(newAssignment);
+        Main.setJSONAssignments(assignmentsJSONArray);
+  
+        
+  
+        // also add assignment to the data structures that we choose   
+    });
 
     HBox submitHolder = new HBox();
     submitHolder.setPadding(new Insets(20, 0, 0, 0));
@@ -70,8 +99,7 @@ public class AddAssignmentWindow {
 
     Scene vScene = new Scene(textInput, 500, 500);
     vScene.getStylesheets()
-        .add(Main.class.getResource("/application/src/css/style.css").toExternalForm()); // link CSS
-
+    .add(Main.class.getResource("/application/src/css/style.css").toExternalForm()); // link CSS
 
     window.setScene(vScene);
     window.show();
