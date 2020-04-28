@@ -480,6 +480,7 @@ public class Main extends Application {
     });
     
     close.setOnAction(e -> {
+      updateSaveState();
       System.exit(0);
     });
   }
