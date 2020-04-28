@@ -86,12 +86,18 @@ public class AddAssignmentWindow {
 
     Label assignmentDate = new Label("Due Date:");
     DatePicker dateField = new DatePicker();
+    
+    Label assignmentDifficulty = new Label("Assignment Difficulty");
+    Spinner<Integer> difficulty = new Spinner<>(1,5,1);
+    difficulty.setEditable(true);
+    
+    
 
     Button submit = new Button("Submit");
     submit.setId("bigButton");
     submit.setOnAction(e -> {
       AddAssignmentWindow.addAssignment(nameField.getText(), title,
-          timeField.getValue().toString(), dateField.getValue().toString());
+          timeField.getValue().format(DateTimeFormatter.ofPattern("hh:mm a")), dateField.getValue().format(DateTimeFormatter.ofPattern("EEEE, MMMM d")));
 
 
       JSONArray assignmentsJSONArray = Main.getJSONAssignments();
@@ -99,7 +105,7 @@ public class AddAssignmentWindow {
       JSONObject newAssignment = new JSONObject();
       newAssignment.put("assignmentName", nameField.getText());
       newAssignment.put("class", classField.getValue().toString());
-      // newAssignment.put("difficulty", "1");
+      newAssignment.put("difficulty", difficulty.getValue());
       // newAssignment.put("startDate", "");
       newAssignment.put("dueDate", dateField.getValue().toString());
       newAssignment.put("dueTime", timeField.getValue().toString());
@@ -117,7 +123,7 @@ public class AddAssignmentWindow {
     submitHolder.setPadding(new Insets(20, 0, 0, 0));
 
     VBox formBox = new VBox(titleText, assignmentName, nameField, assignmentClass, classField,
-        assignmentTime, timeBox, assignmentDate, dateField, submitHolder);
+        assignmentTime, timeBox, assignmentDate, dateField, assignmentDifficulty, difficulty, submitHolder);
     formBox.setPadding(new Insets(20, 20, 20, 20));
     formBox.setSpacing(5);
 
