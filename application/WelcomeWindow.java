@@ -38,21 +38,18 @@ public class WelcomeWindow {
     Text welcomeText = new Text(title);
     welcomeText.setId("h2");
 
-    HBox welcomeHeader = new HBox();
-    welcomeHeader.getChildren().add(welcomeText);
+    HBox welcomeHeader = new HBox(welcomeText);
 
     Text subText = new Text("the intelligent assignment tracker");
     subText.setId("subText");
 
-    HBox subHeader = new HBox();
-    subHeader.getChildren().add(subText);
+    HBox subHeader = new HBox(subText);
 
     Button load = new Button("I've used Crystal before. (Load saved state from JSON.)");
     load.setId("bigButton");
 
-    HBox loadButtonHolder = new HBox();
+    HBox loadButtonHolder = new HBox(load);
     loadButtonHolder.setPadding(new Insets(12.5, 0, 0, 0));
-    loadButtonHolder.getChildren().add(load);
 
     FileChooser fileChooser = new FileChooser();
 
@@ -69,14 +66,11 @@ public class WelcomeWindow {
 
     addClasses.setOnAction(e -> clearSaveState());
 
-    HBox addButtonHolder = new HBox();
+    HBox addButtonHolder = new HBox(addClasses);
     addButtonHolder.setPadding(new Insets(10, 0, 0, 0));
-    addButtonHolder.getChildren().add(addClasses);
 
-    VBox pane = new VBox();
+    VBox pane = new VBox(welcomeHeader, subHeader, loadButtonHolder, addButtonHolder);
     pane.setPadding(new Insets(20, 20, 20, 20));
-
-    pane.getChildren().addAll(welcomeHeader, subHeader, loadButtonHolder, addButtonHolder);
 
     Scene scene = new Scene(pane, WINDOW_WIDTH, WINDOW_HEIGHT);
     scene.getStylesheets()

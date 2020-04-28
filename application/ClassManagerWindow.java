@@ -27,16 +27,9 @@ public class ClassManagerWindow {
     Stage window = new Stage();
     window.initModality(Modality.APPLICATION_MODAL);
 
-    VBox root = new VBox();
-    root.setPadding(new Insets(20, 20, 20, 20));
-
-    HBox headerBox = new HBox();
     Text header = new Text(title);
     header.setId("h2");
-    headerBox.getChildren().add(header);
-
-    root.getChildren().add(headerBox);
-
+    HBox headerBox = new HBox(header);
 
     GridPane pane = new GridPane();
 
@@ -86,27 +79,21 @@ public class ClassManagerWindow {
     });
 
     btn.setMaxWidth(WINDOW_WIDTH);
-
-    HBox addAnother = new HBox();
+    HBox addAnother = new HBox(btn);
     HBox.setHgrow(btn, Priority.ALWAYS);
     addAnother.setPadding(new Insets(12.5, 0, 20, 0));
-    addAnother.getChildren().add(btn);
-
-
-    root.getChildren().addAll(pane, addAnother);
-
-    HBox bottom = new HBox();
+    
     Button submit = new Button("Submit classes and launch");
     submit.setId("bigButton");
-
-    bottom.getChildren().addAll(submit);
+    HBox bottom = new HBox(submit);
 
     submit.setOnAction(e -> {
       window.close();
     });
 
-    root.getChildren().add(bottom);
-
+    VBox root = new VBox(headerBox, pane, addAnother, bottom);
+    root.setPadding(new Insets(20, 20, 20, 20));
+    
     Scene scene = new Scene(root, WINDOW_WIDTH, WINDOW_HEIGHT);
     scene.getStylesheets()
         .add(Main.class.getResource("/application/src/css/style.css").toExternalForm()); // link CSS

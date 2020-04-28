@@ -34,37 +34,27 @@ public class AddAssignmentWindow {
     Scene scene = new Scene(pane, 500, 500);
     window.setScene(scene);
     window.setTitle(title);
-    // window.showAndWait();
-
-    VBox textInput = new VBox();
-    textInput.setPadding(new Insets(20, 20, 20, 20));
-    textInput.setSpacing(5);
 
     Text titleText = new Text(title);
     titleText.setId("h2");
-    textInput.getChildren().add(titleText);
 
     // name, subject, dueTime, dueDate
-    Label assName = new Label("Name:");
+    Label assignmentName = new Label("Name:");
     TextField nameField = new TextField();
     nameField.getText();
     HBox nameBox = new HBox();
-    textInput.getChildren().addAll(assName, nameField);
 
-    Label assClass = new Label("Class:");
+    Label assignmentClass = new Label("Class:");
     ComboBox classField = new ComboBox();
     HBox subBox = new HBox();
-    textInput.getChildren().addAll(assClass, classField);
 
-    Label assTime = new Label("Due Time:");
+    Label assignmentTime = new Label("Due Time:");
     TextField timeField = new TextField();
     HBox timeBox = new HBox();
-    textInput.getChildren().addAll(assTime, timeField);
 
-    Label assDate = new Label("Due Date:");
+    Label assignmentDate = new Label("Due Date:");
     DatePicker dateField = new DatePicker();
     HBox dateBox = new HBox();
-    textInput.getChildren().addAll(assDate, dateField);
 
     Button submit = new Button("Submit");
     submit.setId("bigButton");
@@ -92,12 +82,15 @@ public class AddAssignmentWindow {
       // also add assignment to the data structures that we choose
     });
 
-    HBox submitHolder = new HBox();
+    HBox submitHolder = new HBox(submit);
     submitHolder.setPadding(new Insets(20, 0, 0, 0));
-    submitHolder.getChildren().add(submit);
-    textInput.getChildren().addAll(submitHolder);
 
-    Scene vScene = new Scene(textInput, 500, 500);
+    VBox formBox = new VBox(titleText, assignmentName, nameField, assignmentClass, classField,
+        assignmentTime, timeField, assignmentDate, dateField, submitHolder);
+    formBox.setPadding(new Insets(20, 20, 20, 20));
+    formBox.setSpacing(5);
+
+    Scene vScene = new Scene(formBox, 500, 500);
     vScene.getStylesheets()
         .add(Main.class.getResource("/application/src/css/style.css").toExternalForm()); // link CSS
 
