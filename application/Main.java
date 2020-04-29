@@ -381,7 +381,7 @@ public class Main extends Application {
     newAssignment.getStyleClass().add("assignmentBox");
     newAssignment.setId("ass_" + subject);
 
-    Text newTime = new Text("Friday, " + dueDate + " at " + dueTime);
+    Text newTime = new Text(dueDate + " at " + dueTime);
     newTime.setId("time");
 
     Text newDesc = new Text(" - " + name);
