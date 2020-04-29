@@ -8,7 +8,7 @@ SET JAVA="%JRE%javaw.exe"
 SET JAR="%JRE%jar.exe" 
 SET MP=--module-path javafx-sdk-11.0.2/lib 
 SET AM=--add-modules javafx.controls,javafx.fxml -Dfile.encoding=UTF-8 
-SET CP=-classpath ".;application" 
+SET CP=-classpath ".;application;json-simple-1.1.1.jar" 
 SET APP=application.Main
 
 REM Uncomment next line to compile JavaFX 
