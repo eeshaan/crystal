@@ -1,93 +1,123 @@
 package application;
 
-public class LinkedList implements LinkedListADT<Assignment> {
+import java.util.Iterator;
 
-  private class Node {
-    private Assignment assignment;
-    private Node next;
+public class LinkedList implements LinkedListADT<Assignment>, Iterable<Assignment> {
 
-    public Node(Assignment assignment) {
-      this.assignment = assignment;
-      next = null;
-    }
-  }
+	private class Node {
+		private Assignment assignment;
+		private Node next;
 
-  private Node head;
-  private int size;
+		public Node(Assignment assignment) {
+			this.assignment = assignment;
+			next = null;
+		}
+	}
 
-  @Override
-  public void insert(Assignment data) {
-    Node newNode = new Node(data);
+	private Node head;
+	private int size;
 
-    Node current = head;
-    while (current != null) {
-      if (current.assignment.getAssignmentName().equals(data.getAssignmentName())) {
-        // if key exists already change the value associated with it
-        current.assignment = data;
-        break;
-      }
-      if (current.next == null) {
-        // if key does not exist insert at the end of list
-        current.next = newNode;
-        size++;
-        break;
-      }
+	@Override
+	public void insert(Assignment data) {
+		Node newNode = new Node(data);
 
-      current = current.next; // iterate through list
-    }
-  }
+		Node current = head;
+		while (current != null) {
+			if (current.assignment.getAssignmentName().equals(data.getAssignmentName())) {
+				// if key exists already change the value associated with it
+				current.assignment = data;
+				break;
+			}
+			if (current.next == null) {
+				// if key does not exist insert at the end of list
+				current.next = newNode;
+				size++;
+				break;
+			}
 
-  @Override
-  public Assignment remove(String name) {
-    Node current = head;
-    while (current != null) {
-      if (current.assignment.getAssignmentName().equals(name) && current == head) {
-        Assignment rem = head.assignment;
-        head = head.next;
-        size--;
-        return rem;
-      } else if (current.next != null && current.next.assignment.getAssignmentName().equals(name)) {
-        Assignment rem = current.next.assignment;
-        current.next = current.next.next;
-        size--;
-        return rem;
-      }
+			current = current.next; // iterate through list
+		}
+	}
 
-      current = current.next;
-    }
+	@Override
+	public Assignment remove(String name) {
+		Node current = head;
+		while (current != null) {
+			if (current.assignment.getAssignmentName().equals(name) && current == head) {
+				Assignment rem = head.assignment;
+				head = head.next;
+				size--;
+				return rem;
+			} else if (current.next != null && current.next.assignment.getAssignmentName().equals(name)) {
+				Assignment rem = current.next.assignment;
+				current.next = current.next.next;
+				size--;
+				return rem;
+			}
 
-    return null;
-  }
+			current = current.next;
+		}
 
-  @Override
-  public Assignment get(String name) {
-    Node current = head;
-    while (current != null) {
-      if (current.assignment.getAssignmentName().equals(name))
-        return current.assignment;
+		return null;
+	}
 
-      current = current.next;
-    }
+	@Override
+	public Assignment get(String name) {
+		Node current = head;
+		while (current != null) {
+			if (current.assignment.getAssignmentName().equals(name))
+				return current.assignment;
 
-    return null;
-  }
+			current = current.next;
+		}
 
-  @Override
-  public boolean contains(String name) {
-    Node current = head;
-    while (current != null) {
-      if (current.assignment.getAssignmentName().equals(name))
-        return true;
+		return null;
+	}
 
-      current = current.next;
-    }
+	@Override
+	public boolean contains(String name) {
+		Node current = head;
+		while (current != null) {
+			if (current.assignment.getAssignmentName().equals(name))
+				return true;
 
-    return false;
-  }
+			current = current.next;
+		}
 
-  @Override
-  public int size() {
-    return size;
-  }
+		return false;
+	}
 
+	@Override
+	public int size() {
+		return size;
+	}
+
+	@Override
+	public Iterator<Assignment> iterator() {
+		return new ListIter(head);
+	}
+	
+	private class ListIter implements Iterator<Assignment>{
+		private Node node;
+		
+		public ListIter(Node head) {
+			this.node = head;
+		}
+		
+		@Override
+		public boolean hasNext() {
+			return node.next != null;
+		}
+		
+		@Override
+		public Assignment next() {
+			if(node == null)
+				return null;
+			
+			Assignment assignment = node.assignment;
+			node = node.next;
+			return assignment;
+		}
+	}
+	
 }

@@ -23,7 +23,14 @@ public class Assignment implements Comparable<Assignment> {
     this.dueTime = dueTime;
     this.completed = completed;
 
-    priority = difficulty * className.getDifficulty() * dueDate.compareTo(startDate);
+    int dateDifference = dueDate.compareTo(new Date(System.currentTimeMillis()));
+    if(dateDifference == 0) {
+    	priority = 100;
+    }
+    else {
+    	priority = difficulty * className.getDifficulty() - dateDifference;
+    }	
+    
   }
 
   public String getAssignmentName() {

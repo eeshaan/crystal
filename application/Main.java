@@ -10,9 +10,12 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Iterator;
+
 import org.json.simple.JSONArray;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
@@ -123,83 +126,7 @@ public class Main extends Application {
     assignmentsPane.setPadding(new Insets(0, 65, 0, 65));
     assignmentsPane.getChildren().add(dueTodayHeader);
 
-    ///// Add today's tasks. Will need to be put into a for loop eventually /////
-    // task 1
-    HBox assignmentBox1 = new HBox();
-    assignmentBox1.getStyleClass().add("assignmentBox");
-    assignmentBox1.setId("ass_MATH222");
-
-    assignmentBox1.setOnMouseClicked(e -> {
-      assigmentOptions(assignmentBox1);
-    });
-
-    Text time1 = new Text("11:00 AM");
-    time1.setId("time");
-
-    Text desc1 = new Text(" - 11.6 little-o notation");
-
-    assignmentBox1.getChildren().addAll(time1, desc1);
-
-    assignmentsPane.getChildren().add(assignmentBox1);
-
-    // task 2
-    HBox assignmentBox2 = new HBox();
-    assignmentBox2.getStyleClass().add("assignmentBox");
-    assignmentBox2.setId("ass_CS400");
-
-    assignmentBox2.setOnMouseClicked(e -> {
-      assigmentOptions(assignmentBox2);
-    });
-
-    Text time2 = new Text("11:59 PM");
-    time2.setId("time");
-
-    Text desc2 = new Text(" - p6");
-    assignmentBox2.getChildren().addAll(time2, desc2);
-
-    assignmentsPane.getChildren().add(assignmentBox2);
-
-    ///// Add the rest of the tasks/the next few tasks. Also must be a for loop /////
-
-    HBox workHeaderHolder = new HBox();
-    workHeaderHolder.setPadding(new Insets(17.5, 0, 0, 0));
-    workHeaderHolder.getChildren().add(workHeader);
-
-    assignmentsPane.getChildren().add(workHeaderHolder);
-
-    // task 3
-    HBox assignmentBox3 = new HBox();
-    assignmentBox3.getStyleClass().add("assignmentBox");
-    assignmentBox3.setId("ass_CS252");
-
-    assignmentBox3.setOnMouseClicked(e -> {
-      assigmentOptions(assignmentBox3);
-    });
-
-    Text time3 = new Text("Friday, April 17 at 11:59 PM");
-    time3.setId("time");
-
-    Text desc3 = new Text(" - Worksheet 12");
-    assignmentBox3.getChildren().addAll(new Text("Due "), time3, desc3);
-
-    assignmentsPane.getChildren().add(assignmentBox3);
-
-    // task 4
-    HBox assignmentBox4 = new HBox();
-    assignmentBox4.getStyleClass().add("assignmentBox");
-    assignmentBox4.setId("ass_PHILOS101");
-
-    assignmentBox4.setOnMouseClicked(e -> {
-      assigmentOptions(assignmentBox4);
-    });
-
-    Text time4 = new Text("Sunday, April 19 at 8:00 PM");
-    time4.setId("time");
-
-    Text desc4 = new Text(" - Meaning of Life Essay");
-    assignmentBox4.getChildren().addAll(new Text("Due "), time4, desc4);
-
-    assignmentsPane.getChildren().add(assignmentBox4);
+    
 
 
 
@@ -366,6 +293,73 @@ public class Main extends Application {
     assignmentsJSONArray = WelcomeWindow.getJSONAssignments();
 
 
+    ///// Add today's tasks. Will need to be put into a for loop eventually /////
+    LocalDate pick = dp.getValue();
+    Iterator<Assignment> today = assignmentsByDate.get(new Date(pick.getYear(), pick.getMonthValue(), pick.getDayOfMonth())).iterator();
+    
+    while(today.hasNext()) {
+    	Assignment assignment = today.next();
+    	String name = assignment.getAssignmentName();
+    	
+    	HBox assignmentBox = new HBox();
+        assignmentBox.getStyleClass().add("assignmentBox");
+        assignmentBox.setId("ass_" + name);
+        
+        assignmentBox.setOnMouseClicked(e -> {
+            assigmentOptions(assignmentBox);
+        });
+        
+        Text time = new Text(assignment.getDueTime());
+        time.setId("time");
+
+        Text desc = new Text(" - " + name);
+
+        assignmentBox.getChildren().addAll(time, desc);
+
+        assignmentsPane.getChildren().add(assignmentBox);
+    }
+    
+    HBox workHeaderHolder = new HBox();
+    workHeaderHolder.setPadding(new Insets(17.5, 0, 0, 0));
+    workHeaderHolder.getChildren().add(workHeader);
+
+    assignmentsPane.getChildren().add(workHeaderHolder);
+
+    ///// Add the rest of the tasks/the next few tasks. Also must be a for loop /////
+    LocalDate date = LocalDate.now();
+    LocalDate endDate = date.plusDays(7);
+    SimpleDateFormat dueDateFormat = new SimpleDateFormat("EEEE, MMMMM d,");
+    
+    while(date != endDate) {
+    	Date thisDate = new Date(date.getYear(), date.getMonthValue(), date.getDayOfMonth());
+    	
+    	Iterator<Assignment> day = assignmentsByDate.get(thisDate).iterator();
+        
+        while(day.hasNext()) {
+        	Assignment assignment = day.next();
+        	String name = assignment.getAssignmentName();
+        	
+        	HBox assignmentBox = new HBox();
+            assignmentBox.getStyleClass().add("assignmentBox");
+            assignmentBox.setId("ass_" + name);
+            
+            assignmentBox.setOnMouseClicked(e -> {
+                assigmentOptions(assignmentBox);
+            });
+            
+            //"Friday, April 17 at 11:59 PM" - intended format
+            Text time = new Text("Due on " + dueDateFormat.format(assignment.getDueDate()) + assignment.getDueTime());
+            time.setId("time");
+
+            Text desc = new Text(" - " + name);
+            assignmentBox.getChildren().addAll(time, desc);
+
+            assignmentsPane.getChildren().add(assignmentBox);
+        }
+    	
+    	date = date.plusDays(1);
+    }
+    
     ClassManagerWindow.newWindow("Add your classes!");
 
     // Add the stuff and set the primary stage
