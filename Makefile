@@ -5,7 +5,7 @@ JC = /usr/bin/javac     # replace with path to javac or javac.exe
 JAR = /usr/bin/jar      # replace with path to jar or jar.exe
 JAVA = /usr/bin/java    # replace with path to java or javaw.exe
 MP = --module-path javafx-sdk-11.0.2/lib --add-modules javafx.controls,javafx.fxml #-Dfile.encoding=UTF-8 
-CP = -classpath ".:application" 
+CP = -classpath ".:application:json-simple-1.1.1.jar" 
 APP = application.Main
 
 #CLASSPATH = .:junit-platform-console-standalone-1.5.2.jar:json-simple-1.1.1.jar
