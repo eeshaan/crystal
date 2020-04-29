@@ -57,27 +57,29 @@ public class AddAssignmentWindow {
     Label assignmentTime = new Label("Due Time:");
     Spinner<LocalTime> spinner = new Spinner<>();
     SpinnerValueFactory<LocalTime> timeField = new SpinnerValueFactory<LocalTime>() {
-    	{
-    	setConverter(new LocalTimeStringConverter(DateTimeFormatter.ofPattern("hh:mm a"),null));
-    	}
-    	@Override
-    	public void decrement(int steps) {
-    		if (getValue() == null) {
-    			setValue(LocalTime.now());
-    		} else {
-    			LocalTime value = (LocalTime) getValue();
-    			setValue(value.minusMinutes(steps));
-    		}	
-    	}
-    	@Override
-    	public void increment(int steps) {
-    		if (getValue() == null) {
-    			setValue(LocalTime.now());
-    		} else {
-    			LocalTime value = (LocalTime) getValue();
-    			setValue(value.plusMinutes(steps));
-    		}
-    	}
+      {
+        setConverter(new LocalTimeStringConverter(DateTimeFormatter.ofPattern("hh:mm a"), null));
+      }
+
+      @Override
+      public void decrement(int steps) {
+        if (getValue() == null) {
+          setValue(LocalTime.now());
+        } else {
+          LocalTime value = (LocalTime) getValue();
+          setValue(value.minusMinutes(steps));
+        }
+      }
+
+      @Override
+      public void increment(int steps) {
+        if (getValue() == null) {
+          setValue(LocalTime.now());
+        } else {
+          LocalTime value = (LocalTime) getValue();
+          setValue(value.plusMinutes(steps));
+        }
+      }
     };
     spinner.setValueFactory(timeField);
     spinner.setEditable(true);
@@ -86,18 +88,19 @@ public class AddAssignmentWindow {
 
     Label assignmentDate = new Label("Due Date:");
     DatePicker dateField = new DatePicker();
-    
+
     Label assignmentDifficulty = new Label("Assignment Difficulty");
-    Spinner<Integer> difficulty = new Spinner<>(1,5,1);
+    Spinner<Integer> difficulty = new Spinner<>(1, 5, 1);
     difficulty.setEditable(true);
-    
-    
+
+
 
     Button submit = new Button("Submit");
     submit.setId("bigButton");
     submit.setOnAction(e -> {
       AddAssignmentWindow.addAssignment(nameField.getText(), title,
-          timeField.getValue().format(DateTimeFormatter.ofPattern("hh:mm a")), dateField.getValue().format(DateTimeFormatter.ofPattern("EEEE, MMMM d")));
+          timeField.getValue().format(DateTimeFormatter.ofPattern("hh:mm a")),
+          dateField.getValue().format(DateTimeFormatter.ofPattern("EEEE, MMMM d")));
 
 
       JSONArray assignmentsJSONArray = Main.getJSONAssignments();
@@ -122,8 +125,9 @@ public class AddAssignmentWindow {
     HBox submitHolder = new HBox(submit);
     submitHolder.setPadding(new Insets(20, 0, 0, 0));
 
-    VBox formBox = new VBox(titleText, assignmentName, nameField, assignmentClass, classField,
-        assignmentTime, timeBox, assignmentDate, dateField, assignmentDifficulty, difficulty, submitHolder);
+    VBox formBox =
+        new VBox(titleText, assignmentName, nameField, assignmentClass, classField, assignmentTime,
+            timeBox, assignmentDate, dateField, assignmentDifficulty, difficulty, submitHolder);
     formBox.setPadding(new Insets(20, 20, 20, 20));
     formBox.setSpacing(5);
 
