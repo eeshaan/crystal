@@ -247,7 +247,6 @@ public class Main extends Application {
 
     // setting up exit button
     Button exit = new Button("Exit Crystal.");
-    // exit.setAlignment(Pos.CENTER);
     exit.setId("exit");
     exit.setOnAction(e -> {
       exitDialog();
