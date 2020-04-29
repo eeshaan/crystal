@@ -1,0 +1,115 @@
+{
+	"classes": [
+		{
+			"className": "ENGL 155",
+			"classColor": {
+				"r":"255",
+				"g":"150",
+				"b":"30"
+			},
+			"difficulty":"2"
+		},
+		{
+			"className": "CHEM 109",
+			"classColor": {
+				"r":"20",
+				"g":"50",
+				"b":"230"
+			},
+			"difficulty":"5"
+		},
+		{
+			"className": "COMP SCI 300",
+			"classColor": {
+				"r":"20",
+				"g":"250",
+				"b":"230"
+			},
+			"difficulty":"3"
+		},
+		{
+			"className": "STAT 324",
+			"classColor": {
+				"r":"220",
+				"g":"20",
+				"b":"230"
+			},
+			"difficulty":"4"
+		},
+		{
+			"className": "SOC 170",
+			"classColor": {
+				"r":"220",
+				"g":"120",
+				"b":"90"
+			},
+			"difficulty":"1"
+		},
+		{
+			"className": "FINANCE 325",
+			"classColor": {
+				"r":"120",
+				"g":"220",
+				"b":"250"
+			},
+			"difficulty":"2"
+		}
+	],
+	"assignments": [
+		{
+			"assignmentName": "Editorial Essay",
+			"class": "ENGL 155",
+			"difficulty":"5",
+			"startDate": "April 2, 2020",
+			"dueDate": "April 27, 2020",
+			"dueTime": "11:59 PM",
+			"completed":false
+		},
+		{
+			"assignmentName": "Lab 10",
+			"class": "CHEM 109",
+			"difficulty":"3",
+			"startDate": "April 17, 2020",
+			"dueDate": "April 24, 2020",
+			"dueTime": "11:59 PM",
+			"completed":false
+		},
+		{
+			"assignmentName": "P7: Calendar Printer",
+			"class": "COMP SCI 300",
+			"difficulty":"3",
+			"startDate": "April 3, 2020",
+			"dueDate": "April 10, 2020",
+			"dueTime": "9:59 PM",
+			"completed":true
+		},
+		{
+			"assignmentName": "Homework 9",
+			"class": "STAT 324",
+			"difficulty":"2",
+			"startDate": "April 5, 2020",
+			"dueDate": "April 12, 2020",
+			"dueTime": "6:00 PM",
+			"completed":true
+		},
+		{
+			"assignmentName": "Paper 2",
+			"class": "SOC 170",
+			"difficulty":"3",
+			"startDate": "April 3, 2020",
+			"dueDate": "April 27, 2020",
+			"dueTime": "11:59 PM",
+			"completed":false
+		},
+		{
+			"assignmentName": "Homework: Chapter 17",
+			"class": "FINANCE 500",
+			"difficulty":"2",
+			"startDate": "April 7, 2020",
+			"dueDate": "April 10, 2020",
+			"dueTime": "11:59 PM",
+			"completed":true
+		}
+	]
+	
+}

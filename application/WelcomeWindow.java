@@ -98,7 +98,7 @@ public class WelcomeWindow {
 
     try {
       FileReader jsonFileReader = null;
-      jsonFileReader = new FileReader(f.getName());
+      jsonFileReader = new FileReader(f.getPath());
 
       Object obj = jsonParser.parse(jsonFileReader);
       JSONObject jo = (JSONObject) obj;
@@ -106,6 +106,9 @@ public class WelcomeWindow {
       JSONArray classesJSONArrayToSet = (JSONArray) classesObject;
 
       HashTable<String, Class> classes = Main.getClasses();
+      if (classesJSONArrayToSet == null) {
+        throw new ParseException(0);
+      }
       for (int c = 0; c < classesJSONArrayToSet.size(); c++) {
         JSONObject jsonClass = (JSONObject) classesJSONArrayToSet.get(c);
         String className = (String) jsonClass.get("className");
@@ -234,7 +237,7 @@ public class WelcomeWindow {
 
       classesJSONArray = classesJSONArrayToSet;
       assignmentsJSONArray = assignmentsJSONArrayToSet;
-      
+
 
       Main.setAssignments(assignments);
       Main.setAssignmentsByDate(assignmentsByDate);
