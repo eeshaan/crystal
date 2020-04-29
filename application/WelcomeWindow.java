@@ -8,16 +8,27 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
+import java.util.Optional;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.ColorPicker;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.Label;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Pair;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -84,14 +95,20 @@ public class WelcomeWindow {
 
   public static void parseJSON(File f) {
     JSONParser jsonParser = new JSONParser();
+
     try {
-      FileReader jsonFileReader = new FileReader(f.getName());
+      FileReader jsonFileReader = null;
+      jsonFileReader = new FileReader(f.getPath());
+
       Object obj = jsonParser.parse(jsonFileReader);
       JSONObject jo = (JSONObject) obj;
       Object classesObject = jo.get("classes");
       JSONArray classesJSONArrayToSet = (JSONArray) classesObject;
 
       HashTable<String, Class> classes = Main.getClasses();
+      if (classesJSONArrayToSet == null) {
+        throw new ParseException(0);
+      }
       for (int c = 0; c < classesJSONArrayToSet.size(); c++) {
         JSONObject jsonClass = (JSONObject) classesJSONArrayToSet.get(c);
         String className = (String) jsonClass.get("className");
@@ -101,8 +118,6 @@ public class WelcomeWindow {
         int green = Integer.parseInt((String) classColor.get("g"));
         int blue = Integer.parseInt((String) classColor.get("b"));
         int classDifficulty = Integer.parseInt((String) jsonClass.get("difficulty"));
-
-        classesJSONArray = classesJSONArrayToSet;
 
         Class newClass = new Class(className, red, green, blue, classDifficulty);
         classes.insert(className, newClass);
@@ -118,6 +133,77 @@ public class WelcomeWindow {
         JSONObject jsonAssignment = (JSONObject) assignmentsJSONArrayToSet.get(a);
         String assignmentName = (String) jsonAssignment.get("assignmentName");
         String className = (String) jsonAssignment.get("class");
+
+        if (classes.get(className) == null) {
+          Alert alert = new Alert(AlertType.CONFIRMATION);
+          alert.setTitle("Class Not Recognized");
+          alert.setHeaderText("Unknown Class");
+          Label error = new Label("The assignment \"" + assignmentName
+              + "\" is trying to be added to the unknown class \"" + className
+              + "\". Would you like to add this class?");
+          error.setWrapText(true);
+          alert.getDialogPane().setContent(error);
+
+          Optional<ButtonType> result = alert.showAndWait();
+          if (result.get() == ButtonType.OK) {
+
+            // Create the custom dialog.
+            Dialog<ButtonType> dialog = new Dialog<ButtonType>();
+            dialog.setTitle("Add Class");
+            dialog.setHeaderText("Please give the color and difficulty of the class.");
+
+
+            // Set the button types.
+            ButtonType addButtonType = new ButtonType("Add", ButtonData.OK_DONE);
+            dialog.getDialogPane().getButtonTypes().addAll(addButtonType, ButtonType.CANCEL);
+
+            // Create the username and password labels and fields.
+            GridPane grid = new GridPane();
+            grid.setHgap(10);
+            grid.setVgap(10);
+            grid.setPadding(new Insets(20, 150, 10, 10));
+
+
+            ColorPicker cp = new ColorPicker();
+            Spinner<Integer> difficulty = new Spinner<Integer>(1, 5, 3, 1);
+
+            grid.add(new Label("Class Name:"), 0, 0);
+            grid.add(new Label(className), 1, 0);
+            grid.add(cp, 1, 2);
+            grid.add(difficulty, 1, 3);
+            dialog.getDialogPane().setContent(grid);
+
+
+            Optional<ButtonType> result1 = dialog.showAndWait();
+
+            if (result1.get() == addButtonType) {
+
+              Class newClass =
+                  new Class(className, (int) cp.getValue().getRed(), (int) cp.getValue().getGreen(),
+                      (int) cp.getValue().getBlue(), difficulty.getValue());
+              JSONObject newJSONClass = new JSONObject();
+              JSONObject classColor = new JSONObject();
+
+              classColor.put("r", (int) cp.getValue().getRed());
+              classColor.put("g", (int) cp.getValue().getGreen());
+              classColor.put("b", (int) cp.getValue().getBlue());
+
+              newJSONClass.put("className", className);
+              newJSONClass.put("classColor", classColor);
+              newJSONClass.put("difficulty", difficulty.getValue());
+
+              classesJSONArray.add(newJSONClass);
+              classes.insert(className, newClass);
+
+            } else {
+              throw new ParseException(a);
+            }
+          } else {
+            throw new ParseException(a);
+
+          }
+
+        }
         int difficulty = Integer.parseInt((String) jsonAssignment.get("difficulty"));
 
         SimpleDateFormat sdformat = new SimpleDateFormat("MMMMM dd, yyyy");
@@ -127,14 +213,11 @@ public class WelcomeWindow {
           startDate = sdformat.parse((String) jsonAssignment.get("startDate"));
           dueDate = sdformat.parse((String) jsonAssignment.get("dueDate"));
         } catch (java.text.ParseException e) {
-          // TODO Auto-generated catch block
-          e.printStackTrace();
+          throw new ParseException(a);
         }
 
         String dueTime = (String) jsonAssignment.get("dueTime");
         boolean completed = (boolean) jsonAssignment.get("completed");
-
-        assignmentsJSONArray = assignmentsJSONArrayToSet;
 
         Assignment newAssignment = new Assignment(assignmentName, classes.get(className),
             difficulty, startDate, dueDate, dueTime, completed);
@@ -152,18 +235,39 @@ public class WelcomeWindow {
 
       }
 
+      classesJSONArray = classesJSONArrayToSet;
+      assignmentsJSONArray = assignmentsJSONArrayToSet;
+
+
       Main.setAssignments(assignments);
       Main.setAssignmentsByDate(assignmentsByDate);
       Main.setWhatToDoNow(whatToDoNow);
       Main.setClasses(classes);
 
     } catch (FileNotFoundException e) {
-      e.printStackTrace();
+      Alert alert = new Alert(AlertType.ERROR);
+      alert.setTitle("Error");
+      alert.setHeaderText("File Error");
+      alert.setContentText("File was not found.");
+      alert.showAndWait();
     } catch (IOException e) {
-      e.printStackTrace();
+      Alert alert = new Alert(AlertType.ERROR);
+      alert.setTitle("Error");
+      alert.setHeaderText("File Error");
+      alert.setContentText("Error importing this file.");
+      alert.showAndWait();
     } catch (ParseException e) {
-      e.printStackTrace();
+      Alert alert = new Alert(AlertType.ERROR);
+      alert.setTitle("Error");
+      alert.setHeaderText("File Error");
+      alert.setContentText("File formatted incorrectly.");
+      alert.showAndWait();
     } catch (NullPointerException e) {
+      Alert alert = new Alert(AlertType.ERROR);
+      alert.setTitle("Error");
+      alert.setHeaderText("File Error");
+      alert.setContentText("No file was selected.");
+      alert.showAndWait();
     }
   }
 
