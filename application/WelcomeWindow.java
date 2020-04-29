@@ -7,6 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 
 import javafx.geometry.Insets;
@@ -111,7 +112,7 @@ public class WelcomeWindow {
       Object assignmentsObject = jo.get("assignments");
       JSONArray assignmentsJSONArrayToSet = (JSONArray) assignmentsObject;
 
-      HashTable<Date, LinkedList> assignmentsByDate = Main.getAssignmentsByDate();
+      HashTable<LocalDate, LinkedList> assignmentsByDate = Main.getAssignmentsByDate();
       HashTable<String, Assignment> assignments = Main.getAssignments();
       PriorityQueue whatToDoNow = Main.getWhatToDoNow();
       for (int a = 0; a < assignmentsJSONArrayToSet.size(); a++) {
@@ -142,13 +143,14 @@ public class WelcomeWindow {
         whatToDoNow.insert(newAssignment);
 
         LinkedList list;
-        if (assignmentsByDate.get(dueDate) == null)
+        LocalDate localDueDate = LocalDate.of(dueDate.getYear(), dueDate.getMonth(), dueDate.getDate()); 
+        if (assignmentsByDate.get(localDueDate) == null)
           list = new LinkedList();
         else
-          list = assignmentsByDate.get(dueDate);
+          list = assignmentsByDate.get(localDueDate);
 
         list.insert(newAssignment);
-        assignmentsByDate.insert(dueDate, list);
+        assignmentsByDate.insert(localDueDate, list);
 
       }
 

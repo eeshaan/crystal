@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -58,7 +59,7 @@ public class Main extends Application {
   private static JSONArray assignmentsJSONArray = WelcomeWindow.getJSONAssignments();
 
   private static HashTable<String, Class> classes;
-  private static HashTable<Date, LinkedList> assignmentsByDate;
+  private static HashTable<LocalDate, LinkedList> assignmentsByDate;
   private static HashTable<String, Assignment> assignments;
   private static PriorityQueue whatToDoNow;
 
@@ -70,11 +71,11 @@ public class Main extends Application {
     Main.classes = classes;
   }
 
-  public static HashTable<Date, LinkedList> getAssignmentsByDate() {
+  public static HashTable<LocalDate, LinkedList> getAssignmentsByDate() {
     return assignmentsByDate;
   }
 
-  public static void setAssignmentsByDate(HashTable<Date, LinkedList> assignmentsByDate) {
+  public static void setAssignmentsByDate(HashTable<LocalDate, LinkedList> assignmentsByDate) {
     Main.assignmentsByDate = assignmentsByDate;
   }
 
@@ -295,7 +296,9 @@ public class Main extends Application {
 
     ///// Add today's tasks. Will need to be put into a for loop eventually /////
     LocalDate pick = dp.getValue();
-    Iterator<Assignment> today = assignmentsByDate.get(new Date(pick.getYear(), pick.getMonthValue(), pick.getDayOfMonth())).iterator();
+
+    //Calendar calendar =Calendar.getInstance();
+	Iterator<Assignment> today = assignmentsByDate.get(pick).iterator();
     
     while(today.hasNext()) {
     	Assignment assignment = today.next();
@@ -331,7 +334,7 @@ public class Main extends Application {
     SimpleDateFormat dueDateFormat = new SimpleDateFormat("EEEE, MMMMM d,");
     
     while(date != endDate) {
-    	Date thisDate = new Date(date.getYear(), date.getMonthValue(), date.getDayOfMonth());
+    	LocalDate thisDate = LocalDate.of(date.getYear(), date.getMonthValue(), date.getDayOfMonth());
     	
     	Iterator<Assignment> day = assignmentsByDate.get(thisDate).iterator();
         
