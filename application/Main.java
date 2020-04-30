@@ -335,6 +335,7 @@ public class Main extends Application {
 
     Iterator<String> classNames = classes.iterator();
     while (classNames.hasNext()) {
+      Class currentClass = classes.get(classNames.next());
       int[] classColor = currentClass.getClassColor();
       Button classButton = new Button(currentClass.getClassName());
       classButton.setStyle("-fx-background-color: rgb(" + classColor[0] + ", " + classColor[1]
