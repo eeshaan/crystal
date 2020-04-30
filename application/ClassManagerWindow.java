@@ -98,9 +98,9 @@ public class ClassManagerWindow {
         JSONObject newJSONClass = new JSONObject();
 
         newJSONClass.put("className", textField[k].getText());
-        newJSONClass.put("classColorRed", (int) cp[k].getValue().getRed());
-        newJSONClass.put("classColorGreen", (int) cp[k].getValue().getGreen());
-        newJSONClass.put("classColorBlue", (int) cp[k].getValue().getBlue());
+        newJSONClass.put("classColorRed", (int) (cp[k].getValue().getRed() * 255));
+        newJSONClass.put("classColorGreen", (int) (cp[k].getValue().getGreen() * 255));
+        newJSONClass.put("classColorBlue", (int) (cp[k].getValue().getBlue() * 255));
         newJSONClass.put("difficulty", difficulty[k].getValue());
 
         Class newClass = new Class(textField[k].getText(), (int) cp[k].getValue().getRed(),

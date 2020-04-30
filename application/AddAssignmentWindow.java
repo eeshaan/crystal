@@ -51,7 +51,10 @@ public class AddAssignmentWindow {
     HBox nameBox = new HBox();
 
     Label assignmentClass = new Label("Class:");
-    ComboBox classField = new ComboBox();
+    ComboBox<String> classField = new ComboBox<>();
+    // TODO: populate this ComboBox with Class names
+    
+    
     HBox subBox = new HBox();
 
     Label assignmentTime = new Label("Due Time:");
