@@ -4,6 +4,16 @@
 }
 
 @font-face {
+  font-family: 'DM Sans';
+  src: url('/application/src/fonts/DMSans-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'DM Sans';
+  src: url('/application/src/fonts/DMSans-Bold.ttf');
+}
+
+@font-face {
   font-family: "Work Sans Light";
   src: url('/application/src/fonts/WorkSans-Light.ttf');
 }
@@ -43,13 +53,13 @@
 }
 
 #h2 {
-  -fx-font-family: "Work Sans";
+  -fx-font-family: "DM Sans";
   -fx-font-weight: 700;
   -fx-font-size: 30;
 }
 
 #subText {
-  -fx-font-family: "Work Sans Light";
+  -fx-font-family: "DM Sans";
   -fx-font-size: 14;
 }
 
@@ -240,6 +250,7 @@ TODO: there is no -fx-margin property, but we can hack around this by adding equ
 }
 
 #exit {
+  -fx-font-family: "Work Sans Light";
   -fx-background-color: #fff;
   -fx-underline: true;
   -fx-font-size: 12.5px;
