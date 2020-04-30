@@ -129,21 +129,21 @@ public class WelcomeWindow {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				LocalDate localStartDate = LocalDate.of(startDate.getYear() + 1900, startDate.getMonth() + 1, startDate.getDate());
+				LocalDate localDueDate = LocalDate.of(dueDate.getYear() + 1900, dueDate.getMonth() + 1, dueDate.getDate());
 
 				String dueTime = (String) jsonAssignment.get("dueTime");
 				boolean completed = (boolean) jsonAssignment.get("completed");
 
 				assignmentsJSONArray = assignmentsJSONArrayToSet;
 
-				Assignment newAssignment = new Assignment(assignmentName, classes.get(className), difficulty, startDate,
-						dueDate, dueTime, completed);
+				Assignment newAssignment = new Assignment(assignmentName, classes.get(className), difficulty, localStartDate,
+						localDueDate, dueTime, completed);
 				assignments.insert(assignmentName, newAssignment);
 				whatToDoNow.insert(newAssignment);
 
 				LinkedList list;
-				LocalDate localDueDate = LocalDate.of(dueDate.getYear(), dueDate.getMonth(), dueDate.getDay());
-				System.out.println(localDueDate.hashCode());
-				System.out.println(newAssignment);
+				
 
 				if (assignmentsByDate.get(localDueDate) == null) {
 					list = new LinkedList();
