@@ -1,6 +1,8 @@
 package application;
 
-public class LinkedList implements LinkedListADT<Assignment> {
+import java.util.Iterator;
+
+public class LinkedList implements LinkedListADT<Assignment>, Iterable<Assignment> {
 
   private class Node {
     private Assignment assignment;
@@ -20,20 +22,24 @@ public class LinkedList implements LinkedListADT<Assignment> {
     Node newNode = new Node(data);
 
     Node current = head;
-    while (current != null) {
-      if (current.assignment.getAssignmentName().equals(data.getAssignmentName())) {
-        // if key exists already change the value associated with it
-        current.assignment = data;
-        break;
-      }
-      if (current.next == null) {
-        // if key does not exist insert at the end of list
-        current.next = newNode;
-        size++;
-        break;
-      }
+    if (current == null) {
+      head = new Node(data);
+    } else {
+      while (current != null) {
+        if (current.assignment.getAssignmentName().equals(data.getAssignmentName())) {
+          // if key exists already change the value associated with it
+          current.assignment = data;
+          break;
+        }
+        if (current.next == null) {
+          // if key does not exist insert at the end of list
+          current.next = newNode;
+          size++;
+          break;
+        }
 
-      current = current.next; // iterate through list
+        current = current.next; // iterate through list
+      }
     }
   }
 
@@ -88,6 +94,48 @@ public class LinkedList implements LinkedListADT<Assignment> {
   @Override
   public int size() {
     return size;
+  }
+
+  @Override
+  public Iterator<Assignment> iterator() {
+    return new ListIter(head);
+  }
+
+  @Override
+  public String toString() {
+    String res = "";
+
+    Node current = head;
+    while (current != null) {
+      res += current.assignment.toString() + "  ";
+
+      current = current.next;
+    }
+
+    return res;
+  }
+
+  private class ListIter implements Iterator<Assignment> {
+    private Node node;
+
+    public ListIter(Node head) {
+      this.node = head;
+    }
+
+    @Override
+    public boolean hasNext() {
+      return node != null;
+    }
+
+    @Override
+    public Assignment next() {
+      if (node == null)
+        return null;
+
+      Assignment assignment = node.assignment;
+      node = node.next;
+      return assignment;
+    }
   }
 
 }

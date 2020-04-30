@@ -1,5 +1,6 @@
 package application;
 
+import java.time.format.DateTimeFormatter;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -26,30 +27,51 @@ public class WhatToDoNowWindow {
 
     HBox topText = new HBox(crystal, workOn);
     topText.setPrefWidth(WINDOW_WIDTH);
-    
-    // CS400 assignment example
-    HBox assignmentBox2 = new HBox();
-    assignmentBox2.getStyleClass().add("assignmentBox");
-    assignmentBox2.setId("ass_CS400");
 
-    Text time2 = new Text("11:59 PM");
-    time2.setId("time");
+    PriorityQueue whatToDoNow = Main.getWhatToDoNow();
 
-    Text desc2 = new Text(" - p6");
-    assignmentBox2.getChildren().addAll(time2, desc2);
-    
-    Label basedOn = new Label(
-        "based on the difficulty level of the class, the difficulty level of the assignment, and when the assignment is due.");
-    basedOn.setStyle("-fx-font-weight: 100;");
-    basedOn.setPrefWidth(WINDOW_WIDTH - 60 - 60);
-    basedOn.setWrapText(true);
-    // basedOn.setWrappingWidth(200);
+    HBox assignmentBox = new HBox();
+    assignmentBox.getStyleClass().add("assignmentBox");
 
-    FlowPane bottomText = new FlowPane(basedOn);
-    
-    VBox pane = new VBox(topText, assignmentBox2, bottomText);
-    pane.setPadding(new Insets(40, 60, 40, 60));
-    pane.setSpacing(20);
+    Assignment highestPriority = whatToDoNow.peekBest();
+    VBox pane;
+
+    if (highestPriority == null) {
+      workOn.setText(" says you should relax. You have no upcoming assignments!");
+
+      pane = new VBox(topText);
+      pane.setPadding(new Insets(115, 60, 40, 60));
+      pane.setSpacing(50);
+    } else {
+      String name = highestPriority.getAssignmentName();
+
+      int[] classColor = highestPriority.getClassName().getClassColor();
+      assignmentBox.setStyle("-fx-background-color: rgba(" + classColor[0] + ", " + classColor[1]
+          + ", " + classColor[2] + ", 0.15); -fx-border-color: rgb(" + classColor[0] + ", "
+          + classColor[1] + ", " + classColor[2] + ");");
+
+      Text due = new Text("Due ");
+
+      Text time =
+          new Text(highestPriority.getDueDate().format(DateTimeFormatter.ofPattern("EEEE, MMMM d"))
+              + " at " + highestPriority.getDueTime());
+      time.setId("time");
+
+      Text desc = new Text(" - " + name);
+      assignmentBox.getChildren().addAll(due, time, desc);
+
+      Label basedOn = new Label(
+          "based on the difficulty level of the class, the difficulty level of the assignment, and when the assignment is due.");
+      basedOn.setStyle("-fx-font-family: \"Work Sans Light\";");
+      basedOn.setPrefWidth(WINDOW_WIDTH - 60 - 60);
+      basedOn.setWrapText(true);
+
+      FlowPane bottomText = new FlowPane(basedOn);
+
+      pane = new VBox(topText, assignmentBox, bottomText);
+      pane.setPadding(new Insets(40, 60, 40, 60));
+      pane.setSpacing(20);
+    }
 
     Scene scene = new Scene(pane, WINDOW_WIDTH, WINDOW_HEIGHT);
     scene.getStylesheets()

@@ -1,7 +1,6 @@
 package application;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 public class Assignment implements Comparable<Assignment> {
 
@@ -24,7 +23,14 @@ public class Assignment implements Comparable<Assignment> {
     this.dueTime = dueTime;
     this.completed = completed;
 
-    priority = difficulty * className.getDifficulty() * dueDate.compareTo(startDate);
+    int dateDifference = dueDate.compareTo(LocalDate.now());
+    if(dateDifference == 0) {
+    	priority = 100 * difficulty;
+    }
+    else {
+    	priority = difficulty * className.getDifficulty() - dateDifference;
+    }	
+    
   }
 
   public String getAssignmentName() {

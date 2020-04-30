@@ -10,9 +10,13 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Iterator;
+
 import org.json.simple.JSONArray;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
@@ -55,11 +59,11 @@ public class Main extends Application {
   private static JSONArray classesJSONArray = WelcomeWindow.getJSONClasses(); // JSON list of classes
   private static JSONArray assignmentsJSONArray = WelcomeWindow.getJSONAssignments(); // JSON list of assignments
 
-  private static HashTable<String, Class> classes; // list of classes
-  
-  private static HashTable<Date, LinkedList> assignmentsByDate; // assignments sorted by dates
-  private static HashTable<String, Assignment> assignments; // assignments
-  private static PriorityQueue whatToDoNow; // assignments sorted by their priority rating
+  private static HashTable<String, Class> classes;
+  private static HashTable<LocalDate, LinkedList> assignmentsByDate;
+  private static HashTable<Class, LinkedList> assignmentsByClass;
+  private static HashTable<String, Assignment> assignments;
+  private static PriorityQueue whatToDoNow;
 
   /**
    * getClasses - gets the classes in the calendar
@@ -78,25 +82,25 @@ public class Main extends Application {
   }
 
   /**
-   * getAssignmentsByDate - gets the assignments sorted by their dates
-   * @return assignmentsByDate - HashTable of assignments sorted by their dates
-   */
-  public static HashTable<Date, LinkedList> getAssignmentsByDate() {
-    return assignmentsByDate;
-  }
-
-  /**
-   * setAssignmentsByDate - sets the calendar's assignments as the one provided
-   * @param assignmentsByDate - HashTable of assignments sorted by their dates
-   */
-  public static void setAssignmentsByDate(HashTable<Date, LinkedList> assignmentsByDate) {
-    Main.assignmentsByDate = assignmentsByDate;
-  }
-
-  /**
    * getAssignments - gets the assignments in the calendar
    * @return assignments - HashTable of assignments
    */
+  public static HashTable<LocalDate, LinkedList> getAssignmentsByDate() {
+    return assignmentsByDate;
+  }
+
+  public static void setAssignmentsByDate(HashTable<LocalDate, LinkedList> assignmentsByDate) {
+    Main.assignmentsByDate = assignmentsByDate;
+  }
+
+  public static HashTable<Class, LinkedList> getAssignmentsByClass() {
+    return assignmentsByClass;
+  }
+
+  public static void setAssignmentsByClass(HashTable<Class, LinkedList> assignmentsByClass) {
+    Main.assignmentsByClass = assignmentsByClass;
+  }
+
   public static HashTable<String, Assignment> getAssignments() {
     return assignments;
   }
@@ -135,6 +139,11 @@ public class Main extends Application {
     assignments = new HashTable<>(); 
     
     whatToDoNow = new PriorityQueue(); // Initializes priority queue of assignments
+    classes = new HashTable<>();
+    assignmentsByDate = new HashTable<>();
+    assignmentsByClass = new HashTable<>();
+    assignments = new HashTable<>();
+    whatToDoNow = new PriorityQueue();
 
     // Main layout is Border Pane example (top,left,center,right,bottom)
     BorderPane root = new BorderPane();
@@ -164,69 +173,9 @@ public class Main extends Application {
     // Adds the header for the assignments due today
     assignmentsPane.getChildren().add(dueTodayHeader);
 
-    ///// Add today's tasks. Will need to be put into a for loop eventually /////
-    // Initializes the assignment box
-    HBox assignmentBox1 = new HBox();
-    HBox assignmentBox2 = new HBox();
-    HBox assignmentBox3 = new HBox();
-    HBox assignmentBox4 = new HBox();
-    
-    // Sets the padding and border of the assignment display
-    assignmentBox1.getStyleClass().add("assignmentBox");
-    assignmentBox2.getStyleClass().add("assignmentBox");
-    assignmentBox3.getStyleClass().add("assignmentBox");
-    assignmentBox4.getStyleClass().add("assignmentBox");
-    
-    // Sets the colors of the assignment display
-    assignmentBox1.setId("ass_MATH222");
-    assignmentBox2.setId("ass_CS400");
-    assignmentBox3.setId("ass_CS252");
-    assignmentBox4.setId("ass_PHILOS101");
+    // Setting up regions for spacing
+    // Horizontal region for spacing
 
-    // When the assignment is clicked, its window is open
-    assignmentBox1.setOnMouseClicked(e -> {assigmentOptions(assignmentBox1);});
-    assignmentBox2.setOnMouseClicked(e -> {assigmentOptions(assignmentBox2);});
-    assignmentBox3.setOnMouseClicked(e -> {assigmentOptions(assignmentBox3);});
-    assignmentBox4.setOnMouseClicked(e -> {assigmentOptions(assignmentBox4);});
-    
-    // Initializes assignments' due times
-    Text time1 = new Text("11:00 AM");
-    Text time2 = new Text("11:59 PM");
-    Text time3 = new Text("Friday, April 17 at 11:59 PM");
-    Text time4 = new Text("Sunday, April 19 at 8:00 PM");
-    
-    // Sets the format of the time
-    time1.setId("time");
-    time2.setId("time");
-    time3.setId("time");
-    time4.setId("time");
-
-    // Adds a description of each assignment
-    Text desc1 = new Text(" - 11.6 little-o notation");
-    Text desc2 = new Text(" - p6");
-    Text desc3 = new Text(" - Worksheet 12");
-    Text desc4 = new Text(" - Meaning of Life Essay");
-
-    // Adds the time and description to the display
-    assignmentBox1.getChildren().addAll(time1, desc1);
-    assignmentBox2.getChildren().addAll(time2, desc2);
-    assignmentBox3.getChildren().addAll(new Text("Due "), time3, desc3);
-    assignmentBox4.getChildren().addAll(new Text("Due "), time4, desc4);
-
-    // Adds the assignment to the assignment pane
-    assignmentsPane.getChildren().add(assignmentBox1);
-    assignmentsPane.getChildren().add(assignmentBox2);
-    assignmentsPane.getChildren().add(assignmentBox3);
-    assignmentsPane.getChildren().add(assignmentBox4);
-
-    // Initializes and adds a margin to the header
-    HBox workHeaderHolder = new HBox();
-    workHeaderHolder.setPadding(new Insets(17.5, 0, 0, 0));
-    workHeaderHolder.getChildren().add(workHeader);
-    assignmentsPane.getChildren().add(workHeaderHolder);
-
-    // Setting up horizontal regions for spacing
-    // header
     Region hRegionHeader = new Region();
     hRegionHeader.setPrefWidth(120);
     HBox.setHgrow(hRegionHeader, Priority.ALWAYS);
@@ -299,15 +248,14 @@ public class Main extends Application {
     
     // Formats the left pane's footer
     leftPaneFooter.setPrefSize(750, 106);
-    leftPaneFooter.setPadding(new Insets(0, 40, 40, 65));
+    leftPaneFooter.setPadding(new Insets(0, 65, 40, 65));
     leftPaneFooter.setAlignment(Pos.BOTTOM_CENTER);
 
     // Adds header, footer, and assignment pane to border pane's left pane
     leftPane.getChildren().addAll(leftPaneHeader, assignmentsPane, leftPaneFooter);
     root.setLeft(leftPane);
 
-
-    // Creates and formats the rightPane
+    // Create rightPane
     VBox rightPane = new VBox();
     rightPane.setPrefWidth(394);
     rightPane.setId("rightPane");
@@ -341,16 +289,8 @@ public class Main extends Application {
     // Gets the assignments that are due today or the closest day to today
     dp.setOnAction(e -> {
       LocalDate date = dp.getValue();
-      if (date.getDayOfYear() == date.now().getDayOfYear()
-          && date.getYear() == date.now().getYear()) {
-        dueTodayHeader.setText("Due Today");
-      } else {
-        SimpleDateFormat dueDateFormat = new SimpleDateFormat("EEEE, MMMMM d, yyyy");
-        Date due = Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant());
-        dueTodayHeader.setText("Due on " + dueDateFormat.format(due));
-        // dueTodayHeader.setText("Due on " + date);
-      }
 
+      updateAssignments(date);
     });
 
     // Creates and sets up the subjects pane
@@ -367,34 +307,13 @@ public class Main extends Application {
     HBox classesHeader = new HBox(); 
     classesHeader.getChildren().add(yourClasses);
 
-    // Creates and formats classes pane
-    FlowPane classes = new FlowPane();
-    classes.setPrefWidth(294);
-    classes.getStyleClass().add("subjects");
+    FlowPane classesPane = new FlowPane();
+    classesPane.setPrefWidth(294);
+    classesPane.getStyleClass().add("subjects");
 
-    // Creates class buttons
-    Button class1 = new Button("MATH 222");
-    Button class2 = new Button("CS 400");
-    Button class3 = new Button("PHILOS 101");
-    Button class4 = new Button("CS 252");
-    
-    // Formats class buttons with css file
-    class1.setId("MATH222");
-    class2.setId("CS400");
-    class3.setId("PHILOS101");
-    class4.setId("CS252");
-    
-    // Opens class window when class button is clicked
-    class1.setOnAction(e -> CourseAssignmentsWindow.newWindow(class1.getId() + " Assignments"));
-    class2.setOnAction(e -> CourseAssignmentsWindow.newWindow(class2.getId() + " Assignments"));
-    class3.setOnAction(e -> CourseAssignmentsWindow.newWindow(class3.getId() + " Assignments"));
-    class4.setOnAction(e -> CourseAssignmentsWindow.newWindow(class4.getId() + " Assignments"));
 
-    // Adds classes to pane
-    classes.getChildren().addAll(class1, class2, class3, class4);
 
-    // Adds header and class buttons to pane
-    subjectsPane.getChildren().addAll(classesHeader, classes);
+    subjectsPane.getChildren().addAll(classesHeader, classesPane);
 
     // Sets classes pane to right of borderpane
     root.setRight(rightPane);
@@ -413,9 +332,25 @@ public class Main extends Application {
     if (newUser) {
       ClassManagerWindow.newWindow("Add your classes!");
     }
+
+    Iterator<String> classNames = classes.iterator();
+    while (classNames.hasNext()) {
+      int[] classColor = currentClass.getClassColor();
+      Button classButton = new Button(currentClass.getClassName());
+      classButton.setStyle("-fx-background-color: rgb(" + classColor[0] + ", " + classColor[1]
+          + ", " + classColor[2] + "); -fx-text-fill: #fff;");
+
+      if (classColor[0] + classColor[1] + classColor[2] > 625)
+        classButton.getStyleClass().add("dark-text");
+
+      classButton.setOnAction(e -> CourseAssignmentsWindow.newWindow(currentClass));
+      classesPane.getChildren().addAll(classButton);
+    }
+
     classesJSONArray = WelcomeWindow.getJSONClasses();
     assignmentsJSONArray = WelcomeWindow.getJSONAssignments();
 
+    updateAssignments(dp.getValue());
 
     // Add all the components and set the primary stage
     mainStage.setTitle(APP_TITLE);
@@ -424,41 +359,122 @@ public class Main extends Application {
     mainStage.setOnCloseRequest(e -> updateSaveState());
   }
 
-  /**
-   * createAssignmentBox - adds an assignment to the assignment pane
-   * @param name - name of assignment
-   * @param subject - class of assignment
-   * @param dueTime - time assignment is due
-   * @param dueDate - date assignment is due
-   */
-  public static void createAssignmentBox(String name, String subject, String dueTime,
-      String dueDate) {
-    
-    // Initializes and formats box containing assignment info
-    HBox newAssignment = new HBox();
-    newAssignment.getStyleClass().add("assignmentBox");
-    newAssignment.setId("ass_" + subject);
+  private void updateAssignments(LocalDate date) {
+    assignmentsPane.getChildren().clear();
 
-    // Creates and formats due time text
-    Text newTime = new Text(dueDate + " at " + dueTime);
-    newTime.setId("time");
-    
-    // Creates assignment description
-    Text newDesc = new Text(" - " + name);
-    
-    // Adds due time and description together
-    newAssignment.getChildren().addAll(new Text("Due "), newTime, newDesc);
+    Text dueTodayHeader = new Text("Due Today");
+    dueTodayHeader.setId("h1"); // apply DM Serif Display font
+    if (date.getDayOfYear() == LocalDate.now().getDayOfYear()
+        && date.getYear() == LocalDate.now().getYear()) {
+      dueTodayHeader.setText("Due Today");
+    } else {
+      SimpleDateFormat dueDateFormat = new SimpleDateFormat("EEEE, MMMMM d, yyyy");
+      Date due = Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant());
+      dueTodayHeader.setText("Due on " + dueDateFormat.format(due));
+      // dueTodayHeader.setText("Due on " + date);
+    }
+    assignmentsPane.getChildren().add(dueTodayHeader);
 
-    // Adds new assignment to assignment pane
-    assignmentsPane.getChildren().add(newAssignment);
+    Iterator<Assignment> today;
+    // Calendar calendar =Calendar.getInstance();
+    if (assignmentsByDate.get(date) == null)
+      today = null;
+    else
+      today = assignmentsByDate.get(date).iterator();
+
+    while (today != null && today.hasNext()) {
+      Assignment assignment = today.next();
+      String name = assignment.getAssignmentName();
+
+      HBox assignmentBox = new HBox();
+      assignmentBox.getStyleClass().add("assignmentBox");
+
+      int[] classColor = assignment.getClassName().getClassColor();
+      assignmentBox.setStyle("-fx-background-color: rgba(" + classColor[0] + ", " + classColor[1]
+          + ", " + classColor[2] + ", 0.15); -fx-border-color: rgb(" + classColor[0] + ", "
+          + classColor[1] + ", " + classColor[2] + ");");
+
+      // assignmentBox.setId("ass_" + name);
+
+      assignmentBox.setOnMouseClicked(e -> {
+        assignmentOptions(assignmentBox);
+      });
+
+      Text time = new Text(assignment.getDueTime());
+      time.setId("time");
+
+      Text desc = new Text(" - " + name);
+
+      assignmentBox.getChildren().addAll(time, desc);
+
+      assignmentsPane.getChildren().add(assignmentBox);
+    }
+
+    Text workHeader = new Text("Continue working on");
+    workHeader.setId("h1");
+
+    HBox workHeaderHolder = new HBox();
+    workHeaderHolder.setPadding(new Insets(17.5, 0, 0, 0));
+    workHeaderHolder.getChildren().add(workHeader);
+
+    assignmentsPane.getChildren().add(workHeaderHolder);
+
+    ///// Add the rest of the tasks/the next few tasks. Also must be a for loop
+    ///// /////
+    LocalDate datePlusOne = date.plusDays(1);
+    LocalDate endDate = date.plusDays(30);
+    SimpleDateFormat dueDateFormat = new SimpleDateFormat("EEEE, MMMMM d,");
+
+    while (!datePlusOne.equals(endDate)) {
+      Iterator<Assignment> day;
+
+      if (assignmentsByDate.get(datePlusOne) == null)
+        day = null;
+      else
+        day = assignmentsByDate.get(datePlusOne).iterator();
+
+      while (day != null && day.hasNext()) {
+        Assignment assignment = day.next();
+        String name = assignment.getAssignmentName();
+
+        if (assignment.getStartDate().isAfter(date))
+          continue;
+
+        HBox assignmentBox = new HBox();
+        assignmentBox.getStyleClass().add("assignmentBox");
+
+        int[] classColor = assignment.getClassName().getClassColor();
+        assignmentBox.setStyle("-fx-background-color: rgba(" + classColor[0] + ", " + classColor[1]
+            + ", " + classColor[2] + ", 0.15); -fx-border-color: rgb(" + classColor[0] + ", "
+            + classColor[1] + ", " + classColor[2] + ");");
+
+        assignmentBox.setOnMouseClicked(e -> {
+          assignmentOptions(assignmentBox);
+        });
+
+        Text due = new Text("Due ");
+
+        // "Friday, April 17 at 11:59 PM" - intended format
+        Text time =
+            new Text(assignment.getDueDate().format(DateTimeFormatter.ofPattern("EEEE, MMMM d"))
+                + " at " + assignment.getDueTime());
+        time.setId("time");
+
+        Text desc = new Text(" - " + name);
+        assignmentBox.getChildren().addAll(due, time, desc);
+
+        assignmentsPane.getChildren().add(assignmentBox);
+      }
+
+      datePlusOne = datePlusOne.plusDays(1);
+    }
   }
-
+  
   /**
    * assignmentOptions - creates a window to set assignment as completed or delete it
    * @param assignmentBox - pane of assignments
    */
-  private static void assigmentOptions(HBox assignmentBox) {
-    
+  public static void assignmentOptions(HBox assignmentBox) {
     // Initializes and formats title of window
     Text manage = new Text("Manage this assignment");
     manage.setId("h2");
@@ -505,6 +521,29 @@ public class Main extends Application {
       assignmentsPane.getChildren().remove(assignmentBox);
       dialogStage.close();
     });
+    
+  }
+
+  public static void createAssignmentBox(String name, String subject, String dueTime,
+      String dueDate) {
+    
+    // Initializes and formats box containing assignment info
+    HBox newAssignment = new HBox();
+    newAssignment.getStyleClass().add("assignmentBox");
+    newAssignment.setId("ass_" + subject);
+
+    // Creates and formats due time text
+    Text newTime = new Text(dueDate + " at " + dueTime);
+    newTime.setId("time");
+    
+    // Creates assignment description
+    Text newDesc = new Text(" - " + name);
+    
+    // Adds due time and description together
+    newAssignment.getChildren().addAll(new Text("Due "), newTime, newDesc);
+
+    // Adds new assignment to assignment pane
+    assignmentsPane.getChildren().add(newAssignment);
   }
 
   /**
