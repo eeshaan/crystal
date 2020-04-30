@@ -103,8 +103,8 @@ public class ClassManagerWindow {
         newJSONClass.put("classColorBlue", (int) (cp[k].getValue().getBlue() * 255));
         newJSONClass.put("difficulty", difficulty[k].getValue());
 
-        Class newClass = new Class(textField[k].getText(), (int) cp[k].getValue().getRed(),
-            (int) cp[k].getValue().getGreen(), (int) cp[k].getValue().getBlue(),
+        Class newClass = new Class(textField[k].getText(), (int) (cp[k].getValue().getRed() * 255),
+            (int) (cp[k].getValue().getGreen() * 255), (int) (cp[k].getValue().getBlue() * 255),
             difficulty[k].getValue());
         classesJSONArrayToSet.add(newJSONClass);
         classes.insert(textField[k].getText(), newClass);
