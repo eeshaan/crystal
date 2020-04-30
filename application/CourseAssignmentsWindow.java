@@ -1,7 +1,7 @@
 package application;
 
 import java.util.Iterator;
-
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -17,7 +17,13 @@ public class CourseAssignmentsWindow {
     window.initModality(Modality.APPLICATION_MODAL);
     
     HashTable<Class, LinkedList> assignmentsByClass = Main.getAssignmentsByClass();
-    VBox assignmentsPane = new VBox();
+    
+    Text header = new Text(className.getClassName() + " Assignments");
+    header.setId("h2");
+    
+    VBox assignmentsPane = new VBox(header);
+    assignmentsPane.setSpacing(5);
+    assignmentsPane.setPadding(new Insets(20, 20, 20, 20));
     
     Iterator<Assignment> today = assignmentsByClass.get(className).iterator();
 
