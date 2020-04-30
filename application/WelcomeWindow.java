@@ -117,6 +117,7 @@ public class WelcomeWindow {
       Object classesObject = jo.get("classes");
       JSONArray classesJSONArrayToSet = (JSONArray) classesObject;
 
+      HashTable<Class, LinkedList> assignmentsByClass = Main.getAssignmentsByClass();
       HashTable<String, Class> classes = Main.getClasses();
       if (classesJSONArrayToSet == null) {
         throw new ParseException(0);
@@ -133,6 +134,7 @@ public class WelcomeWindow {
 
         Class newClass = new Class(className, red, green, blue, classDifficulty);
         classes.insert(className, newClass);
+        assignmentsByClass.insert(newClass, new LinkedList());
       }
 
       Object assignmentsObject = jo.get("assignments");
@@ -238,11 +240,20 @@ public class WelcomeWindow {
 
         assignmentsJSONArray = assignmentsJSONArrayToSet;
 
-        Assignment newAssignment = new Assignment(assignmentName, classes.get(className),
+        Class classObj = classes.get(className);
+        Assignment newAssignment = new Assignment(assignmentName, classObj,
             difficulty, localStartDate, localDueDate, dueTime, completed);
         assignments.insert(assignmentName, newAssignment);
         whatToDoNow.insert(newAssignment);
-
+        
+        try {
+        	LinkedList classAssignments = assignmentsByClass.get(classObj);
+        	classAssignments.insert(newAssignment);
+        	assignmentsByClass.insert(classObj, classAssignments);
+        } catch (Exception e) {
+        	System.out.println("oopsie daisy");
+        }
+        
         LinkedList list;
 
 
@@ -265,7 +276,8 @@ public class WelcomeWindow {
       Main.setAssignmentsByDate(assignmentsByDate);
       Main.setWhatToDoNow(whatToDoNow);
       Main.setClasses(classes);
-
+      Main.setAssignmentsByClass(assignmentsByClass);
+      
       return true;
 
 
@@ -291,6 +303,7 @@ public class WelcomeWindow {
       alert.showAndWait();
       return false;
     } catch (NullPointerException e) {
+      e.printStackTrace();
       Alert alert = new Alert(AlertType.ERROR);
       alert.setTitle("Error");
       alert.setHeaderText("File Error");

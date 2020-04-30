@@ -60,6 +60,7 @@ public class Main extends Application {
 
   private static HashTable<String, Class> classes;
   private static HashTable<LocalDate, LinkedList> assignmentsByDate;
+  private static HashTable<Class, LinkedList> assignmentsByClass;
   private static HashTable<String, Assignment> assignments;
   private static PriorityQueue whatToDoNow;
 
@@ -77,6 +78,14 @@ public class Main extends Application {
 
   public static void setAssignmentsByDate(HashTable<LocalDate, LinkedList> assignmentsByDate) {
     Main.assignmentsByDate = assignmentsByDate;
+  }
+  
+  public static HashTable<Class, LinkedList> getAssignmentsByClass() {
+	    return assignmentsByClass;
+  }
+
+  public static void setAssignmentsByClass(HashTable<Class, LinkedList> assignmentsByClass) {
+    Main.assignmentsByClass = assignmentsByClass;
   }
 
   public static HashTable<String, Assignment> getAssignments() {
@@ -100,6 +109,7 @@ public class Main extends Application {
 
     classes = new HashTable<>();
     assignmentsByDate = new HashTable<>();
+    assignmentsByClass = new HashTable<>();
     assignments = new HashTable<>();
     whatToDoNow = new PriorityQueue();
 
@@ -243,27 +253,13 @@ public class Main extends Application {
     HBox classesHeader = new HBox();
     classesHeader.getChildren().add(yourClasses);
 
-    FlowPane classes = new FlowPane();
-    classes.setPrefWidth(294);
-    classes.getStyleClass().add("subjects");
+    FlowPane classesPane = new FlowPane();
+    classesPane.setPrefWidth(294);
+    classesPane.getStyleClass().add("subjects");
 
-    Button class1 = new Button("MATH 222");
-    class1.setId("MATH222");
-    Button class2 = new Button("CS 400");
-    class2.setId("CS400");
-    Button class3 = new Button("PHILOS 101");
-    class3.setId("PHILOS101");
-    Button class4 = new Button("CS 252");
-    class4.setId("CS252");
+    
 
-    class1.setOnAction(e -> CourseAssignmentsWindow.newWindow(class1.getId() + " Assignments"));
-    class2.setOnAction(e -> CourseAssignmentsWindow.newWindow(class2.getId() + " Assignments"));
-    class3.setOnAction(e -> CourseAssignmentsWindow.newWindow(class3.getId() + " Assignments"));
-    class4.setOnAction(e -> CourseAssignmentsWindow.newWindow(class4.getId() + " Assignments"));
-
-    classes.getChildren().addAll(class1, class2, class3, class4);
-
-    subjectsPane.getChildren().addAll(classesHeader, classes);
+    subjectsPane.getChildren().addAll(classesHeader, classesPane);
 
     root.setRight(rightPane);
 
@@ -275,6 +271,16 @@ public class Main extends Application {
 
     if (newUser) {
       ClassManagerWindow.newWindow("Add your classes!");
+    }
+    
+    Iterator<String> classNames = classes.iterator();
+    while(classNames.hasNext()) {
+    	Class currentClass = classes.get(classNames.next());
+    	Button classButton = new Button(currentClass.getClassName());
+        classButton.setId(currentClass.getClassName());
+        
+        classButton.setOnAction(e -> CourseAssignmentsWindow.newWindow(currentClass));
+        classesPane.getChildren().addAll(classButton);
     }
 
     classesJSONArray = WelcomeWindow.getJSONClasses();
@@ -327,7 +333,7 @@ public class Main extends Application {
       // assignmentBox.setId("ass_" + name);
 
       assignmentBox.setOnMouseClicked(e -> {
-        assigmentOptions(assignmentBox);
+        assignmentOptions(assignmentBox);
       });
 
       Text time = new Text(assignment.getDueTime());
@@ -379,7 +385,7 @@ public class Main extends Application {
             + classColor[1] + ", " + classColor[2] + ");");
 
         assignmentBox.setOnMouseClicked(e -> {
-          assigmentOptions(assignmentBox);
+          assignmentOptions(assignmentBox);
         });
 
         // "Friday, April 17 at 11:59 PM" - intended format
@@ -413,7 +419,7 @@ public class Main extends Application {
     assignmentsPane.getChildren().add(newAssignment);
   }
 
-  private static void assigmentOptions(HBox assignmentBox) {
+  public static void assignmentOptions(HBox assignmentBox) {
     Text manage = new Text("Manage this assignment");
     manage.setId("h2");
 

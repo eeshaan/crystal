@@ -34,4 +34,8 @@ public class Class {
   public void setDifficulty(int difficulty) {
     this.difficulty = difficulty;
   }
+  
+  public boolean equals(Class other) {
+	  return this.className.equals(other.className);
+  }
 }
