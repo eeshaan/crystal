@@ -16,49 +16,51 @@ public class CourseAssignmentsWindow {
   public static void newWindow(Class className) {
     Stage window = new Stage();
     window.initModality(Modality.APPLICATION_MODAL);
-    
+
     HashTable<Class, LinkedList> assignmentsByClass = Main.getAssignmentsByClass();
-    
+
     Text header = new Text(className.getClassName() + " Assignments");
     header.setId("h2");
-    
+
     VBox assignmentsPane = new VBox(header);
     assignmentsPane.setSpacing(5);
     assignmentsPane.setPadding(new Insets(20, 20, 20, 20));
-    
-    Iterator<Assignment> today = assignmentsByClass.get(className).iterator();
 
-    while (today != null && today.hasNext()) {
-      Assignment assignment = today.next();
-      String name = assignment.getAssignmentName();
+    if (assignmentsByClass.get(className) == null) {
+      assignmentsPane.getChildren().add(new Text("There are no assignments in this class."));
+    } else {
+      Iterator<Assignment> today = assignmentsByClass.get(className).iterator();
 
-      HBox assignmentBox = new HBox();
-      assignmentBox.getStyleClass().add("assignmentBox");
+      while (today != null && today.hasNext()) {
+        Assignment assignment = today.next();
+        String name = assignment.getAssignmentName();
 
-      int[] classColor = assignment.getClassName().getClassColor();
-      assignmentBox.setStyle("-fx-background-color: rgba(" + classColor[0] + ", " + classColor[1]
-          + ", " + classColor[2] + ", 0.15); -fx-border-color: rgb(" + classColor[0] + ", "
-          + classColor[1] + ", " + classColor[2] + ");");
+        HBox assignmentBox = new HBox();
+        assignmentBox.getStyleClass().add("assignmentBox");
 
-      assignmentBox.setOnMouseClicked(e -> {
-        Main.assignmentOptions(assignmentBox);
-      });
+        int[] classColor = assignment.getClassName().getClassColor();
+        assignmentBox.setStyle("-fx-background-color: rgba(" + classColor[0] + ", " + classColor[1]
+            + ", " + classColor[2] + ", 0.15); -fx-border-color: rgb(" + classColor[0] + ", "
+            + classColor[1] + ", " + classColor[2] + ");");
 
-      Text due = new Text("Due ");
+        assignmentBox.setOnMouseClicked(e -> {
+          Main.assignmentOptions(assignmentBox);
+        });
 
-      // "Friday, April 17 at 11:59 PM" - intended format
-      Text time =
-          new Text(assignment.getDueDate().format(DateTimeFormatter.ofPattern("EEEE, MMMM d"))
-              + " at " + assignment.getDueTime());
-      time.setId("time");
+        Text due = new Text("Due ");
 
-      Text desc = new Text(" - " + name);
-      assignmentBox.getChildren().addAll(due, time, desc);
+        // "Friday, April 17 at 11:59 PM" - intended format
+        Text time =
+            new Text(assignment.getDueDate().format(DateTimeFormatter.ofPattern("EEEE, MMMM d"))
+                + " at " + assignment.getDueTime());
+        time.setId("time");
 
-      assignmentsPane.getChildren().add(assignmentBox);
+        Text desc = new Text(" - " + name);
+        assignmentBox.getChildren().addAll(due, time, desc);
+
+        assignmentsPane.getChildren().add(assignmentBox);
+      }
     }
-    
-    
 
     Scene scene = new Scene(assignmentsPane, 600, 500);
     scene.getStylesheets()
