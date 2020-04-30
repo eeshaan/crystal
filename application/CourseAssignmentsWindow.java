@@ -1,5 +1,6 @@
 package application;
 
+import java.time.format.DateTimeFormatter;
 import java.util.Iterator;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -39,25 +40,27 @@ public class CourseAssignmentsWindow {
           + ", " + classColor[2] + ", 0.15); -fx-border-color: rgb(" + classColor[0] + ", "
           + classColor[1] + ", " + classColor[2] + ");");
 
-      // assignmentBox.setId("ass_" + name);
-
       assignmentBox.setOnMouseClicked(e -> {
         Main.assignmentOptions(assignmentBox);
       });
 
-      Text time = new Text(assignment.getDueTime());
+      Text due = new Text("Due ");
+
+      // "Friday, April 17 at 11:59 PM" - intended format
+      Text time =
+          new Text(assignment.getDueDate().format(DateTimeFormatter.ofPattern("EEEE, MMMM d"))
+              + " at " + assignment.getDueTime());
       time.setId("time");
 
       Text desc = new Text(" - " + name);
-
-      assignmentBox.getChildren().addAll(time, desc);
+      assignmentBox.getChildren().addAll(due, time, desc);
 
       assignmentsPane.getChildren().add(assignmentBox);
     }
     
     
 
-    Scene scene = new Scene(assignmentsPane, 500, 500);
+    Scene scene = new Scene(assignmentsPane, 600, 500);
     scene.getStylesheets()
         .add(Main.class.getResource("/application/src/css/style.css").toExternalForm()); // link CSS
 
