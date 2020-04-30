@@ -41,8 +41,10 @@ public class WelcomeWindow {
 
   private static JSONArray classesJSONArray = new JSONArray();
   private static JSONArray assignmentsJSONArray = new JSONArray();
+  
+  private static boolean newUser = false;
 
-  public static void newWindow(String title) {
+  public static boolean newWindow(String title) {
     Stage window = new Stage();
     window.initModality(Modality.APPLICATION_MODAL);
 
@@ -81,7 +83,7 @@ public class WelcomeWindow {
     addClasses.setOnAction(e -> {
       clearSaveState();
       window.close();
-      ClassManagerWindow.newWindow("Add your classes!");
+      newUser = true;
     });
 
     HBox addButtonHolder = new HBox(addClasses);
@@ -98,6 +100,8 @@ public class WelcomeWindow {
     window.setScene(scene);
     window.setTitle(title);
     window.showAndWait();
+    
+    return newUser;
   }
 
   public static boolean parseJSON(File f) {

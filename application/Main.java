@@ -359,8 +359,11 @@ public class Main extends Application {
     mainScene.getStylesheets()
         .add(getClass().getResource("/application/src/css/style.css").toExternalForm());
 
-    WelcomeWindow.newWindow("Welcome to Crystal!");
+    boolean newUser = WelcomeWindow.newWindow("Welcome to Crystal!");
 
+    if (newUser) {
+      ClassManagerWindow.newWindow("Add your classes!");
+    }
     classesJSONArray = WelcomeWindow.getJSONClasses();
     assignmentsJSONArray = WelcomeWindow.getJSONAssignments();
 
