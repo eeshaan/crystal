@@ -187,7 +187,7 @@ TODO: there is no -fx-margin property, but we can hack around this by adding equ
 */
 }
 
-#MATH222 {
+/*#MATH222 {
   -fx-background-color: rgb(240, 41, 41);
   -fx-text-fill: #fff;
 }
@@ -224,7 +224,7 @@ TODO: there is no -fx-margin property, but we can hack around this by adding equ
 #ass_PHILOS101 {
   -fx-background-color: rgba(29, 203, 57, 0.15);
   -fx-border-color: rgb(29, 203, 57);
-}
+}*/
 
 .assignmentBox {
   -fx-padding: 20px 20px 20px 20px;
