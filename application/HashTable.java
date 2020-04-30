@@ -65,7 +65,9 @@ public class HashTable<K, V> implements HashTableADT<K, V> {
 
     for (LinkedNode node : data) {
       while (node != null) {
-        res += node.key + " ";
+        res += node.value + " ";
+        
+        node = node.next;
       }
     }
     return res;

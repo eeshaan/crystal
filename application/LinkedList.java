@@ -22,20 +22,25 @@ public class LinkedList implements LinkedListADT<Assignment>, Iterable<Assignmen
 		Node newNode = new Node(data);
 
 		Node current = head;
-		while (current != null) {
-			if (current.assignment.getAssignmentName().equals(data.getAssignmentName())) {
-				// if key exists already change the value associated with it
-				current.assignment = data;
-				break;
-			}
-			if (current.next == null) {
-				// if key does not exist insert at the end of list
-				current.next = newNode;
-				size++;
-				break;
-			}
+		if(current == null) {
+			head = new Node(data);
+		}
+		else {
+			while (current != null) {
+				if (current.assignment.getAssignmentName().equals(data.getAssignmentName())) {
+					// if key exists already change the value associated with it
+					current.assignment = data;
+					break;
+				}
+				if (current.next == null) {
+					// if key does not exist insert at the end of list
+					current.next = newNode;
+					size++;
+					break;
+				}
 
-			current = current.next; // iterate through list
+				current = current.next; // iterate through list
+			}
 		}
 	}
 
@@ -97,6 +102,20 @@ public class LinkedList implements LinkedListADT<Assignment>, Iterable<Assignmen
 		return new ListIter(head);
 	}
 	
+	@Override
+	public String toString() {
+		String res = "";
+		
+		Node current = head;
+		while(current != null) {
+			res += current.assignment.toString() + "  ";
+			
+			current = current.next;
+		}
+		
+		return res;
+	}
+	
 	private class ListIter implements Iterator<Assignment>{
 		private Node node;
 		
@@ -106,7 +125,7 @@ public class LinkedList implements LinkedListADT<Assignment>, Iterable<Assignmen
 		
 		@Override
 		public boolean hasNext() {
-			return node.next != null;
+			return node != null && node.next != null;
 		}
 		
 		@Override

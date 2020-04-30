@@ -295,12 +295,18 @@ public class Main extends Application {
 
 
     ///// Add today's tasks. Will need to be put into a for loop eventually /////
+    System.out.println(assignmentsByDate);
+    
     LocalDate pick = dp.getValue();
 
+    Iterator<Assignment> today;
     //Calendar calendar =Calendar.getInstance();
-	Iterator<Assignment> today = assignmentsByDate.get(pick).iterator();
+    if(assignmentsByDate.get(pick) == null)
+    	today = null;
+    else	
+    	today = assignmentsByDate.get(pick).iterator();
     
-    while(today.hasNext()) {
+    while(today != null && today.hasNext()) {
     	Assignment assignment = today.next();
     	String name = assignment.getAssignmentName();
     	
@@ -329,16 +335,19 @@ public class Main extends Application {
     assignmentsPane.getChildren().add(workHeaderHolder);
 
     ///// Add the rest of the tasks/the next few tasks. Also must be a for loop /////
-    LocalDate date = LocalDate.now();
+    LocalDate date = pick;
     LocalDate endDate = date.plusDays(7);
     SimpleDateFormat dueDateFormat = new SimpleDateFormat("EEEE, MMMMM d,");
     
-    while(date != endDate) {
-    	LocalDate thisDate = LocalDate.of(date.getYear(), date.getMonthValue(), date.getDayOfMonth());
+    while(!date.equals(endDate)) {
+    	Iterator<Assignment> day;
     	
-    	Iterator<Assignment> day = assignmentsByDate.get(thisDate).iterator();
+    	if(assignmentsByDate.get(date) == null)
+        	day = null;
+        else
+        	day = assignmentsByDate.get(date).iterator();
         
-        while(day.hasNext()) {
+        while(day != null && day.hasNext()) {
         	Assignment assignment = day.next();
         	String name = assignment.getAssignmentName();
         	
