@@ -11,6 +11,7 @@ package application;
  */
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 // TODO: describe the collision resolution scheme you have chosen
 // I am using buckets. My buckets are linked lists
@@ -267,6 +268,45 @@ public class HashTable<K, V> implements HashTableADT<K, V> {
   @Override
   public int getCapacity() {
     return capacity;
+  }
+
+  public Iterator<K> iterator() {
+    return new keyIter(this);
+  }
+
+  private class keyIter implements Iterator<K> {
+
+    private int current;
+    private ArrayList<K> keys;
+
+    public keyIter(HashTable<K, V> ht) {
+      current = 0;
+      keys = new ArrayList<>();
+
+      for (LinkedNode node : data) {
+        while (node != null) {
+          keys.add(node.key);
+
+          node = node.next;
+        }
+      }
+    }
+
+    @Override
+    public boolean hasNext() {
+      return current < keys.size();
+    }
+
+    @Override
+    public K next() {
+      if (current >= keys.size())
+        return null;
+
+      K key = keys.get(current);
+      current++;
+      return key;
+    }
+
   }
 
 }

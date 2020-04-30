@@ -1,5 +1,7 @@
 package application;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -32,6 +34,9 @@ public class ClassManagerWindow {
     HBox headerBox = new HBox(header);
 
     GridPane pane = new GridPane();
+
+    JSONArray classesJSONArrayToSet = Main.getJSONClasses();
+
 
     pane.setHgap(10);
     pane.setVgap(10);
@@ -82,18 +87,37 @@ public class ClassManagerWindow {
     HBox addAnother = new HBox(btn);
     HBox.setHgrow(btn, Priority.ALWAYS);
     addAnother.setPadding(new Insets(12.5, 0, 20, 0));
-    
+
     Button submit = new Button("Submit classes and launch");
     submit.setId("bigButton");
     HBox bottom = new HBox(submit);
 
+    HashTable<String, Class> classes = Main.getClasses();
     submit.setOnAction(e -> {
+      for (int k = 1; k < i; k++) {
+        JSONObject newJSONClass = new JSONObject();
+
+        newJSONClass.put("className", textField[k].getText());
+        newJSONClass.put("classColorRed", (int) (cp[k].getValue().getRed() * 255));
+        newJSONClass.put("classColorGreen", (int) (cp[k].getValue().getGreen() * 255));
+        newJSONClass.put("classColorBlue", (int) (cp[k].getValue().getBlue() * 255));
+        newJSONClass.put("difficulty", difficulty[k].getValue());
+
+        Class newClass = new Class(textField[k].getText(), (int) (cp[k].getValue().getRed() * 255),
+            (int) (cp[k].getValue().getGreen() * 255), (int) (cp[k].getValue().getBlue() * 255),
+            difficulty[k].getValue());
+        classesJSONArrayToSet.add(newJSONClass);
+        classes.insert(textField[k].getText(), newClass);
+
+      }
+      Main.setJSONClasses(classesJSONArrayToSet);
+      Main.setClasses(classes);
       window.close();
     });
 
     VBox root = new VBox(headerBox, pane, addAnother, bottom);
     root.setPadding(new Insets(20, 20, 20, 20));
-    
+
     Scene scene = new Scene(root, WINDOW_WIDTH, WINDOW_HEIGHT);
     scene.getStylesheets()
         .add(Main.class.getResource("/application/src/css/style.css").toExternalForm()); // link CSS
