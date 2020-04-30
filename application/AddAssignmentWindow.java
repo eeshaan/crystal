@@ -165,7 +165,7 @@ public class AddAssignmentWindow {
     formBox.setPadding(new Insets(20, 20, 20, 20));
     formBox.setSpacing(5);
 
-    Scene vScene = new Scene(formBox, 500, 650);
+    Scene vScene = new Scene(formBox, 425, 550);
     vScene.getStylesheets()
         .add(Main.class.getResource("/application/src/css/style.css").toExternalForm()); // link
                                                                                          // CSS
