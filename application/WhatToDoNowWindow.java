@@ -41,13 +41,14 @@ public class WhatToDoNowWindow {
         + ", " + classColor[2] + ", 0.15); -fx-border-color: rgb(" + classColor[0] + ", "
         + classColor[1] + ", " + classColor[2] + ");");
 
-    Text time = new Text(
-        "Due on " + highestPriority.getDueDate().format(DateTimeFormatter.ofPattern("EEEE, MMMM d"))
+    Text due = new Text("Due ");
+    
+    Text time = new Text(highestPriority.getDueDate().format(DateTimeFormatter.ofPattern("EEEE, MMMM d"))
             + " at " + highestPriority.getDueTime());
     time.setId("time");
 
     Text desc = new Text(" - " + name);
-    assignmentBox.getChildren().addAll(time, desc);
+    assignmentBox.getChildren().addAll(due, time, desc);
     
     Label basedOn = new Label(
         "based on the difficulty level of the class, the difficulty level of the assignment, and when the assignment is due.");
