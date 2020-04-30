@@ -125,7 +125,7 @@ public class LinkedList implements LinkedListADT<Assignment>, Iterable<Assignmen
 		
 		@Override
 		public boolean hasNext() {
-			return node != null && node.next != null;
+			return node != null;
 		}
 		
 		@Override

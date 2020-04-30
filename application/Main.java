@@ -294,8 +294,8 @@ public class Main extends Application {
 
     Text dueTodayHeader = new Text("Due Today");
     dueTodayHeader.setId("h1"); // apply DM Serif Display font
-    if (date.getDayOfYear() == date.now().getDayOfYear()
-        && date.getYear() == date.now().getYear()) {
+    if (date.getDayOfYear() == LocalDate.now().getDayOfYear()
+        && date.getYear() == LocalDate.now().getYear()) {
       dueTodayHeader.setText("Due Today");
     } else {
       SimpleDateFormat dueDateFormat = new SimpleDateFormat("EEEE, MMMMM d, yyyy");
@@ -352,7 +352,7 @@ public class Main extends Application {
     ///// Add the rest of the tasks/the next few tasks. Also must be a for loop
     ///// /////
     LocalDate datePlusOne = date.plusDays(1);
-    LocalDate endDate = date.plusDays(7);
+    LocalDate endDate = date.plusDays(30);
     SimpleDateFormat dueDateFormat = new SimpleDateFormat("EEEE, MMMMM d,");
 
     while (!datePlusOne.equals(endDate)) {
