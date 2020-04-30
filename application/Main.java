@@ -79,9 +79,9 @@ public class Main extends Application {
   public static void setAssignmentsByDate(HashTable<LocalDate, LinkedList> assignmentsByDate) {
     Main.assignmentsByDate = assignmentsByDate;
   }
-  
+
   public static HashTable<Class, LinkedList> getAssignmentsByClass() {
-	    return assignmentsByClass;
+    return assignmentsByClass;
   }
 
   public static void setAssignmentsByClass(HashTable<Class, LinkedList> assignmentsByClass) {
@@ -257,7 +257,7 @@ public class Main extends Application {
     classesPane.setPrefWidth(294);
     classesPane.getStyleClass().add("subjects");
 
-    
+
 
     subjectsPane.getChildren().addAll(classesHeader, classesPane);
 
@@ -272,15 +272,20 @@ public class Main extends Application {
     if (newUser) {
       ClassManagerWindow.newWindow("Add your classes!");
     }
-    
+
     Iterator<String> classNames = classes.iterator();
-    while(classNames.hasNext()) {
-    	Class currentClass = classes.get(classNames.next());
-    	Button classButton = new Button(currentClass.getClassName());
-        classButton.setId(currentClass.getClassName());
-        
-        classButton.setOnAction(e -> CourseAssignmentsWindow.newWindow(currentClass));
-        classesPane.getChildren().addAll(classButton);
+    while (classNames.hasNext()) {
+      Class currentClass = classes.get(classNames.next());
+      int[] classColor = currentClass.getClassColor();
+      Button classButton = new Button(currentClass.getClassName());
+      classButton.setStyle("-fx-background-color: rgb(" + classColor[0] + ", " + classColor[1]
+          + ", " + classColor[2] + "); -fx-text-fill: #fff;");
+
+      if (classColor[0] + classColor[1] + classColor[2] > 625)
+        classButton.getStyleClass().add("dark-text");
+
+      classButton.setOnAction(e -> CourseAssignmentsWindow.newWindow(currentClass));
+      classesPane.getChildren().addAll(classButton);
     }
 
     classesJSONArray = WelcomeWindow.getJSONClasses();

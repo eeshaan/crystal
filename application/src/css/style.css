@@ -236,6 +236,10 @@ TODO: there is no -fx-margin property, but we can hack around this by adding equ
   -fx-border-color: rgb(29, 203, 57);
 }*/
 
+.dark-text {
+  -fx-text-fill: #1c1c1c !important;
+}
+
 .assignmentBox {
   -fx-padding: 20px 20px 20px 20px;
   -fx-border-width: 0 0 0 3.75px;
