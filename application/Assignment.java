@@ -1,5 +1,6 @@
 package application;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Assignment implements Comparable<Assignment> {
@@ -7,14 +8,14 @@ public class Assignment implements Comparable<Assignment> {
   private String assignmentName;
   private Class className;
   private int difficulty;
-  private Date startDate;
-  private Date dueDate;
+  private LocalDate startDate;
+  private LocalDate dueDate;
   private String dueTime;
   private boolean completed;
   private int priority;
 
-  public Assignment(String assignmentName, Class className, int difficulty, Date startDate,
-      Date dueDate, String dueTime, boolean completed) {
+  public Assignment(String assignmentName, Class className, int difficulty, LocalDate startDate,
+      LocalDate dueDate, String dueTime, boolean completed) {
     this.assignmentName = assignmentName;
     this.className = className;
     this.difficulty = difficulty;
@@ -50,19 +51,19 @@ public class Assignment implements Comparable<Assignment> {
     this.difficulty = difficulty;
   }
 
-  public Date getStartDate() {
+  public LocalDate getStartDate() {
     return startDate;
   }
 
-  public void setStartDate(Date startDate) {
+  public void setStartDate(LocalDate startDate) {
     this.startDate = startDate;
   }
 
-  public Date getDueDate() {
+  public LocalDate getDueDate() {
     return dueDate;
   }
 
-  public void setDueDate(Date dueDate) {
+  public void setDueDate(LocalDate dueDate) {
     this.dueDate = dueDate;
   }
 

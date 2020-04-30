@@ -7,6 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Optional;
 import javafx.geometry.Insets;
@@ -210,9 +211,10 @@ public class WelcomeWindow {
           }
 
         }
-        int difficulty = (int) ((long)jsonAssignment.get("difficulty"));
+        int difficulty = (int) ((long) jsonAssignment.get("difficulty"));
 
         SimpleDateFormat sdformat = new SimpleDateFormat("MMMMM dd, yyyy");
+
         Date startDate = null;
         Date dueDate = null;
         try {
@@ -222,11 +224,16 @@ public class WelcomeWindow {
           throw new ParseException(a);
         }
 
+        LocalDate localStartDate =
+            LocalDate.of(startDate.getYear() + 1900, startDate.getMonth() + 1, startDate.getDate());
+        LocalDate localDueDate =
+            LocalDate.of(dueDate.getYear() + 1900, dueDate.getMonth() + 1, dueDate.getDate());
+
         String dueTime = (String) jsonAssignment.get("dueTime");
         boolean completed = (boolean) jsonAssignment.get("completed");
 
         Assignment newAssignment = new Assignment(assignmentName, classes.get(className),
-            difficulty, startDate, dueDate, dueTime, completed);
+            difficulty, localStartDate, localDueDate, dueTime, completed);
         assignments.insert(assignmentName, newAssignment);
         whatToDoNow.insert(newAssignment);
 
