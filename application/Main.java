@@ -372,7 +372,11 @@ public class Main extends Application {
 
         HBox assignmentBox = new HBox();
         assignmentBox.getStyleClass().add("assignmentBox");
-        assignmentBox.setId("ass_" + name);
+        
+        int[] classColor = assignment.getClassName().getClassColor();
+        assignmentBox.setStyle("-fx-background-color: rgba(" + classColor[0] + ", " + classColor[1]
+            + ", " + classColor[2] + ", 0.15); -fx-border-color: rgb(" + classColor[0] + ", "
+            + classColor[1] + ", " + classColor[2] + ");");
 
         assignmentBox.setOnMouseClicked(e -> {
           assigmentOptions(assignmentBox);
