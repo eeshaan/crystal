@@ -7,6 +7,11 @@ What separates Crystal from other assignment tracking apps is a feature that wil
 
 
 ## The Team
+<a title="Eeshaan Pirani" href="https://github.com/eeshaan/"><img src="https://github.com/eeshaan.png?size=60" alt="Eeshaan Pirani"></a>
+<a title="Ayaz Franz" href="https://github.com/acfranz2/"><img src="https://github.com/acfranz2.png" width="60px" alt="Ayaz Franz"></a>
+<a title="Benjamin Tan" href="https://github.com/BenDanTan/"><img src="https://github.com/BenDanTan.png?size=60" alt="Benjamin  Tan"></a>
+<a title="Devin Demirlika" href="https://github.com/ddem1221/"><img src="https://github.com/ddem1221.png" width="60px" alt="Devin Demirlika"></a>
+<a title="Bryan Lin" href="https://github.com/MihayaHotsumiAMLN"><img src="https://github.com/MihayaHotsumiAMLN.png?size=60" alt="Bryan Lin"></a>
 
 ---
 
