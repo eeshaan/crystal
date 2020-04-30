@@ -41,8 +41,10 @@ public class WelcomeWindow {
 
   private static JSONArray classesJSONArray = new JSONArray();
   private static JSONArray assignmentsJSONArray = new JSONArray();
+  
+  private static boolean newUser = false;
 
-  public static void newWindow(String title) {
+  public static boolean newWindow(String title) {
     Stage window = new Stage();
     window.initModality(Modality.APPLICATION_MODAL);
 
@@ -68,14 +70,21 @@ public class WelcomeWindow {
 
     load.setOnAction(e -> {
       File selectedFile = fileChooser.showOpenDialog(window);
-      parseJSON(selectedFile);
+      boolean valid = parseJSON(selectedFile);
+      if (valid) {
+        window.close();
+      }
     });
 
     Button addClasses =
         new Button("This is my first time. (Start adding classes and assignments from scratch.)");
     addClasses.setId("bigButton");
 
-    addClasses.setOnAction(e -> clearSaveState());
+    addClasses.setOnAction(e -> {
+      clearSaveState();
+      window.close();
+      newUser = true;
+    });
 
     HBox addButtonHolder = new HBox(addClasses);
     addButtonHolder.setPadding(new Insets(10, 0, 0, 0));
@@ -91,9 +100,11 @@ public class WelcomeWindow {
     window.setScene(scene);
     window.setTitle(title);
     window.showAndWait();
+    
+    return newUser;
   }
 
-  public static void parseJSON(File f) {
+  public static boolean parseJSON(File f) {
     JSONParser jsonParser = new JSONParser();
 
     try {
@@ -244,30 +255,37 @@ public class WelcomeWindow {
       Main.setWhatToDoNow(whatToDoNow);
       Main.setClasses(classes);
 
+      return true;
+
+
     } catch (FileNotFoundException e) {
       Alert alert = new Alert(AlertType.ERROR);
       alert.setTitle("Error");
       alert.setHeaderText("File Error");
       alert.setContentText("File was not found.");
       alert.showAndWait();
+      return false;
     } catch (IOException e) {
       Alert alert = new Alert(AlertType.ERROR);
       alert.setTitle("Error");
       alert.setHeaderText("File Error");
       alert.setContentText("Error importing this file.");
       alert.showAndWait();
+      return false;
     } catch (ParseException e) {
       Alert alert = new Alert(AlertType.ERROR);
       alert.setTitle("Error");
       alert.setHeaderText("File Error");
       alert.setContentText("File formatted incorrectly.");
       alert.showAndWait();
+      return false;
     } catch (NullPointerException e) {
       Alert alert = new Alert(AlertType.ERROR);
       alert.setTitle("Error");
       alert.setHeaderText("File Error");
       alert.setContentText("No file was selected.");
       alert.showAndWait();
+      return false;
     }
   }
 
