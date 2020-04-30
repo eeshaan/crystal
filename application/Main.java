@@ -393,14 +393,16 @@ public class Main extends Application {
           assignmentOptions(assignmentBox);
         });
 
+        Text due = new Text("Due ");
+
         // "Friday, April 17 at 11:59 PM" - intended format
-        Text time = new Text(
-            "Due on " + assignment.getDueDate().format(DateTimeFormatter.ofPattern("EEEE, MMMM d"))
+        Text time =
+            new Text(assignment.getDueDate().format(DateTimeFormatter.ofPattern("EEEE, MMMM d"))
                 + " at " + assignment.getDueTime());
         time.setId("time");
 
         Text desc = new Text(" - " + name);
-        assignmentBox.getChildren().addAll(time, desc);
+        assignmentBox.getChildren().addAll(due, time, desc);
 
         assignmentsPane.getChildren().add(assignmentBox);
       }
