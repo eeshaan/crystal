@@ -191,8 +191,8 @@ public class WelcomeWindow {
             if (result1.get() == addButtonType) {
 
               Class newClass =
-                  new Class(className, (int) cp.getValue().getRed(), (int) cp.getValue().getGreen(),
-                      (int) cp.getValue().getBlue(), difficulty.getValue());
+                  new Class(className, (int) (cp.getValue().getRed() * 255), (int) (cp.getValue().getGreen() * 255),
+                      (int) (cp.getValue().getBlue() * 255), difficulty.getValue());
               JSONObject newJSONClass = new JSONObject();
 
               newJSONClass.put("className", className);
