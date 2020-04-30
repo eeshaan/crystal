@@ -38,13 +38,13 @@ public class WhatToDoNowWindow {
 
     if (highestPriority == null) {
       workOn.setText(" says you should relax. You have no upcoming assignments!");
-      
+
       pane = new VBox(topText);
       pane.setPadding(new Insets(115, 60, 40, 60));
       pane.setSpacing(50);
     } else {
       String name = highestPriority.getAssignmentName();
-          
+
       int[] classColor = highestPriority.getClassName().getClassColor();
       assignmentBox.setStyle("-fx-background-color: rgba(" + classColor[0] + ", " + classColor[1]
           + ", " + classColor[2] + ", 0.15); -fx-border-color: rgb(" + classColor[0] + ", "

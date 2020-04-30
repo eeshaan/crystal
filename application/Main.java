@@ -276,7 +276,7 @@ public class Main extends Application {
     if (newUser) {
       ClassManagerWindow.newWindow("Add your classes!");
     }
-    
+
     classesJSONArray = WelcomeWindow.getJSONClasses();
     assignmentsJSONArray = WelcomeWindow.getJSONAssignments();
 
@@ -372,7 +372,7 @@ public class Main extends Application {
 
         HBox assignmentBox = new HBox();
         assignmentBox.getStyleClass().add("assignmentBox");
-        
+
         int[] classColor = assignment.getClassName().getClassColor();
         assignmentBox.setStyle("-fx-background-color: rgba(" + classColor[0] + ", " + classColor[1]
             + ", " + classColor[2] + ", 0.15); -fx-border-color: rgb(" + classColor[0] + ", "
