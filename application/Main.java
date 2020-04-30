@@ -365,8 +365,6 @@ public class Main extends Application {
     assignmentsJSONArray = WelcomeWindow.getJSONAssignments();
 
 
-    ClassManagerWindow.newWindow("Add your classes!");
-
     // Add the stuff and set the primary stage
     mainStage.setTitle(APP_TITLE);
     mainStage.setScene(mainScene);
