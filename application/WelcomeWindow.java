@@ -41,7 +41,7 @@ public class WelcomeWindow {
 
   private static JSONArray classesJSONArray = new JSONArray();
   private static JSONArray assignmentsJSONArray = new JSONArray();
-  
+
   private static boolean newUser = false;
 
   public static boolean newWindow(String title) {
@@ -100,7 +100,7 @@ public class WelcomeWindow {
     window.setScene(scene);
     window.setTitle(title);
     window.showAndWait();
-    
+
     return newUser;
   }
 
@@ -123,12 +123,10 @@ public class WelcomeWindow {
       for (int c = 0; c < classesJSONArrayToSet.size(); c++) {
         JSONObject jsonClass = (JSONObject) classesJSONArrayToSet.get(c);
         String className = (String) jsonClass.get("className");
-        JSONObject classColor = (JSONObject) jsonClass.get("classColor");
-
-        int red = Integer.parseInt((String) classColor.get("r"));
-        int green = Integer.parseInt((String) classColor.get("g"));
-        int blue = Integer.parseInt((String) classColor.get("b"));
-        int classDifficulty = Integer.parseInt((String) jsonClass.get("difficulty"));
+        int red = (int) ((long) jsonClass.get("classColorRed"));
+        int green = (int) ((long) jsonClass.get("classColorGreen"));
+        int blue = (int) ((long) jsonClass.get("classColorBlue"));
+        int classDifficulty = (int) ((long) jsonClass.get("difficulty"));
 
         Class newClass = new Class(className, red, green, blue, classDifficulty);
         classes.insert(className, newClass);
@@ -193,17 +191,14 @@ public class WelcomeWindow {
                   new Class(className, (int) cp.getValue().getRed(), (int) cp.getValue().getGreen(),
                       (int) cp.getValue().getBlue(), difficulty.getValue());
               JSONObject newJSONClass = new JSONObject();
-              JSONObject classColor = new JSONObject();
-
-              classColor.put("r", (int) cp.getValue().getRed());
-              classColor.put("g", (int) cp.getValue().getGreen());
-              classColor.put("b", (int) cp.getValue().getBlue());
 
               newJSONClass.put("className", className);
-              newJSONClass.put("classColor", classColor);
+              newJSONClass.put("classColorRed", (int) cp.getValue().getRed());
+              newJSONClass.put("classColorGreen", (int) cp.getValue().getGreen());
+              newJSONClass.put("classColorBlue", (int) cp.getValue().getBlue());
               newJSONClass.put("difficulty", difficulty.getValue());
 
-              classesJSONArray.add(newJSONClass);
+              classesJSONArrayToSet.add(newJSONClass);
               classes.insert(className, newClass);
 
             } else {
@@ -215,7 +210,7 @@ public class WelcomeWindow {
           }
 
         }
-        int difficulty = Integer.parseInt((String) jsonAssignment.get("difficulty"));
+        int difficulty = (int) ((long)jsonAssignment.get("difficulty"));
 
         SimpleDateFormat sdformat = new SimpleDateFormat("MMMMM dd, yyyy");
         Date startDate = null;
