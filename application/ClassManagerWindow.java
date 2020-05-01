@@ -114,86 +114,96 @@ public class ClassManagerWindow {
                                                                                         // spinner
 
 
-        pane.add(new Text("Class Name:"), 0, (i * 2) - 1);
-        pane.add(textField[i], 0, i * 2);
-        pane.add(new Text("Color:"), 5, (i * 2) - 1);
-        pane.add(cp[i], 5, i * 2);
-        pane.add(new Text("Difficulty (1-5):"), 7, (i * 2) - 1);
-        pane.add(difficulty[i], 7, i * 2);
+        pane.add(new Text("Class Name:"), 0, (i * 2) - 1); 			//add class name header/prompt between input lines
+        pane.add(textField[i], 0, i * 2); 							//add textfield for name on input line
+        pane.add(new Text("Color:"), 5, (i * 2) - 1); 				//add class color header/prompt between input lines
+        pane.add(cp[i], 5, i * 2); 									//add colorpicker for class color on input line
+        pane.add(new Text("Difficulty (1-5):"), 7, (i * 2) - 1); 	//add difficulty header/prompt between input lines
+        pane.add(difficulty[i], 7, i * 2); 							//add difficulty spinner on input line
 
-        i++;
+        i++;	//increment i for placement of classes
       }
     }
 
-    Image addImage = new Image("/application/src/img/add-icon.png", 25, 25, false, false);
+    //adding image for plus sign on add class button
+    Image addImage = new Image("/application/src/img/add-icon.png", 25, 25, false, false); 
     ImageView add = new ImageView();
     add.setImage(addImage);
 
+    //initializing the add class button
     Button btn = new Button("Add another class", add);
     btn.setId("addAnother");
 
+    //on "add class" button press, add another input line for a new class
     btn.setOnAction(e -> {
-      textField[i] = new TextField();
-      cp[i] = new ColorPicker();
-      difficulty[i] = new Spinner<>(1, 5, 3, 1);
-      difficulty[i].getStyleClass().add(Spinner.STYLE_CLASS_SPLIT_ARROWS_HORIZONTAL);
+      textField[i] = new TextField(); 	//add text field
+      cp[i] = new ColorPicker();		//add color picker
+      difficulty[i] = new Spinner<>(1, 5, 3, 1);	//add difficulty spinner
+      difficulty[i].getStyleClass().add(Spinner.STYLE_CLASS_SPLIT_ARROWS_HORIZONTAL); //style difficulty spinner
 
-      pane.add(new Text("Class Name:"), 0, (i * 2) - 1);
-      pane.add(textField[i], 0, i * 2);
-      pane.add(new Text("Color:"), 5, (i * 2) - 1);
-      pane.add(cp[i], 5, i * 2);
-      pane.add(new Text("Difficulty (1-5):"), 7, (i * 2) - 1);
-      pane.add(difficulty[i], 7, i * 2);
+      pane.add(new Text("Class Name:"), 0, (i * 2) - 1); 			//add class name header/prompt between input lines
+      pane.add(textField[i], 0, i * 2); 							//add textfield for name on input line
+      pane.add(new Text("Color:"), 5, (i * 2) - 1); 				//add class color header/prompt between input lines
+      pane.add(cp[i], 5, i * 2); 									//add colorpicker for class color on input line
+      pane.add(new Text("Difficulty (1-5):"), 7, (i * 2) - 1); 		//add difficulty header/prompt between input lines
+      pane.add(difficulty[i], 7, i * 2); 							//add difficulty spinner on input line
 
-      i++;
+      i++;	//increment i for placement of classes
     });
 
     btn.setMaxWidth(WINDOW_WIDTH);
-    HBox addAnother = new HBox(btn);
+    HBox addAnother = new HBox(btn); //addanother button
     HBox.setHgrow(btn, Priority.ALWAYS);
     addAnother.setPadding(new Insets(12.5, 0, 20, 0));
 
-    Button submit = new Button("Submit classes and launch");
+    Button submit = new Button("Submit classes and launch"); //submit button
     submit.setId("bigButton");
-    HBox bottom = new HBox(submit);
+    HBox bottom = new HBox(submit); //adding submit button to bottom HBox
 
-    HashTable<String, Class> classes = Main.getClasses();
-    HashTable<Class, LinkedList> assignmentsByClass = Main.getAssignmentsByClass();
-    submit.setOnAction(e -> {
+    HashTable<String, Class> classes = Main.getClasses(); //get hashtable of existing classes
+    HashTable<Class, LinkedList> assignmentsByClass = Main.getAssignmentsByClass(); //get hashtable of existing assignments by class
+    submit.setOnAction(e -> { // on submit button press
       for (int k = 1; k < i; k++) {
-        JSONObject newJSONClass = new JSONObject();
+        JSONObject newJSONClass = new JSONObject(); //initialize a new JSONObject for every new class
 
-        if (textField[k] != null) {
-          if (classes.get(textField[k].getText()) == null) {
+        if (textField[k] != null) { //check if class field is valid
+          if (classes.get(textField[k].getText()) == null) { //check if class already exists
+        	  
+        	  //add class variables to JSON class
             newJSONClass.put("className", textField[k].getText());
             newJSONClass.put("classColorRed", (int) (cp[k].getValue().getRed() * 255));
             newJSONClass.put("classColorGreen", (int) (cp[k].getValue().getGreen() * 255));
             newJSONClass.put("classColorBlue", (int) (cp[k].getValue().getBlue() * 255));
             newJSONClass.put("difficulty", difficulty[k].getValue());
 
+            //make new class object
             Class newClass = new Class(textField[k].getText(),
                 (int) (cp[k].getValue().getRed() * 255), (int) (cp[k].getValue().getGreen() * 255),
                 (int) (cp[k].getValue().getBlue() * 255), difficulty[k].getValue());
-            classesJSONArrayToSet.add(newJSONClass);
-            classes.insert(textField[k].getText(), newClass);
+            classesJSONArrayToSet.add(newJSONClass); //add JSON class to JSONArray
+            classes.insert(textField[k].getText(), newClass); //add class object to Class Hashtable
 
             
-            assignmentsByClass.insert(newClass, new LinkedList());
+            assignmentsByClass.insert(newClass, new LinkedList()); //add new class to the assignments by class datastructure
           }
         }
       }
+      //Push the new class sets back to main
       Main.setJSONClasses(classesJSONArrayToSet);
       Main.setClasses(classes);
+      //close the class manager window
       window.close();
     });
-
+    //set Vbox for window and style
     VBox root = new VBox(headerBox, pane, addAnother, bottom);
     root.setPadding(new Insets(20, 20, 20, 20));
 
+    //set scene for window and style
     Scene scene = new Scene(root, WINDOW_WIDTH, WINDOW_HEIGHT);
     scene.getStylesheets()
         .add(Main.class.getResource("/application/src/css/style.css").toExternalForm()); // link CSS
 
+    //set the scene and the title for the window and display
     window.setScene(scene);
     window.setTitle(title);
     window.showAndWait();
