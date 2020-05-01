@@ -344,7 +344,7 @@ public class Main extends Application {
       if (classColor[0] + classColor[1] + classColor[2] > 625)
         classButton.getStyleClass().add("dark-text");
 
-      classButton.setOnAction(e -> CourseAssignmentsWindow.newWindow(currentClass));
+      classButton.setOnAction(e -> ClassAssignmentsWindow.newWindow(currentClass));
       classesPane.getChildren().addAll(classButton);
     }
 
