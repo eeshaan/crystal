@@ -514,6 +514,10 @@ public class Main extends Application {
     // Completed button sets assignment as completed when clicked
     completed.setOnAction(e -> {
       assignmentBox.getStyleClass().add("completed");
+      
+      String name = assignment.getAssignmentName();
+      whatToDoNow.remove(name);
+      
       dialogStage.close();
     });
 
