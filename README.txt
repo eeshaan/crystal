@@ -20,7 +20,7 @@ Known bugs:
 - Large, growing whitespace in the ClassManagerWindow when new classes are added
 
 Future work:
-- Some enhancements we would like to make include:
+- Some enhancements we would like to include:
   - showing assignments within the DatePicker cells
   - making the app window size change dynamically based on the size of the user's screen
   - implementing the search algorithm, possibly by adding all assignments into an n-ary search tree
