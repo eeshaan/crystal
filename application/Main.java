@@ -355,10 +355,12 @@ public class Main extends Application {
       classButton.setStyle("-fx-background-color: rgb(" + classColor[0] + ", " + classColor[1]
           + ", " + classColor[2] + "); -fx-text-fill: #fff;");
 
-      if (classColor[0] + classColor[1] + classColor[2] > 625)
+      int yiq = ((classColor[0] * 299) + (classColor[1] * 587) + (classColor[2] * 114)) / 1000; // https://en.wikipedia.org/wiki/YIQ
+
+      if (yiq >= 150)
         classButton.getStyleClass().add("dark-text");
 
-      classButton.setOnAction(e -> CourseAssignmentsWindow.newWindow(currentClass));
+      classButton.setOnAction(e -> ClassAssignmentsWindow.newWindow(currentClass));
       classesPane.getChildren().addAll(classButton);
     }
 
@@ -534,9 +536,24 @@ public class Main extends Application {
     // Completed button sets assignment as completed when clicked
     completed.setOnAction(e -> {
       assignmentBox.getStyleClass().add("completed");
-
+      
       String name = assignment.getAssignmentName();
       whatToDoNow.remove(name);
+      
+      assignment.setCompleted(true);
+      
+      LocalDate date = assignment.getDueDate();
+      Class className = assignment.getClassName();
+
+      
+      LinkedList temp = assignmentsByDate.get(date);
+      temp.insert(assignment);
+      assignmentsByDate.insert(date, temp);
+
+      temp = assignmentsByClass.get(className);
+      temp.insert(assignment);
+      assignmentsByClass.insert(className, temp);
+
 
       dialogStage.close();
     });
@@ -562,7 +579,6 @@ public class Main extends Application {
       assignmentsPane.getChildren().remove(assignmentBox);
       dialogStage.close();
     });
-
   }
 
   /**
