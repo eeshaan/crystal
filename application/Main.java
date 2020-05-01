@@ -597,7 +597,8 @@ public class Main extends Application {
       temp.remove(name);
       assignmentsByClass.insert(className, temp);
 
-      whatToDoNow.remove(name);
+      if(!assignment.isCompleted())
+        whatToDoNow.remove(name);
 
       assignmentsPane.getChildren().remove(assignmentBox);
 
