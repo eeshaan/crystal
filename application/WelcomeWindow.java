@@ -242,12 +242,7 @@ public class WelcomeWindow {
         assignments.insert(assignmentName, newAssignment);
         whatToDoNow.insert(newAssignment);
 
-        LinkedList classAssignments = assignmentsByClass.get(classObj);
-        classAssignments.insert(newAssignment);
-        assignmentsByClass.insert(classObj, classAssignments);
-
         LinkedList list;
-
 
         if (assignmentsByDate.get(localDueDate) == null) {
           list = new LinkedList();
