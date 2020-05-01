@@ -56,6 +56,7 @@ public class Main extends Application {
   private static final int WINDOW_HEIGHT = 880; // Height of calendar window
 
   private static VBox assignmentsPane; // Pane where assignments are listed
+  private static FlowPane classesPane; // Pane where classes are listed
 
   private static JSONArray classesJSONArray = WelcomeWindow.getJSONClasses(); // JSON list of
                                                                               // classes
@@ -224,7 +225,10 @@ public class Main extends Application {
     // Creates and sets up the Window Button
     Button windowBtn = new Button("", layout);
     windowBtn.getStyleClass().add("iconBtn");
-    windowBtn.setOnAction(e -> ClassManagerWindow.newWindow("Class Manager")); // Class Manager
+    windowBtn.setOnAction(e -> {
+    	ClassManagerWindow.newWindow("Class Manager");
+    	updateClasses();
+    }); // Class Manager
                                                                                // WIndow Opens
 
 
@@ -322,7 +326,7 @@ public class Main extends Application {
     HBox classesHeader = new HBox();
     classesHeader.getChildren().add(yourClasses);
 
-    FlowPane classesPane = new FlowPane();
+    classesPane = new FlowPane();
     classesPane.setPrefWidth(294);
     classesPane.getStyleClass().add("subjects");
 
@@ -348,22 +352,23 @@ public class Main extends Application {
       ClassManagerWindow.newWindow("Add your classes!");
     }
 
-    Iterator<String> classNames = classes.iterator();
-    while (classNames.hasNext()) {
-      Class currentClass = classes.get(classNames.next());
-      int[] classColor = currentClass.getClassColor();
-      Button classButton = new Button(currentClass.getClassName());
-      classButton.setStyle("-fx-background-color: rgb(" + classColor[0] + ", " + classColor[1]
-          + ", " + classColor[2] + "); -fx-text-fill: #fff;");
-
-      int yiq = ((classColor[0] * 299) + (classColor[1] * 587) + (classColor[2] * 114)) / 1000; // https://en.wikipedia.org/wiki/YIQ
-
-      if (yiq >= 150)
-        classButton.getStyleClass().add("dark-text");
-
-      classButton.setOnAction(e -> ClassAssignmentsWindow.newWindow(currentClass));
-      classesPane.getChildren().addAll(classButton);
-    }
+    updateClasses();
+//    Iterator<String> classNames = classes.iterator();
+//    while (classNames.hasNext()) {
+//      Class currentClass = classes.get(classNames.next());
+//      int[] classColor = currentClass.getClassColor();
+//      Button classButton = new Button(currentClass.getClassName());
+//      classButton.setStyle("-fx-background-color: rgb(" + classColor[0] + ", " + classColor[1]
+//          + ", " + classColor[2] + "); -fx-text-fill: #fff;");
+//
+//      int yiq = ((classColor[0] * 299) + (classColor[1] * 587) + (classColor[2] * 114)) / 1000; // https://en.wikipedia.org/wiki/YIQ
+//
+//      if (yiq >= 150)
+//        classButton.getStyleClass().add("dark-text");
+//
+//      classButton.setOnAction(e -> ClassAssignmentsWindow.newWindow(currentClass));
+//      classesPane.getChildren().addAll(classButton);
+//    }
 
     classesJSONArray = WelcomeWindow.getJSONClasses();
     assignmentsJSONArray = WelcomeWindow.getJSONAssignments();
@@ -377,7 +382,32 @@ public class Main extends Application {
     mainStage.setOnCloseRequest(e -> updateSaveState());
   }
 
-  public static void updateAssignments(LocalDate date) {
+  /**
+   * Updates class buttons.
+   */
+  private static void updateClasses() {
+	  classesPane.getChildren().clear(); //clear pane
+	  
+	  Iterator<String> classNames = classes.iterator();
+	    while (classNames.hasNext()) {
+	      Class currentClass = classes.get(classNames.next());
+	      int[] classColor = currentClass.getClassColor();
+	      Button classButton = new Button(currentClass.getClassName());
+	      classButton.setStyle("-fx-background-color: rgb(" + classColor[0] + ", " + classColor[1]
+	          + ", " + classColor[2] + "); -fx-text-fill: #fff;");
+
+	      int yiq = ((classColor[0] * 299) + (classColor[1] * 587) + (classColor[2] * 114)) / 1000; // https://en.wikipedia.org/wiki/YIQ
+
+	      if (yiq >= 150)
+	        classButton.getStyleClass().add("dark-text");
+
+	      classButton.setOnAction(e -> ClassAssignmentsWindow.newWindow(currentClass));
+	      classesPane.getChildren().addAll(classButton);
+	    }
+	
+}
+
+public static void updateAssignments(LocalDate date) {
     assignmentsPane.getChildren().clear();
 
     Text dueTodayHeader = new Text("Due Today");
