@@ -26,32 +26,43 @@ import javafx.stage.Stage;
 
 public class ClassManagerWindow {
 
+  //Setting window dimensions
   private static final int WINDOW_WIDTH = 580;
   private static final int WINDOW_HEIGHT = 600;
 
+  //setting index for vertical class input spacing
   static int i = 1;
 
+  /**
+   * newWindow - launches the ClassManager GUI and fills window with any existing classes
+   * 
+   * @param title - title for the window (depending on if this is the first time classes are being added)
+   */
   public static void newWindow(String title) {
+	//initializing the Stage for the window
     Stage window = new Stage();
     window.initModality(Modality.APPLICATION_MODAL);
 
+    //Setting header for the window
     Text header = new Text(title);
     header.setId("h2");
     HBox headerBox = new HBox(header);
 
+    //initialize GridPane for view
     GridPane pane = new GridPane();
 
+    //initialize JSONArray for all of the JSON classes
     JSONArray classesJSONArrayToSet = Main.getJSONClasses();
 
-
+    //setting spacing and width for the pane
     pane.setHgap(10);
     pane.setVgap(10);
     pane.setMaxWidth(WINDOW_WIDTH);
 
-
-    TextField textField[] = new TextField[100];
-    ColorPicker cp[] = new ColorPicker[100];
-    Spinner<Integer> difficulty[] = new Spinner[100];
+    //initializing the arrays of input fields for the class variables
+    TextField textField[] = new TextField[100]; 		//init class name textfield array
+    ColorPicker cp[] = new ColorPicker[100]; 			//init class color colorpicker array
+    Spinner<Integer> difficulty[] = new Spinner[100];	//init class difficulty spinner array
 
     // if starting application for the first time (not loading from JSON) first add class row is
     // already there
