@@ -17,6 +17,8 @@ Instructions:
 - saved_state.json is created automatically every time the program is closed
 
 Known bugs:
+-Large, growing whitespace in the classmanagerwindow when new classes are added
+
 
 Future work:
 - Some enhancements we would like to make include:
