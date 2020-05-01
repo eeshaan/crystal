@@ -171,6 +171,7 @@
 
 .date-picker-popup>*>.today {
   -fx-background-color: #3c82f9;
+  -fx-text-fill: #fff !important;
 }
 
 .date-picker-popup>*>.previous-month,
