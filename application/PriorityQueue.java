@@ -1,22 +1,35 @@
 package application;
 
+/**
+ * 
+ * PriorityQueue - Priority Queue that contains Assignments
+ * @author Ayaz Franz, Benjamin Tan, Bryan Lin, Devin Demirlika, Eeshaan Pirani
+ */
 public class PriorityQueue implements PriorityQueueADT<Assignment> {
-  private static final int INITIAL_CAPACITY = 20; // the initial capacity of this
-  // waiting process queue
-  private Assignment[] data; // min heap-array storing the
-  // data is an oversize array
+  private static final int INITIAL_CAPACITY = 20; // initial capacity of this waiting process queue
+  private Assignment[] data; // max heap-array storing the data (oversize array)
   private int size; // number of CustomProcesses stored in this WaitingProcessQueue
 
-
+  /**
+   * PriorityQueue - constructor for this class
+   */
   public PriorityQueue() {
-    data = new Assignment[INITIAL_CAPACITY];
+    data = new Assignment[INITIAL_CAPACITY]; // Assignment array is initialized
   }
 
+  /**
+   * size - gets the size of the array
+   * @return int - the size of the array
+   */
   @Override
   public int size() {
     return size;
   }
 
+  /**
+   * isEmpty - checks if the priority queue is empty
+   * @return true if the queue is empty and false otherwise
+   */
   @Override
   public boolean isEmpty() {
     return size == 0;
