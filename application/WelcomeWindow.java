@@ -190,9 +190,9 @@ public class WelcomeWindow {
 
             if (result1.get() == addButtonType) {
 
-              Class newClass =
-                  new Class(className, (int) (cp.getValue().getRed() * 255), (int) (cp.getValue().getGreen() * 255),
-                      (int) (cp.getValue().getBlue() * 255), difficulty.getValue());
+              Class newClass = new Class(className, (int) (cp.getValue().getRed() * 255),
+                  (int) (cp.getValue().getGreen() * 255), (int) (cp.getValue().getBlue() * 255),
+                  difficulty.getValue());
               JSONObject newJSONClass = new JSONObject();
 
               newJSONClass.put("className", className);
@@ -237,30 +237,25 @@ public class WelcomeWindow {
         assignmentsJSONArray = assignmentsJSONArrayToSet;
 
         Class classObj = classes.get(className);
-        Assignment newAssignment = new Assignment(assignmentName, classObj,
-            difficulty, localStartDate, localDueDate, dueTime, completed);
+        Assignment newAssignment = new Assignment(assignmentName, classObj, difficulty,
+            localStartDate, localDueDate, dueTime, completed);
         assignments.insert(assignmentName, newAssignment);
-        whatToDoNow.insert(newAssignment);
         
-        try {
-        	LinkedList classAssignments = assignmentsByClass.get(classObj);
-        	classAssignments.insert(newAssignment);
-        	assignmentsByClass.insert(classObj, classAssignments);
-        } catch (Exception e) {
-        	System.out.println("oopsie daisy");
-        }
-        
-        LinkedList list;
+        if(!completed)
+          whatToDoNow.insert(newAssignment);
 
+        LinkedList temp = assignmentsByClass.get(classObj);
+        temp.insert(newAssignment);
+        assignmentsByClass.insert(classObj, temp);
 
         if (assignmentsByDate.get(localDueDate) == null) {
-          list = new LinkedList();
+          temp = new LinkedList();
         } else {
-          list = assignmentsByDate.get(localDueDate);
+          temp = assignmentsByDate.get(localDueDate);
         }
 
-        list.insert(newAssignment);
-        assignmentsByDate.insert(localDueDate, list);
+        temp.insert(newAssignment);
+        assignmentsByDate.insert(localDueDate, temp);
 
       }
 
@@ -273,7 +268,7 @@ public class WelcomeWindow {
       Main.setWhatToDoNow(whatToDoNow);
       Main.setClasses(classes);
       Main.setAssignmentsByClass(assignmentsByClass);
-      
+
       return true;
 
 
