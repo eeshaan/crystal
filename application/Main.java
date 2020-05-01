@@ -377,7 +377,7 @@ public class Main extends Application {
     mainStage.setOnCloseRequest(e -> updateSaveState());
   }
 
-  private void updateAssignments(LocalDate date) {
+  public static void updateAssignments(LocalDate date) {
     assignmentsPane.getChildren().clear();
 
     Text dueTodayHeader = new Text("Due Today");
