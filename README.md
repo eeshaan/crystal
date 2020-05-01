@@ -7,6 +7,7 @@ What separates Crystal from other assignment tracking apps is a feature that wil
 
 ## The Final Product
 <img src="https://raw.githubusercontent.com/eeshaan/crystal/master/screenshot_3.png" alt="Crystal screenshot">
+<img src="https://raw.githubusercontent.com/eeshaan/crystal/master/screenshot_7.png" alt="Crystal screenshot">
 
 ## The Team
 <a title="Eeshaan Pirani" href="https://github.com/eeshaan/"><img src="https://github.com/eeshaan.png?size=60" alt="Eeshaan Pirani"></a>
