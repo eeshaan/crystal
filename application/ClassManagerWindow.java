@@ -1,10 +1,13 @@
 package application;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
@@ -142,7 +145,7 @@ public class ClassManagerWindow {
     submit.setOnAction(e -> {
       for (int k = 1; k < i; k++) {
         JSONObject newJSONClass = new JSONObject();
-
+        List<Node> childList = (List<Node>) pane.getChildren();
         newJSONClass.put("className", textField[k].getText());
         newJSONClass.put("classColorRed", (int) (cp[k].getValue().getRed() * 255));
         newJSONClass.put("classColorGreen", (int) (cp[k].getValue().getGreen() * 255));
