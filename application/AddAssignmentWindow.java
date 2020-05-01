@@ -121,7 +121,7 @@ public class AddAssignmentWindow {
         newJSONAssignment.put("assignmentName", nameField.getText());
         newJSONAssignment.put("class", classField.getValue().toString());
         newJSONAssignment.put("difficulty", difficulty.getValue());
-        newJSONAssignment.put("startDate", startDateField.getValue().toString());
+        newJSONAssignment.put("startDate", startDateField.getValue().format(DateTimeFormatter.ofPattern("LLLL dd, yyyy")));
         newJSONAssignment.put("dueDate", dueDateField.getValue().format(DateTimeFormatter.ofPattern("LLLL dd, yyyy")));
         newJSONAssignment.put("dueTime", timeField.getValue().toString());
         newJSONAssignment.put("completed", false);
