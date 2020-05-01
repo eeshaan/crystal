@@ -331,7 +331,6 @@ public class WelcomeWindow {
 			alert.showAndWait();
 			return false;
 		} catch (NullPointerException e) { // No file selected
-			e.printStackTrace();
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Error");
 			alert.setHeaderText("File Error");
