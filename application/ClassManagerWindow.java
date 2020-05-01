@@ -48,67 +48,72 @@ public class ClassManagerWindow {
     pane.setVgap(10);
     pane.setMaxWidth(WINDOW_WIDTH);
 
-    
+
     TextField textField[] = new TextField[100];
     ColorPicker cp[] = new ColorPicker[100];
     Spinner<Integer> difficulty[] = new Spinner[100];
-    
-    //if starting application for the first time (not loading from JSON) first add class row is already there
-    if(title.equals("Add your classes!")){
-	    textField[i] = new TextField();
-	    cp[i] = new ColorPicker();
-	    difficulty[i] = new Spinner<>(1, 5, 3, 1);
-	    difficulty[i].getStyleClass().add(Spinner.STYLE_CLASS_SPLIT_ARROWS_HORIZONTAL);
-	    
-	
-	    pane.add(new Text("Class Name:"), 0, (i * 2) - 1);
-	    pane.add(textField[i], 0, i * 2);
-	    pane.add(new Text("Color:"), 5, (i * 2) - 1);
-	    pane.add(cp[i], 5, i * 2);
-	    pane.add(new Text("Difficulty (1-5):"), 7, (i * 2) - 1);
-	    pane.add(difficulty[i], 7, i * 2);
-	
-	    i++;
+
+    // if starting application for the first time (not loading from JSON) first add class row is
+    // already there
+    if (title.equals("Add your classes!")) {
+      textField[i] = new TextField();
+      cp[i] = new ColorPicker();
+      difficulty[i] = new Spinner<>(1, 5, 3, 1);
+      difficulty[i].getStyleClass().add(Spinner.STYLE_CLASS_SPLIT_ARROWS_HORIZONTAL);
+
+
+      pane.add(new Text("Class Name:"), 0, (i * 2) - 1);
+      pane.add(textField[i], 0, i * 2);
+      pane.add(new Text("Color:"), 5, (i * 2) - 1);
+      pane.add(cp[i], 5, i * 2);
+      pane.add(new Text("Difficulty (1-5):"), 7, (i * 2) - 1);
+      pane.add(difficulty[i], 7, i * 2);
+
+      i++;
     } else {
-    	HashTable<String, Class> classTable = Main.getClasses();
-    	Iterator<String> classIterator = classTable.iterator();
-    	String className = "";
-    	while (classIterator.hasNext()) {
-    		//pull className from the class iterator
-    		className = classIterator.next();
-    		
-    		//use className to get the classObject from the hashtable
-    		Class classObj = classTable.get(className);
-    		
-    		//initialize textfield for class Name
-    		textField[i] = new TextField(); 	//initialize
-    		textField[i].setText(className);	//set text as className
-    		textField[i].setEditable(false); 	//make textfield uneditable
-    		
-    		//setting class color
-    		int[] colorArr = classObj.getClassColor(); //get rgb values from class object
-    		Color color = Color.rgb(colorArr[0], colorArr[1], colorArr[2]); //use rgb values to construct a color object
-    	    cp[i] = new ColorPicker(color); //use color object to set colorpicker value
-    	    cp[i].setDisable(true); //make colorpicker uneditable
-    	    
-    	    //set class difficulty
-    	    difficulty[i] = new Spinner<>(1, 5, 3, 1); //initialize spinner
-    	    difficulty[i].getValueFactory().setValue(classObj.getDifficulty()); //set existing difficulty in the spinner
-    	    difficulty[i].setDisable(true); //make the spinner uneditable
-    	    difficulty[i].getStyleClass().add(Spinner.STYLE_CLASS_SPLIT_ARROWS_HORIZONTAL); //style spinner
-    	    
-    	
-    	    pane.add(new Text("Class Name:"), 0, (i * 2) - 1);
-    	    pane.add(textField[i], 0, i * 2);
-    	    pane.add(new Text("Color:"), 5, (i * 2) - 1);
-    	    pane.add(cp[i], 5, i * 2);
-    	    pane.add(new Text("Difficulty (1-5):"), 7, (i * 2) - 1);
-    	    pane.add(difficulty[i], 7, i * 2);
-    	
-    	    i++;
-    	}
+      HashTable<String, Class> classTable = Main.getClasses();
+      Iterator<String> classIterator = classTable.iterator();
+      String className = "";
+      while (classIterator.hasNext()) {
+        // pull className from the class iterator
+        className = classIterator.next();
+
+        // use className to get the classObject from the hashtable
+        Class classObj = classTable.get(className);
+
+        // initialize textfield for class Name
+        textField[i] = new TextField(); // initialize
+        textField[i].setText(className); // set text as className
+        textField[i].setEditable(false); // make textfield uneditable
+
+        // setting class color
+        int[] colorArr = classObj.getClassColor(); // get rgb values from class object
+        Color color = Color.rgb(colorArr[0], colorArr[1], colorArr[2]); // use rgb values to
+                                                                        // construct a color object
+        cp[i] = new ColorPicker(color); // use color object to set colorpicker value
+        cp[i].setDisable(true); // make colorpicker uneditable
+
+        // set class difficulty
+        difficulty[i] = new Spinner<>(1, 5, 3, 1); // initialize spinner
+        difficulty[i].getValueFactory().setValue(classObj.getDifficulty()); // set existing
+                                                                            // difficulty in the
+                                                                            // spinner
+        difficulty[i].setDisable(true); // make the spinner uneditable
+        difficulty[i].getStyleClass().add(Spinner.STYLE_CLASS_SPLIT_ARROWS_HORIZONTAL); // style
+                                                                                        // spinner
+
+
+        pane.add(new Text("Class Name:"), 0, (i * 2) - 1);
+        pane.add(textField[i], 0, i * 2);
+        pane.add(new Text("Color:"), 5, (i * 2) - 1);
+        pane.add(cp[i], 5, i * 2);
+        pane.add(new Text("Difficulty (1-5):"), 7, (i * 2) - 1);
+        pane.add(difficulty[i], 7, i * 2);
+
+        i++;
+      }
     }
-    
+
     Image addImage = new Image("/application/src/img/add-icon.png", 25, 25, false, false);
     ImageView add = new ImageView();
     add.setImage(addImage);
@@ -147,18 +152,24 @@ public class ClassManagerWindow {
       for (int k = 1; k < i; k++) {
         JSONObject newJSONClass = new JSONObject();
 
-        newJSONClass.put("className", textField[k].getText());
-        newJSONClass.put("classColorRed", (int) (cp[k].getValue().getRed() * 255));
-        newJSONClass.put("classColorGreen", (int) (cp[k].getValue().getGreen() * 255));
-        newJSONClass.put("classColorBlue", (int) (cp[k].getValue().getBlue() * 255));
-        newJSONClass.put("difficulty", difficulty[k].getValue());
+        if (textField[k] != null) {
+          if (classes.get(textField[k].getText()) == null) {
+            newJSONClass.put("className", textField[k].getText());
+            newJSONClass.put("classColorRed", (int) (cp[k].getValue().getRed() * 255));
+            newJSONClass.put("classColorGreen", (int) (cp[k].getValue().getGreen() * 255));
+            newJSONClass.put("classColorBlue", (int) (cp[k].getValue().getBlue() * 255));
+            newJSONClass.put("difficulty", difficulty[k].getValue());
 
-        Class newClass = new Class(textField[k].getText(), (int) (cp[k].getValue().getRed() * 255),
-            (int) (cp[k].getValue().getGreen() * 255), (int) (cp[k].getValue().getBlue() * 255),
-            difficulty[k].getValue());
-        classesJSONArrayToSet.add(newJSONClass);
-        classes.insert(textField[k].getText(), newClass);
-        assignmentsByClass.insert(newClass, new LinkedList());
+            Class newClass = new Class(textField[k].getText(),
+                (int) (cp[k].getValue().getRed() * 255), (int) (cp[k].getValue().getGreen() * 255),
+                (int) (cp[k].getValue().getBlue() * 255), difficulty[k].getValue());
+            classesJSONArrayToSet.add(newJSONClass);
+            classes.insert(textField[k].getText(), newClass);
+
+            
+            assignmentsByClass.insert(newClass, new LinkedList());
+          }
+        }
       }
       Main.setJSONClasses(classesJSONArrayToSet);
       Main.setClasses(classes);
