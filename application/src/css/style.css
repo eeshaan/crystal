@@ -192,9 +192,6 @@
   -fx-pref-width: 140px;
   -fx-pref-height: 40px;
   -fx-background-radius: 12px;
-  /*	-fx-padding: 16.5px;
-TODO: there is no -fx-margin property, but we can hack around this by adding equal amount of padding and background-inset
-*/
 }
 
 .dark-text {
