@@ -164,7 +164,10 @@ public class AddAssignmentWindow {
         Main.setWhatToDoNow(whatToDoNow);
         Main.setClasses(classes);
         Main.setAssignmentsByClass(assignmentsByClass);
-
+        
+        Main.updateAssignments(newAssignment.getDueDate());
+        
+        
         window.close();
 
       } catch (NullPointerException e1) {
@@ -173,6 +176,7 @@ public class AddAssignmentWindow {
         alert.setHeaderText("Input Error");
         alert.setContentText("One or more fields are empty");
         alert.showAndWait();
+        e1.printStackTrace(); // TODO: @acfranz2 something broken here
       }
 
     });

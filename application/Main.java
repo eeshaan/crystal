@@ -18,6 +18,7 @@ import java.util.Date;
 import java.util.Iterator;
 
 import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -376,7 +377,7 @@ public class Main extends Application {
     mainStage.setOnCloseRequest(e -> updateSaveState());
   }
 
-  private void updateAssignments(LocalDate date) {
+  public static void updateAssignments(LocalDate date) {
     assignmentsPane.getChildren().clear();
 
     Text dueTodayHeader = new Text("Due Today");
@@ -413,7 +414,7 @@ public class Main extends Application {
 
       if (assignment.isCompleted())
         assignmentBox.getStyleClass().add("completed");
-      
+
       assignmentBox.setOnMouseClicked(e -> {
         assignmentOptions(assignmentBox, assignment);
       });
@@ -536,9 +537,32 @@ public class Main extends Application {
     // Completed button sets assignment as completed when clicked
     completed.setOnAction(e -> {
       assignmentBox.getStyleClass().add("completed");
-
+      
       String name = assignment.getAssignmentName();
       whatToDoNow.remove(name);
+      
+      assignment.setCompleted(true);
+      
+      LocalDate date = assignment.getDueDate();
+      Class className = assignment.getClassName();
+
+      
+      LinkedList temp = assignmentsByDate.get(date);
+      temp.insert(assignment);
+      assignmentsByDate.insert(date, temp);
+
+      temp = assignmentsByClass.get(className);
+      temp.insert(assignment);
+      assignmentsByClass.insert(className, temp);
+
+
+      for (int x = 0; x < assignmentsJSONArray.size(); x++) {
+        JSONObject current = (JSONObject) assignmentsJSONArray.get(x);
+        if (current.get("assignmentName").equals(name)) {
+          current.remove("completed");
+          current.put("completed", true);
+        }
+      }
 
       dialogStage.close();
     });
@@ -562,6 +586,14 @@ public class Main extends Application {
       whatToDoNow.remove(name);
 
       assignmentsPane.getChildren().remove(assignmentBox);
+
+      for (int x = 0; x < assignmentsJSONArray.size(); x++) {
+        JSONObject current = (JSONObject) assignmentsJSONArray.get(x);
+        if (current.get("assignmentName").equals(name)) {
+          assignmentsJSONArray.remove(current);
+        }
+      }
+
       dialogStage.close();
     });
   }
