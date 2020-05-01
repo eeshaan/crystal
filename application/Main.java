@@ -18,6 +18,7 @@ import java.util.Date;
 import java.util.Iterator;
 
 import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -413,7 +414,7 @@ public class Main extends Application {
 
       if (assignment.isCompleted())
         assignmentBox.getStyleClass().add("completed");
-      
+
       assignmentBox.setOnMouseClicked(e -> {
         assignmentOptions(assignmentBox, assignment);
       });
@@ -540,6 +541,14 @@ public class Main extends Application {
       String name = assignment.getAssignmentName();
       whatToDoNow.remove(name);
 
+      for (int x = 0; x < assignmentsJSONArray.size(); x++) {
+        JSONObject current = (JSONObject) assignmentsJSONArray.get(x);
+        if (current.get("assignmentName").equals(name)) {
+          current.remove("completed");
+          current.put("completed", true);
+        }
+      }
+
       dialogStage.close();
     });
 
@@ -562,6 +571,14 @@ public class Main extends Application {
       whatToDoNow.remove(name);
 
       assignmentsPane.getChildren().remove(assignmentBox);
+
+      for (int x = 0; x < assignmentsJSONArray.size(); x++) {
+        JSONObject current = (JSONObject) assignmentsJSONArray.get(x);
+        if (current.get("assignmentName").equals(name)) {
+          assignmentsJSONArray.remove(current);
+        }
+      }
+
       dialogStage.close();
     });
   }
