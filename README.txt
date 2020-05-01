@@ -10,11 +10,21 @@ Team Members:
 4. Devin Demirlika — LEC 002, xteam235, ddemirlika@wisc.edu
 5. Eeshaan Pirani  — LEC 001, xteam156, epirani@wisc.edu
 
+Instructions:
+- to run, simply use the runjar command — the json-simple-1.1.1.jar library is built into executable.jar
+- you can add an assignment by clicking the '+' button
+- you can manage an assignment by clicking on its entry in the left panel — changes are reflected in the data structures and the output JSON
+- saved_state.json is created automatically every time the program is closed
+
+Known bugs:
+
+Future work:
+- Some enhancements we would like to make include:
+  - showing assignments within the DatePicker cells
+  - making the app window size change dynamically based on the size of the user's screen
+  - implementing the search algorithm, possibly by adding all assignments into an n-ary search tree
+- For a full, comprehensive list, see: https://github.com/eeshaan/crystal/issues
+
 Other notes or comments to the grader:
-
 - We received approval from Deb to complete this project instead of MilkWeight.
-
-- In terms of the "ending screen" requirement for file export, our program instead will periodically output a saved_state.json every time the user makes a change. This saved_state.json can be reloaded into the program by using the plus button.
-  - If this design choice is still unclear, you can review our Figma GUI layout: https://www.figma.com/file/2QNzRynbQduohnqaPJqacQ/Assignment-Tracker
-
 - https://github.com/eeshaan/crystal
