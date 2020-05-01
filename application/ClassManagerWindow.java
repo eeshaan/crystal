@@ -31,7 +31,7 @@ public class ClassManagerWindow {
   private static final int WINDOW_HEIGHT = 600;
 
   //setting index for vertical class input spacing
-  static int i = 1;
+  static int i;
 
   /**
    * newWindow - launches the ClassManager GUI and fills window with any existing classes
@@ -39,6 +39,10 @@ public class ClassManagerWindow {
    * @param title - title for the window (depending on if this is the first time classes are being added)
    */
   public static void newWindow(String title) {
+    
+    // reset i to 1 every time new window is opened
+    i = 1;
+    
 	//initializing the Stage for the window
     Stage window = new Stage();
     window.initModality(Modality.APPLICATION_MODAL);

@@ -452,8 +452,7 @@ public class Main extends Application {
 
     assignmentsPane.getChildren().add(workHeaderHolder);
 
-    ///// Add the rest of the tasks/the next few tasks. Also must be a for loop
-    ///// /////
+    ///// Add the rest of the tasks/the next few tasks. /////
     LocalDate datePlusOne = date.plusDays(1);
     LocalDate endDate = date.plusDays(30);
     SimpleDateFormat dueDateFormat = new SimpleDateFormat("EEEE, MMMMM d,");
@@ -597,7 +596,8 @@ public class Main extends Application {
       temp.remove(name);
       assignmentsByClass.insert(className, temp);
 
-      whatToDoNow.remove(name);
+      if(!assignment.isCompleted())
+        whatToDoNow.remove(name);
 
       assignmentsPane.getChildren().remove(assignmentBox);
 

@@ -78,6 +78,9 @@ public class ClassAssignmentsWindow {
 
       // Adds assignment into to display
       assignmentsPane.getChildren().add(assignmentBox);
+      
+      if (assignment.isCompleted())
+        assignmentBox.getStyleClass().add("completed");
     }
     
     if (assignmentsByClass.get(className).toString().isEmpty()) {
