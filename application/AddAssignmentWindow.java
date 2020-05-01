@@ -106,8 +106,6 @@ public class AddAssignmentWindow {
     Spinner<Integer> difficulty = new Spinner<>(1, 5, 1);
     difficulty.setEditable(true);
 
-
-
     Button submit = new Button("Submit");
     submit.setId("bigButton");
     submit.setOnAction(e -> {
@@ -124,7 +122,7 @@ public class AddAssignmentWindow {
         newJSONAssignment.put("class", classField.getValue().toString());
         newJSONAssignment.put("difficulty", difficulty.getValue());
         newJSONAssignment.put("startDate", startDateField.getValue().toString());
-        newJSONAssignment.put("dueDate", dueDateField.getValue().toString());
+        newJSONAssignment.put("dueDate", dueDateField.getValue().format(DateTimeFormatter.ofPattern("LLLL dd, yyyy")));
         newJSONAssignment.put("dueTime", timeField.getValue().toString());
         newJSONAssignment.put("completed", false);
 
