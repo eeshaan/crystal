@@ -514,6 +514,10 @@ public class Main extends Application {
     // Completed button sets assignment as completed when clicked
     completed.setOnAction(e -> {
       assignmentBox.getStyleClass().add("completed");
+      
+      String name = assignment.getAssignmentName();
+      whatToDoNow.remove(name);
+      
       dialogStage.close();
     });
 
@@ -539,28 +543,6 @@ public class Main extends Application {
       dialogStage.close();
     });
     
-  }
-
-  public static void createAssignmentBox(String name, String subject, String dueTime,
-      String dueDate) {
-    
-    // Initializes and formats box containing assignment info
-    HBox newAssignment = new HBox();
-    newAssignment.getStyleClass().add("assignmentBox");
-    newAssignment.setId("ass_" + subject);
-
-    // Creates and formats due time text
-    Text newTime = new Text(dueDate + " at " + dueTime);
-    newTime.setId("time");
-    
-    // Creates assignment description
-    Text newDesc = new Text(" - " + name);
-    
-    // Adds due time and description together
-    newAssignment.getChildren().addAll(new Text("Due "), newTime, newDesc);
-
-    // Adds new assignment to assignment pane
-    assignmentsPane.getChildren().add(newAssignment);
   }
 
   /**
