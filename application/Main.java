@@ -226,10 +226,10 @@ public class Main extends Application {
     Button windowBtn = new Button("", layout);
     windowBtn.getStyleClass().add("iconBtn");
     windowBtn.setOnAction(e -> {
-    	ClassManagerWindow.newWindow("Class Manager");
-    	updateClasses();
+      ClassManagerWindow.newWindow("Class Manager");
+      updateClasses();
     }); // Class Manager
-                                                                               // WIndow Opens
+        // WIndow Opens
 
 
     // Setting up exit button
@@ -353,22 +353,6 @@ public class Main extends Application {
     }
 
     updateClasses();
-//    Iterator<String> classNames = classes.iterator();
-//    while (classNames.hasNext()) {
-//      Class currentClass = classes.get(classNames.next());
-//      int[] classColor = currentClass.getClassColor();
-//      Button classButton = new Button(currentClass.getClassName());
-//      classButton.setStyle("-fx-background-color: rgb(" + classColor[0] + ", " + classColor[1]
-//          + ", " + classColor[2] + "); -fx-text-fill: #fff;");
-//
-//      int yiq = ((classColor[0] * 299) + (classColor[1] * 587) + (classColor[2] * 114)) / 1000; // https://en.wikipedia.org/wiki/YIQ
-//
-//      if (yiq >= 150)
-//        classButton.getStyleClass().add("dark-text");
-//
-//      classButton.setOnAction(e -> ClassAssignmentsWindow.newWindow(currentClass));
-//      classesPane.getChildren().addAll(classButton);
-//    }
 
     classesJSONArray = WelcomeWindow.getJSONClasses();
     assignmentsJSONArray = WelcomeWindow.getJSONAssignments();
@@ -386,28 +370,28 @@ public class Main extends Application {
    * Updates class buttons.
    */
   private static void updateClasses() {
-	  classesPane.getChildren().clear(); //clear pane
-	  
-	  Iterator<String> classNames = classes.iterator();
-	    while (classNames.hasNext()) {
-	      Class currentClass = classes.get(classNames.next());
-	      int[] classColor = currentClass.getClassColor();
-	      Button classButton = new Button(currentClass.getClassName());
-	      classButton.setStyle("-fx-background-color: rgb(" + classColor[0] + ", " + classColor[1]
-	          + ", " + classColor[2] + "); -fx-text-fill: #fff;");
+    classesPane.getChildren().clear(); // clear pane
 
-	      int yiq = ((classColor[0] * 299) + (classColor[1] * 587) + (classColor[2] * 114)) / 1000; // https://en.wikipedia.org/wiki/YIQ
+    Iterator<String> classNames = classes.iterator();
+    while (classNames.hasNext()) {
+      Class currentClass = classes.get(classNames.next());
+      int[] classColor = currentClass.getClassColor();
+      Button classButton = new Button(currentClass.getClassName());
+      classButton.setStyle("-fx-background-color: rgb(" + classColor[0] + ", " + classColor[1]
+          + ", " + classColor[2] + "); -fx-text-fill: #fff;");
 
-	      if (yiq >= 150)
-	        classButton.getStyleClass().add("dark-text");
+      int yiq = ((classColor[0] * 299) + (classColor[1] * 587) + (classColor[2] * 114)) / 1000; // https://en.wikipedia.org/wiki/YIQ
 
-	      classButton.setOnAction(e -> ClassAssignmentsWindow.newWindow(currentClass));
-	      classesPane.getChildren().addAll(classButton);
-	    }
-	
-}
+      if (yiq >= 150)
+        classButton.getStyleClass().add("dark-text");
 
-public static void updateAssignments(LocalDate date) {
+      classButton.setOnAction(e -> ClassAssignmentsWindow.newWindow(currentClass));
+      classesPane.getChildren().addAll(classButton);
+    }
+
+  }
+
+  public static void updateAssignments(LocalDate date) {
     assignmentsPane.getChildren().clear();
 
     Text dueTodayHeader = new Text("Due Today");
@@ -567,16 +551,16 @@ public static void updateAssignments(LocalDate date) {
     // Completed button sets assignment as completed when clicked
     completed.setOnAction(e -> {
       assignmentBox.getStyleClass().add("completed");
-      
+
       String name = assignment.getAssignmentName();
       whatToDoNow.remove(name);
-      
+
       assignment.setCompleted(true);
-      
+
       LocalDate date = assignment.getDueDate();
       Class className = assignment.getClassName();
 
-      
+
       LinkedList temp = assignmentsByDate.get(date);
       temp.insert(assignment);
       assignmentsByDate.insert(date, temp);

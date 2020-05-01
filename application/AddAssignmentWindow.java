@@ -123,7 +123,7 @@ public class AddAssignmentWindow {
         newJSONAssignment.put("difficulty", difficulty.getValue());
         newJSONAssignment.put("startDate", startDateField.getValue().format(DateTimeFormatter.ofPattern("LLLL dd, yyyy")));
         newJSONAssignment.put("dueDate", dueDateField.getValue().format(DateTimeFormatter.ofPattern("LLLL dd, yyyy")));
-        newJSONAssignment.put("dueTime", timeField.getValue().toString());
+        newJSONAssignment.put("dueTime", timeField.getValue().format(DateTimeFormatter.ofPattern("h:mm a")));
         newJSONAssignment.put("completed", false);
 
         assignmentsJSONArray.add(newJSONAssignment);
