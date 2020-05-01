@@ -41,7 +41,7 @@ public class CourseAssignmentsWindow {
           + classColor[1] + ", " + classColor[2] + ");");
 
       assignmentBox.setOnMouseClicked(e -> {
-        Main.assignmentOptions(assignmentBox);
+        Main.assignmentOptions(assignmentBox, assignment);
       });
 
       Text due = new Text("Due ");

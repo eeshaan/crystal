@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Iterator;
@@ -129,20 +130,42 @@ public class AddAssignmentWindow {
 
         assignmentsJSONArray.add(newJSONAssignment);
         Main.setJSONAssignments(assignmentsJSONArray);
+        
+        HashTable<String, Class> classes = Main.getClasses();
+        Class className = classes.get(classField.getValue().toString());
 
         Assignment newAssignment = new Assignment(nameField.getText(),
-            Main.getClasses().get(classField.getValue().toString()), difficulty.getValue(),
-            startDateField.getValue(), dueDateField.getValue(), timeField.getValue().toString(),
+            className, difficulty.getValue(),
+            startDateField.getValue(), dueDateField.getValue(), timeField.getValue().format(DateTimeFormatter.ofPattern("h:mm a")),
             false);
 
+        HashTable<LocalDate, LinkedList> assignmentsByDate = Main.getAssignmentsByDate();
         HashTable<String, Assignment> assignments = Main.getAssignments();
+        PriorityQueue whatToDoNow = Main.getWhatToDoNow();
+        HashTable<Class, LinkedList> assignmentsByClass = Main.getAssignmentsByClass();
+        
         assignments.insert(nameField.getText(), newAssignment);
-        Main.setAssignments(assignments);
+        whatToDoNow.insert(newAssignment);
+        
+        LinkedList temp = assignmentsByClass.get(className);
+        temp.insert(newAssignment);
+        assignmentsByClass.insert(className, temp);
+        
+        if (assignmentsByDate.get(newAssignment.getDueDate()) == null) {
+          temp = new LinkedList();
+        } else {
+          temp = assignmentsByDate.get(newAssignment.getDueDate());
+        }
 
-        AddAssignmentWindow.addAssignment(nameField.getText(), title,
-            timeField.getValue().format(DateTimeFormatter.ofPattern("hh:mm a")),
-            startDateField.getValue().format(DateTimeFormatter.ofPattern("EEEE, MMMM d")));
-        dueDateField.getValue().format(DateTimeFormatter.ofPattern("EEEE, MMMM d"));
+        temp.insert(newAssignment);
+        assignmentsByDate.insert(newAssignment.getDueDate(), temp);
+        
+        
+        Main.setAssignments(assignments);
+        Main.setAssignmentsByDate(assignmentsByDate);
+        Main.setWhatToDoNow(whatToDoNow);
+        Main.setClasses(classes);
+        Main.setAssignmentsByClass(assignmentsByClass);
 
         window.close();
 
@@ -173,10 +196,5 @@ public class AddAssignmentWindow {
     window.setScene(vScene);
     window.show();
 
-  }
-
-  public static void addAssignment(String nameField, String classField, String timeField,
-      String dateField) {
-    Main.createAssignmentBox(nameField, classField, timeField, dateField);
   }
 }

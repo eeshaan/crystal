@@ -398,7 +398,7 @@ public class Main extends Application {
       // assignmentBox.setId("ass_" + name);
 
       assignmentBox.setOnMouseClicked(e -> {
-        assignmentOptions(assignmentBox);
+        assignmentOptions(assignmentBox, assignment);
       });
 
       Text time = new Text(assignment.getDueTime());
@@ -450,7 +450,7 @@ public class Main extends Application {
             + classColor[1] + ", " + classColor[2] + ");");
 
         assignmentBox.setOnMouseClicked(e -> {
-          assignmentOptions(assignmentBox);
+          assignmentOptions(assignmentBox, assignment);
         });
 
         Text due = new Text("Due ");
@@ -475,7 +475,7 @@ public class Main extends Application {
    * assignmentOptions - creates a window to set assignment as completed or delete it
    * @param assignmentBox - pane of assignments
    */
-  public static void assignmentOptions(HBox assignmentBox) {
+  public static void assignmentOptions(HBox assignmentBox, Assignment assignment) {
     // Initializes and formats title of window
     Text manage = new Text("Manage this assignment");
     manage.setId("h2");
@@ -519,6 +519,22 @@ public class Main extends Application {
 
     // Delete button deletes assignment when clicked
     delete.setOnAction(e -> {
+      String name = assignment.getAssignmentName();
+      LocalDate date = assignment.getDueDate();
+      Class className = assignment.getClassName();
+      
+      assignments.remove(name);
+      
+      LinkedList temp = assignmentsByDate.get(date);
+      temp.remove(name);
+      assignmentsByDate.insert(date, temp);
+      
+      temp = assignmentsByClass.get(className);
+      temp.remove(name);
+      assignmentsByClass.insert(className, temp);
+      
+      whatToDoNow.remove(name);
+      
       assignmentsPane.getChildren().remove(assignmentBox);
       dialogStage.close();
     });
