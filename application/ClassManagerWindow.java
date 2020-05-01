@@ -1,5 +1,7 @@
 package application;
 
+import java.util.Iterator;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import javafx.geometry.Insets;
@@ -14,6 +16,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -42,24 +45,58 @@ public class ClassManagerWindow {
     pane.setVgap(10);
     pane.setMaxWidth(WINDOW_WIDTH);
 
+    
     TextField textField[] = new TextField[15];
     ColorPicker cp[] = new ColorPicker[15];
     Spinner<Integer> difficulty[] = new Spinner[15];
-
-    textField[i] = new TextField();
-    cp[i] = new ColorPicker();
-    difficulty[i] = new Spinner<>(1, 5, 3, 1);
-    difficulty[i].getStyleClass().add(Spinner.STYLE_CLASS_SPLIT_ARROWS_HORIZONTAL);
-
-    pane.add(new Text("Class Name:"), 0, (i * 2) - 1);
-    pane.add(textField[i], 0, i * 2);
-    pane.add(new Text("Color:"), 5, (i * 2) - 1);
-    pane.add(cp[i], 5, i * 2);
-    pane.add(new Text("Difficulty (1-5):"), 7, (i * 2) - 1);
-    pane.add(difficulty[i], 7, i * 2);
-
-    i++;
-
+    
+    //if starting application for the first time (not loading from JSON) first add class row is already there
+    if(title.equals("Add your classes!")){
+	    textField[i] = new TextField();
+	    cp[i] = new ColorPicker();
+	    difficulty[i] = new Spinner<>(1, 5, 3, 1);
+	    difficulty[i].getStyleClass().add(Spinner.STYLE_CLASS_SPLIT_ARROWS_HORIZONTAL);
+	    
+	
+	    pane.add(new Text("Class Name:"), 0, (i * 2) - 1);
+	    pane.add(textField[i], 0, i * 2);
+	    pane.add(new Text("Color:"), 5, (i * 2) - 1);
+	    pane.add(cp[i], 5, i * 2);
+	    pane.add(new Text("Difficulty (1-5):"), 7, (i * 2) - 1);
+	    pane.add(difficulty[i], 7, i * 2);
+	
+	    i++;
+    } else {
+    	HashTable<String, Class> classTable = Main.getClasses();
+    	Iterator<String> classIterator = classTable.iterator();
+    	String className = "";
+    	while (classIterator.hasNext()) {
+    		className = classIterator.next();
+    		Class classObj = classTable.get(className);
+    		textField[i] = new TextField();
+    		textField[i].setText(className);
+    		textField[i].setEditable(false);
+    		int[] colorArr = classObj.getClassColor();
+    		Color color = Color.rgb(colorArr[0], colorArr[1], colorArr[2]);
+    	    cp[i] = new ColorPicker(color);
+    	    cp[i].setEditable(false);
+    	    difficulty[i] = new Spinner<>(1, 5, 3, 1);
+    	    difficulty[i].getValueFactory().setValue(classObj.getDifficulty());
+    	    difficulty[i].setEditable(false);
+    	    difficulty[i].getStyleClass().add(Spinner.STYLE_CLASS_SPLIT_ARROWS_HORIZONTAL);
+    	    
+    	
+    	    pane.add(new Text("Class Name:"), 0, (i * 2) - 1);
+    	    pane.add(textField[i], 0, i * 2);
+    	    pane.add(new Text("Color:"), 5, (i * 2) - 1);
+    	    pane.add(cp[i], 5, i * 2);
+    	    pane.add(new Text("Difficulty (1-5):"), 7, (i * 2) - 1);
+    	    pane.add(difficulty[i], 7, i * 2);
+    	
+    	    i++;
+    	}
+    }
+    
     Image addImage = new Image("/application/src/img/add-icon.png", 25, 25, false, false);
     ImageView add = new ImageView();
     add.setImage(addImage);
