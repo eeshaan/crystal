@@ -11,7 +11,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class CourseAssignmentsWindow {
+public class ClassAssignmentsWindow {
 
   public static void newWindow(Class className) {
     Stage window = new Stage();
