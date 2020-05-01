@@ -93,6 +93,7 @@ public class ClassManagerWindow {
     HBox bottom = new HBox(submit);
 
     HashTable<String, Class> classes = Main.getClasses();
+    HashTable<Class, LinkedList> assignmentsByClass = Main.getAssignmentsByClass();
     submit.setOnAction(e -> {
       for (int k = 1; k < i; k++) {
         JSONObject newJSONClass = new JSONObject();
@@ -108,7 +109,7 @@ public class ClassManagerWindow {
             difficulty[k].getValue());
         classesJSONArrayToSet.add(newJSONClass);
         classes.insert(textField[k].getText(), newClass);
-
+        assignmentsByClass.insert(newClass, new LinkedList());
       }
       Main.setJSONClasses(classesJSONArrayToSet);
       Main.setClasses(classes);
