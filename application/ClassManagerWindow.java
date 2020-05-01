@@ -71,19 +71,28 @@ public class ClassManagerWindow {
     	Iterator<String> classIterator = classTable.iterator();
     	String className = "";
     	while (classIterator.hasNext()) {
+    		//pull className from the class iterator
     		className = classIterator.next();
+    		
+    		//use className to get the classObject from the hashtable
     		Class classObj = classTable.get(className);
-    		textField[i] = new TextField();
-    		textField[i].setText(className);
-    		textField[i].setEditable(false);
-    		int[] colorArr = classObj.getClassColor();
-    		Color color = Color.rgb(colorArr[0], colorArr[1], colorArr[2]);
-    	    cp[i] = new ColorPicker(color);
-    	    cp[i].setEditable(false);
-    	    difficulty[i] = new Spinner<>(1, 5, 3, 1);
-    	    difficulty[i].getValueFactory().setValue(classObj.getDifficulty());
-    	    difficulty[i].setEditable(false);
-    	    difficulty[i].getStyleClass().add(Spinner.STYLE_CLASS_SPLIT_ARROWS_HORIZONTAL);
+    		
+    		//initialize textfield for class Name
+    		textField[i] = new TextField(); 	//initialize
+    		textField[i].setText(className);	//set text as className
+    		textField[i].setEditable(false); 	//make textfield uneditable
+    		
+    		//setting class color
+    		int[] colorArr = classObj.getClassColor(); //get rgb values from class object
+    		Color color = Color.rgb(colorArr[0], colorArr[1], colorArr[2]); //use rgb values to construct a color object
+    	    cp[i] = new ColorPicker(color); //use color object to set colorpicker value
+    	    cp[i].setDisable(true); //make colorpicker uneditable
+    	    
+    	    //set class difficulty
+    	    difficulty[i] = new Spinner<>(1, 5, 3, 1); //initialize spinner
+    	    difficulty[i].getValueFactory().setValue(classObj.getDifficulty()); //set existing difficulty in the spinner
+    	    difficulty[i].setDisable(true); //make the spinner uneditable
+    	    difficulty[i].getStyleClass().add(Spinner.STYLE_CLASS_SPLIT_ARROWS_HORIZONTAL); //style spinner
     	    
     	
     	    pane.add(new Text("Class Name:"), 0, (i * 2) - 1);
