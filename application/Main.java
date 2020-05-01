@@ -45,19 +45,22 @@ import javafx.stage.Stage;
 
 /**
  * @author Ayaz Franz, Benjamin Tan, Bryan Lin, Devin Demirlika, Eeshaan Pirani
- * https://github.com/eeshaan/crystal
+ *         https://github.com/eeshaan/crystal
  */
 public class Main extends Application {
 
   private static final String APP_TITLE = "Crystal"; // Title of application
-  
+
   private static final int WINDOW_WIDTH = 1180; // Width of calendar window
   private static final int WINDOW_HEIGHT = 880; // Height of calendar window
 
   private static VBox assignmentsPane; // Pane where assignments are listed
 
-  private static JSONArray classesJSONArray = WelcomeWindow.getJSONClasses(); // JSON list of classes
-  private static JSONArray assignmentsJSONArray = WelcomeWindow.getJSONAssignments(); // JSON list of assignments
+  private static JSONArray classesJSONArray = WelcomeWindow.getJSONClasses(); // JSON list of
+                                                                              // classes
+  private static JSONArray assignmentsJSONArray = WelcomeWindow.getJSONAssignments(); // JSON list
+                                                                                      // of
+                                                                                      // assignments
 
   private static HashTable<String, Class> classes;
   private static HashTable<LocalDate, LinkedList> assignmentsByDate;
@@ -67,6 +70,7 @@ public class Main extends Application {
 
   /**
    * getClasses - gets the classes in the calendar
+   * 
    * @return classes - HashTable containing the classes
    */
   public static HashTable<String, Class> getClasses() {
@@ -75,6 +79,7 @@ public class Main extends Application {
 
   /**
    * setClasses - sets the calendar's classes as the one provided
+   * 
    * @param classes - HashTable of classes added to the calendar
    */
   public static void setClasses(HashTable<String, Class> classes) {
@@ -83,6 +88,7 @@ public class Main extends Application {
 
   /**
    * getAssignments - gets the assignments in the calendar
+   * 
    * @return assignments - HashTable of assignments
    */
   public static HashTable<LocalDate, LinkedList> getAssignmentsByDate() {
@@ -107,6 +113,7 @@ public class Main extends Application {
 
   /**
    * setAssignments - sets the assignments in the calendar as the one provided
+   * 
    * @param assignments - HashTable of assignments
    */
   public static void setAssignments(HashTable<String, Assignment> assignments) {
@@ -115,6 +122,7 @@ public class Main extends Application {
 
   /**
    * getWhatToDoNow - gets the queue containing the assignments sorted by their priority
+   * 
    * @return whatToDoNow - the queue of assignments sorted by their priority
    */
   public static PriorityQueue getWhatToDoNow() {
@@ -123,6 +131,7 @@ public class Main extends Application {
 
   /**
    * setWhatDoToNow - sets the queue of assignments as the one provided
+   * 
    * @param whatToDoNow - the quee of assignemtns sorted by their priority
    */
   public static void setWhatToDoNow(PriorityQueue whatToDoNow) {
@@ -133,11 +142,11 @@ public class Main extends Application {
   public void start(Stage mainStage) throws Exception {
 
     classes = new HashTable<>(); // Initializes list of classes
-    
+
     // Initializes list of assignments
     assignmentsByDate = new HashTable<>(); // Sorted by date
-    assignments = new HashTable<>(); 
-    
+    assignments = new HashTable<>();
+
     whatToDoNow = new PriorityQueue(); // Initializes priority queue of assignments
     classes = new HashTable<>();
     assignmentsByDate = new HashTable<>();
@@ -163,13 +172,13 @@ public class Main extends Application {
 
     // Create Assignments Pane
     assignmentsPane = new VBox();
-    
+
     // Formats the Assignments Pane
     assignmentsPane.setPrefSize(750, 668);
-    assignmentsPane.getStyleClass().add("assignmentsPane"); 
+    assignmentsPane.getStyleClass().add("assignmentsPane");
     assignmentsPane.setSpacing(5.0);
     assignmentsPane.setPadding(new Insets(0, 65, 0, 65));
-    
+
     // Adds the header for the assignments due today
     assignmentsPane.getChildren().add(dueTodayHeader);
 
@@ -192,13 +201,14 @@ public class Main extends Application {
     // Sets up "What should I do now" button
     Button wtdBtn = new Button("What should I do now?");
     wtdBtn.setId("wtdBtn"); // Formats the button
-    wtdBtn.setOnAction(e -> WhatToDoNowWindow.newWindow("What To Do Now")); // What Should I Do Window Opens
+    wtdBtn.setOnAction(e -> WhatToDoNowWindow.newWindow("What To Do Now")); // What Should I Do
+                                                                            // Window Opens
 
     // Creates ImageView instance of the Search Image
     Image searchImage = new Image("/application/src/img/search-icon.png", 26, 26, false, true);
     ImageView search = new ImageView();
     search.setImage(searchImage);
-    
+
     // Creates and sets up the Search Button
     Button searchBtn = new Button("", search);
     searchBtn.getStyleClass().add("iconBtn");
@@ -209,23 +219,26 @@ public class Main extends Application {
     Image layoutImage = new Image("/application/src/img/layout-icon.png", 26, 26, false, false);
     ImageView layout = new ImageView();
     layout.setImage(layoutImage);
-    
+
     // Creates and sets up the Window Button
     Button windowBtn = new Button("", layout);
     windowBtn.getStyleClass().add("iconBtn");
-    windowBtn.setOnAction(e -> ClassManagerWindow.newWindow("Class Manager")); // Class Manager WIndow Opens
+    windowBtn.setOnAction(e -> ClassManagerWindow.newWindow("Class Manager")); // Class Manager
+                                                                               // WIndow Opens
 
 
     // Setting up exit button
     Button exit = new Button("Exit Crystal.");
     exit.setId("exit"); // Formats button
-    exit.setOnAction(e -> {exitDialog();}); // Exits the application
+    exit.setOnAction(e -> {
+      exitDialog();
+    }); // Exits the application
 
     // Creates an ImageView of the addIcon Image
     Image addImage = new Image("/application/src/img/add-icon.png", 56, 56, false, false);
     ImageView add = new ImageView();
     add.setImage(addImage);
-    
+
     // Creates and sets up the Add Button with the ImageView
     Button addBtn = new Button("", add);
     addBtn.getStyleClass().add("iconBtn");
@@ -236,7 +249,7 @@ public class Main extends Application {
 
     // setting up header HBox
     HBox leftPaneHeader = new HBox(dateText, hRegionHeader, wtdBtn, searchBtn, windowBtn);
-    
+
     // Formats the left pane's header
     leftPaneHeader.setPrefHeight(106);
     leftPaneHeader.setPadding(new Insets(40, 65, 40, 65));
@@ -245,7 +258,7 @@ public class Main extends Application {
 
     // Initializes the left pane's footer
     HBox leftPaneFooter = new HBox(exit, hRegionFooter, addBtn);
-    
+
     // Formats the left pane's footer
     leftPaneFooter.setPrefSize(750, 106);
     leftPaneFooter.setPadding(new Insets(0, 65, 40, 65));
@@ -270,7 +283,7 @@ public class Main extends Application {
     Pane calendarView = new Pane();
     calendarView.setPrefHeight(427.59);
     calendarView.setId("calendarView");
-    
+
     rightPane.getChildren().add(calendarView); // adds calendar to right pane
 
     // Creates and formats DatePicker
@@ -296,15 +309,16 @@ public class Main extends Application {
     // Creates and sets up the subjects pane
     FlowPane subjectsPane = new FlowPane();
     subjectsPane.setPrefHeight(346.41);
-    subjectsPane.setPadding(new Insets(60, 50, 60, 50)); 
-    rightPane.getChildren().add(subjectsPane); // Adds the subjects pane to the right pane of border pane
+    subjectsPane.setPadding(new Insets(60, 50, 60, 50));
+    rightPane.getChildren().add(subjectsPane); // Adds the subjects pane to the right pane of border
+                                               // pane
 
     // Creates and formats subjects title
     Text yourClasses = new Text("Your classes");
     yourClasses.setId("yourSubjects");
 
     // Creates and adds class header to header
-    HBox classesHeader = new HBox(); 
+    HBox classesHeader = new HBox();
     classesHeader.getChildren().add(yourClasses);
 
     FlowPane classesPane = new FlowPane();
@@ -320,7 +334,7 @@ public class Main extends Application {
 
     // Creates scene
     Scene mainScene = new Scene(root, WINDOW_WIDTH, WINDOW_HEIGHT);
-    
+
     // Formats scene with css file
     mainScene.getStylesheets()
         .add(getClass().getResource("/application/src/css/style.css").toExternalForm());
@@ -395,8 +409,9 @@ public class Main extends Application {
           + ", " + classColor[2] + ", 0.15); -fx-border-color: rgb(" + classColor[0] + ", "
           + classColor[1] + ", " + classColor[2] + ");");
 
-      // assignmentBox.setId("ass_" + name);
-
+      if (assignment.isCompleted())
+        assignmentBox.getStyleClass().add("completed");
+      
       assignmentBox.setOnMouseClicked(e -> {
         assignmentOptions(assignmentBox, assignment);
       });
@@ -449,6 +464,10 @@ public class Main extends Application {
             + ", " + classColor[2] + ", 0.15); -fx-border-color: rgb(" + classColor[0] + ", "
             + classColor[1] + ", " + classColor[2] + ");");
 
+
+        if (assignment.isCompleted())
+          assignmentBox.getStyleClass().add("completed");
+
         assignmentBox.setOnMouseClicked(e -> {
           assignmentOptions(assignmentBox, assignment);
         });
@@ -470,9 +489,10 @@ public class Main extends Application {
       datePlusOne = datePlusOne.plusDays(1);
     }
   }
-  
+
   /**
    * assignmentOptions - creates a window to set assignment as completed or delete it
+   * 
    * @param assignmentBox - pane of assignments
    */
   public static void assignmentOptions(HBox assignmentBox, Assignment assignment) {
@@ -481,11 +501,11 @@ public class Main extends Application {
     manage.setId("h2");
 
     // Adds title to box with formatting
-    HBox manageHolder = new HBox(manage); 
+    HBox manageHolder = new HBox(manage);
     manageHolder.setPadding(new Insets(0, 0, 17.5, 0));
 
     // Initializes and formats completed button
-    Button completed = new Button("Mark as completed"); 
+    Button completed = new Button("Mark as completed");
     completed.setId("bigButton");
 
     // Initializes and formats delete button
@@ -514,10 +534,10 @@ public class Main extends Application {
     // Completed button sets assignment as completed when clicked
     completed.setOnAction(e -> {
       assignmentBox.getStyleClass().add("completed");
-      
+
       String name = assignment.getAssignmentName();
       whatToDoNow.remove(name);
-      
+
       dialogStage.close();
     });
 
@@ -526,37 +546,37 @@ public class Main extends Application {
       String name = assignment.getAssignmentName();
       LocalDate date = assignment.getDueDate();
       Class className = assignment.getClassName();
-      
+
       assignments.remove(name);
-      
+
       LinkedList temp = assignmentsByDate.get(date);
       temp.remove(name);
       assignmentsByDate.insert(date, temp);
-      
+
       temp = assignmentsByClass.get(className);
       temp.remove(name);
       assignmentsByClass.insert(className, temp);
-      
+
       whatToDoNow.remove(name);
-      
+
       assignmentsPane.getChildren().remove(assignmentBox);
       dialogStage.close();
     });
-    
+
   }
 
   /**
    * exitDialog - Saves changes to calendar and exits application
    */
   private static void exitDialog() {
-    
+
     // Initializes and formats title of exit window
     Text exitHeader = new Text("Exit Crystal");
     exitHeader.setId("h2");
 
     // Initializes the exit window's header with bottom margin
     HBox exitHeaderHolder = new HBox(exitHeader);
-    exitHeaderHolder.setPadding(new Insets(0, 0, 17.5, 0)); 
+    exitHeaderHolder.setPadding(new Insets(0, 0, 17.5, 0));
 
     // Reminder text about save files when exiting application
     Text whenText =
@@ -590,7 +610,7 @@ public class Main extends Application {
     // Adds title, exit reminder, and buttons together with padding
     VBox exitOptions = new VBox(exitHeaderHolder, textHolder, buttonOptions);
     exitOptions.setPadding(new Insets(10, 10, 10, 10));
-    
+
     // Creates and formats exit scene
     Scene dialogScene = new Scene(exitOptions, 600, 200);
     dialogScene.getStylesheets()
@@ -615,6 +635,7 @@ public class Main extends Application {
 
   /**
    * main - launches the GUI
+   * 
    * @param args - arguments
    */
   public static void main(String[] args) {
@@ -623,6 +644,7 @@ public class Main extends Application {
 
   /**
    * getJSONClasses - gets the classes JSON Array
+   * 
    * @return JSON Array holding the classes
    */
   public static JSONArray getJSONClasses() {
@@ -631,6 +653,7 @@ public class Main extends Application {
 
   /**
    * getJSONAssignments - gets the assignments JSON Array
+   * 
    * @return JSON Array holding the assignments
    */
   public static JSONArray getJSONAssignments() {
@@ -639,6 +662,7 @@ public class Main extends Application {
 
   /**
    * setJSONClasses - sets the class JSONArray as the one provided
+   * 
    * @param newJSONArray - class JSON Array to be added
    */
   public static void setJSONClasses(JSONArray newJSONArray) {
@@ -647,6 +671,7 @@ public class Main extends Application {
 
   /**
    * setJSONAssignments - sets the assignment JSONArray as the one provided
+   * 
    * @param newJSONArray - assignment JSON Array to be added
    */
   public static void setJSONAssignments(JSONArray newJSONArray) {
