@@ -537,9 +537,24 @@ public class Main extends Application {
     // Completed button sets assignment as completed when clicked
     completed.setOnAction(e -> {
       assignmentBox.getStyleClass().add("completed");
-
+      
       String name = assignment.getAssignmentName();
       whatToDoNow.remove(name);
+      
+      assignment.setCompleted(true);
+      
+      LocalDate date = assignment.getDueDate();
+      Class className = assignment.getClassName();
+
+      
+      LinkedList temp = assignmentsByDate.get(date);
+      temp.insert(assignment);
+      assignmentsByDate.insert(date, temp);
+
+      temp = assignmentsByClass.get(className);
+      temp.insert(assignment);
+      assignmentsByClass.insert(className, temp);
+
 
       for (int x = 0; x < assignmentsJSONArray.size(); x++) {
         JSONObject current = (JSONObject) assignmentsJSONArray.get(x);
