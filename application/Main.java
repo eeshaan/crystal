@@ -411,10 +411,11 @@ public class Main extends Application {
           + ", " + classColor[2] + ", 0.15); -fx-border-color: rgb(" + classColor[0] + ", "
           + classColor[1] + ", " + classColor[2] + ");");
 
-      // assignmentBox.setId("ass_" + name);
-
+      if (assignment.isCompleted())
+        assignmentBox.getStyleClass().add("completed");
+      
       assignmentBox.setOnMouseClicked(e -> {
-        assignmentOptions(assignmentBox);
+        assignmentOptions(assignmentBox, assignment);
       });
 
       Text time = new Text(assignment.getDueTime());
@@ -465,8 +466,12 @@ public class Main extends Application {
             + ", " + classColor[2] + ", 0.15); -fx-border-color: rgb(" + classColor[0] + ", "
             + classColor[1] + ", " + classColor[2] + ");");
 
+
+        if (assignment.isCompleted())
+          assignmentBox.getStyleClass().add("completed");
+
         assignmentBox.setOnMouseClicked(e -> {
-          assignmentOptions(assignmentBox);
+          assignmentOptions(assignmentBox, assignment);
         });
 
         Text due = new Text("Due ");
@@ -492,7 +497,7 @@ public class Main extends Application {
    * 
    * @param assignmentBox - pane of assignments
    */
-  public static void assignmentOptions(HBox assignmentBox) {
+  public static void assignmentOptions(HBox assignmentBox, Assignment assignment) {
     // Initializes and formats title of window
     Text manage = new Text("Manage this assignment");
     manage.setId("h2");
@@ -531,37 +536,34 @@ public class Main extends Application {
     // Completed button sets assignment as completed when clicked
     completed.setOnAction(e -> {
       assignmentBox.getStyleClass().add("completed");
+
+      String name = assignment.getAssignmentName();
+      whatToDoNow.remove(name);
+
       dialogStage.close();
     });
 
     // Delete button deletes assignment when clicked
     delete.setOnAction(e -> {
+      String name = assignment.getAssignmentName();
+      LocalDate date = assignment.getDueDate();
+      Class className = assignment.getClassName();
+
+      assignments.remove(name);
+
+      LinkedList temp = assignmentsByDate.get(date);
+      temp.remove(name);
+      assignmentsByDate.insert(date, temp);
+
+      temp = assignmentsByClass.get(className);
+      temp.remove(name);
+      assignmentsByClass.insert(className, temp);
+
+      whatToDoNow.remove(name);
+
       assignmentsPane.getChildren().remove(assignmentBox);
       dialogStage.close();
     });
-
-  }
-
-  public static void createAssignmentBox(String name, String subject, String dueTime,
-      String dueDate) {
-
-    // Initializes and formats box containing assignment info
-    HBox newAssignment = new HBox();
-    newAssignment.getStyleClass().add("assignmentBox");
-    newAssignment.setId("ass_" + subject);
-
-    // Creates and formats due time text
-    Text newTime = new Text(dueDate + " at " + dueTime);
-    newTime.setId("time");
-
-    // Creates assignment description
-    Text newDesc = new Text(" - " + name);
-
-    // Adds due time and description together
-    newAssignment.getChildren().addAll(new Text("Due "), newTime, newDesc);
-
-    // Adds new assignment to assignment pane
-    assignmentsPane.getChildren().add(newAssignment);
   }
 
   /**

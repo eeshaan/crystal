@@ -56,6 +56,8 @@ public class PriorityQueue implements PriorityQueueADT<Assignment> {
   }
 
   public Assignment remove(String name) {
+	size--;  
+	  
     int i;
     for (i = 0; i < data.length; i++) {
       if (data[i].getAssignmentName().equals(name)) {
