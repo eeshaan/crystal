@@ -240,18 +240,22 @@ public class WelcomeWindow {
         Assignment newAssignment = new Assignment(assignmentName, classObj, difficulty,
             localStartDate, localDueDate, dueTime, completed);
         assignments.insert(assignmentName, newAssignment);
-        whatToDoNow.insert(newAssignment);
+        
+        if(!completed)
+          whatToDoNow.insert(newAssignment);
 
-        LinkedList list;
+        LinkedList temp = assignmentsByClass.get(classObj);
+        temp.insert(newAssignment);
+        assignmentsByClass.insert(classObj, temp);
 
         if (assignmentsByDate.get(localDueDate) == null) {
-          list = new LinkedList();
+          temp = new LinkedList();
         } else {
-          list = assignmentsByDate.get(localDueDate);
+          temp = assignmentsByDate.get(localDueDate);
         }
 
-        list.insert(newAssignment);
-        assignmentsByDate.insert(localDueDate, list);
+        temp.insert(newAssignment);
+        assignmentsByDate.insert(localDueDate, temp);
 
       }
 
