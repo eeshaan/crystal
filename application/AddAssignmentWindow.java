@@ -176,7 +176,6 @@ public class AddAssignmentWindow {
         alert.setHeaderText("Input Error");
         alert.setContentText("One or more fields are empty");
         alert.showAndWait();
-        e1.printStackTrace(); // TODO: @acfranz2 something broken here
       }
 
     });
