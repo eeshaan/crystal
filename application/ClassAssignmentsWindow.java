@@ -40,7 +40,7 @@ public class ClassAssignmentsWindow {
     assignmentsPane.setPadding(new Insets(20, 20, 20, 20));
 
     // Gets all assignments belonging to the class
-    if (assignmentsByClass.get(className) == null) {
+    if (assignmentsByClass.get(className).size() == 0) {
       assignmentsPane.getChildren().add(new Text("There are no assignments in this class."));
     } else {
       Iterator<Assignment> today = assignmentsByClass.get(className).iterator();
