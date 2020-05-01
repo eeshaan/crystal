@@ -1,8 +1,13 @@
 package application;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
@@ -14,6 +19,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -42,24 +48,67 @@ public class ClassManagerWindow {
     pane.setVgap(10);
     pane.setMaxWidth(WINDOW_WIDTH);
 
-    TextField textField[] = new TextField[15];
-    ColorPicker cp[] = new ColorPicker[15];
-    Spinner<Integer> difficulty[] = new Spinner[15];
-
-    textField[i] = new TextField();
-    cp[i] = new ColorPicker();
-    difficulty[i] = new Spinner<>(1, 5, 3, 1);
-    difficulty[i].getStyleClass().add(Spinner.STYLE_CLASS_SPLIT_ARROWS_HORIZONTAL);
-
-    pane.add(new Text("Class Name:"), 0, (i * 2) - 1);
-    pane.add(textField[i], 0, i * 2);
-    pane.add(new Text("Color:"), 5, (i * 2) - 1);
-    pane.add(cp[i], 5, i * 2);
-    pane.add(new Text("Difficulty (1-5):"), 7, (i * 2) - 1);
-    pane.add(difficulty[i], 7, i * 2);
-
-    i++;
-
+    
+    TextField textField[] = new TextField[100];
+    ColorPicker cp[] = new ColorPicker[100];
+    Spinner<Integer> difficulty[] = new Spinner[100];
+    
+    //if starting application for the first time (not loading from JSON) first add class row is already there
+    if(title.equals("Add your classes!")){
+	    textField[i] = new TextField();
+	    cp[i] = new ColorPicker();
+	    difficulty[i] = new Spinner<>(1, 5, 3, 1);
+	    difficulty[i].getStyleClass().add(Spinner.STYLE_CLASS_SPLIT_ARROWS_HORIZONTAL);
+	    
+	
+	    pane.add(new Text("Class Name:"), 0, (i * 2) - 1);
+	    pane.add(textField[i], 0, i * 2);
+	    pane.add(new Text("Color:"), 5, (i * 2) - 1);
+	    pane.add(cp[i], 5, i * 2);
+	    pane.add(new Text("Difficulty (1-5):"), 7, (i * 2) - 1);
+	    pane.add(difficulty[i], 7, i * 2);
+	
+	    i++;
+    } else {
+    	HashTable<String, Class> classTable = Main.getClasses();
+    	Iterator<String> classIterator = classTable.iterator();
+    	String className = "";
+    	while (classIterator.hasNext()) {
+    		//pull className from the class iterator
+    		className = classIterator.next();
+    		
+    		//use className to get the classObject from the hashtable
+    		Class classObj = classTable.get(className);
+    		
+    		//initialize textfield for class Name
+    		textField[i] = new TextField(); 	//initialize
+    		textField[i].setText(className);	//set text as className
+    		textField[i].setEditable(false); 	//make textfield uneditable
+    		
+    		//setting class color
+    		int[] colorArr = classObj.getClassColor(); //get rgb values from class object
+    		Color color = Color.rgb(colorArr[0], colorArr[1], colorArr[2]); //use rgb values to construct a color object
+    	    cp[i] = new ColorPicker(color); //use color object to set colorpicker value
+    	    cp[i].setDisable(true); //make colorpicker uneditable
+    	    
+    	    //set class difficulty
+    	    difficulty[i] = new Spinner<>(1, 5, 3, 1); //initialize spinner
+    	    difficulty[i].getValueFactory().setValue(classObj.getDifficulty()); //set existing difficulty in the spinner
+    	    difficulty[i].setDisable(true); //make the spinner uneditable
+    	    difficulty[i].getStyleClass().add(Spinner.STYLE_CLASS_SPLIT_ARROWS_HORIZONTAL); //style spinner
+    	    
+    	
+    	    pane.add(new Text("Class Name:"), 0, (i * 2) - 1);
+    	    pane.add(textField[i], 0, i * 2);
+    	    pane.add(new Text("Color:"), 5, (i * 2) - 1);
+    	    pane.add(cp[i], 5, i * 2);
+    	    pane.add(new Text("Difficulty (1-5):"), 7, (i * 2) - 1);
+    	    pane.add(difficulty[i], 7, i * 2);
+    	
+    	    i++;
+    	}
+    }
+    
     Image addImage = new Image("/application/src/img/add-icon.png", 25, 25, false, false);
     ImageView add = new ImageView();
     add.setImage(addImage);
