@@ -326,7 +326,7 @@ public class Main extends Application {
     HBox classesHeader = new HBox();
     classesHeader.getChildren().add(yourClasses);
 
-    classesPane = new FlowPane();
+    classesPane = new FlowPane(10, 10);
     classesPane.setPrefWidth(294);
     classesPane.getStyleClass().add("subjects");
 
