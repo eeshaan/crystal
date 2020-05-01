@@ -49,9 +49,9 @@ public class ClassManagerWindow {
     pane.setMaxWidth(WINDOW_WIDTH);
 
     
-    TextField textField[] = new TextField[15];
-    ColorPicker cp[] = new ColorPicker[15];
-    Spinner<Integer> difficulty[] = new Spinner[15];
+    TextField textField[] = new TextField[100];
+    ColorPicker cp[] = new ColorPicker[100];
+    Spinner<Integer> difficulty[] = new Spinner[100];
     
     //if starting application for the first time (not loading from JSON) first add class row is already there
     if(title.equals("Add your classes!")){
@@ -145,19 +145,23 @@ public class ClassManagerWindow {
     submit.setOnAction(e -> {
       for (int k = 1; k < i; k++) {
         JSONObject newJSONClass = new JSONObject();
-        List<Node> childList = (List<Node>) pane.getChildren();
-        newJSONClass.put("className", textField[k].getText());
-        newJSONClass.put("classColorRed", (int) (cp[k].getValue().getRed() * 255));
-        newJSONClass.put("classColorGreen", (int) (cp[k].getValue().getGreen() * 255));
-        newJSONClass.put("classColorBlue", (int) (cp[k].getValue().getBlue() * 255));
-        newJSONClass.put("difficulty", difficulty[k].getValue());
-
-        Class newClass = new Class(textField[k].getText(), (int) (cp[k].getValue().getRed() * 255),
-            (int) (cp[k].getValue().getGreen() * 255), (int) (cp[k].getValue().getBlue() * 255),
-            difficulty[k].getValue());
-        classesJSONArrayToSet.add(newJSONClass);
-        classes.insert(textField[k].getText(), newClass);
-
+        //List<Node> childList = (List<Node>) pane.getChildren();
+        //System.out.println(childList.contains(textField[k]));
+        if(textField[k] != null) {
+        	if(classes.get(textField[k].getText()) == null) {
+		        newJSONClass.put("className", textField[k].getText());
+		        newJSONClass.put("classColorRed", (int) (cp[k].getValue().getRed() * 255));
+		        newJSONClass.put("classColorGreen", (int) (cp[k].getValue().getGreen() * 255));
+		        newJSONClass.put("classColorBlue", (int) (cp[k].getValue().getBlue() * 255));
+		        newJSONClass.put("difficulty", difficulty[k].getValue());
+		
+		        Class newClass = new Class(textField[k].getText(), (int) (cp[k].getValue().getRed() * 255),
+		            (int) (cp[k].getValue().getGreen() * 255), (int) (cp[k].getValue().getBlue() * 255),
+		            difficulty[k].getValue());
+		        classesJSONArrayToSet.add(newJSONClass);
+		        classes.insert(textField[k].getText(), newClass);
+        	}
+        }
       }
       Main.setJSONClasses(classesJSONArrayToSet);
       Main.setClasses(classes);
